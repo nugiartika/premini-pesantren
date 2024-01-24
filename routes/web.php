@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StafController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +23,14 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//STAF
+// Index Page
+Route::get('/staf', [StafController::class, 'index'])->name('staf.index');
+// Create and Store
+Route::post('/staf', [StafController::class, 'store'])->name('staf.store');
+// Update
+Route::put('/staf{staf}', [StafController::class, 'update'])->name('staf.update');
+// Delete
+Route::delete('/staf/{staf}', [StafController::class, 'destroy'])->name('staf.destroy');
 
 });
