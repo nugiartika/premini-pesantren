@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\StafController;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +34,8 @@ Route::put('/staf{staf}', [StafController::class, 'update'])->name('staf.update'
 // Delete
 Route::delete('/staf/{staf}', [StafController::class, 'destroy'])->name('staf.destroy');
 
+
+
+// pendaftaran
+Route::resource('/pendaftaran', PendaftaranController::class);
 });
