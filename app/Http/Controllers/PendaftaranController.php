@@ -29,7 +29,7 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = $request->validate([
+        $request->validate([
             'nama_lengkap' => 'required',
             'email' => 'required',
             'jenis_kelamin' => 'required',
@@ -45,7 +45,8 @@ class PendaftaranController extends Controller
             'telepon_rumah' => 'required',
         ]);
 
-        pendaftaran::create($rules);
+        pendaftaran::create($request->all());
+
         return redirect()->route('pendaftaran.index')->with('success', 'Berhasil menambahkan data');
     }
 
@@ -54,7 +55,9 @@ class PendaftaranController extends Controller
      */
     public function show(pendaftaran $pendaftaran)
     {
-        //
+        return view('pendaftaran.detail', [
+            'pendaftaran' => $pendaftaran
+        ]);
     }
 
     /**
@@ -63,7 +66,7 @@ class PendaftaranController extends Controller
     public function edit(pendaftaran $pendaftaran)
     {
         return view('pendaftaran.edit', [
-            'pendaftaran' => pendaftaran::find($pendaftaran)
+            'pendaftaran' => $pendaftaran
         ]);
     }
 
@@ -78,9 +81,9 @@ class PendaftaranController extends Controller
             'jenis_kelamin' => 'required',
             'nik' => 'required',
             'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
             'alamat' => 'required',
             'tempat_tinggal' => 'required',
-            'tanggal_lahir' => 'required',
             'nama_ortu' => 'required',
             'pendidikan_ortu' => 'required',
             'pekerjaan_ortu' => 'required',
@@ -88,10 +91,7 @@ class PendaftaranController extends Controller
             'telepon_rumah' => 'required',
         ]);
 
-        $pendaftaran = pendaftaran::find($pendaftaran);
-
         $pendaftaran->update($request->all());
-        // return to_route('pendaftaran.index');
         return redirect()->route('pendaftaran.index')->with('success', 'Data berhasil diperbarui');
     }
 
@@ -100,6 +100,7 @@ class PendaftaranController extends Controller
      */
     public function destroy(pendaftaran $pendaftaran)
     {
-        pendaftaran::destroy($pendaftaran);
-        return redirect()->route('pendaftaran.index')->with('success', 'Data berhasil dihapus');    }
+        $pendaftaran->delete();
+        return redirect()->route('pendaftaran.index')->with('success', 'Data berhasil dihapus');
+    }
 }

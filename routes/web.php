@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\StafController;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,10 @@ Route::put('/staf{staf}', [StafController::class, 'update'])->name('staf.update'
 Route::delete('/staf/{staf}', [StafController::class, 'destroy'])->name('staf.destroy');
 
 
-
-// pendaftaran
+// PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
+
+// GALLERY
+Route::resource('gallery', GalleryController::class);
+
 });

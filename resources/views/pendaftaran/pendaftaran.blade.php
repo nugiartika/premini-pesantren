@@ -60,7 +60,7 @@
                     <td>{{$pendaftaran->telepon_rumah}}</td> --}}
                     <td class="d-flex justify-content-start">
                         <div class="action-buttons">
-                        <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-warning btn-md me-1">Show</a>
+                        <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-info btn-md me-1">Show</a>
                         <a href="/pendaftaran/{{$pendaftaran->id}}/edit" class="btn btn-warning btn-md me-1">Edit</a>
                         <form action="/pendaftaran/{{$pendaftaran->id}}" method="post">
                             @method('delete')
