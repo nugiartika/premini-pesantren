@@ -60,7 +60,10 @@
                     <td>{{$pendaftaran->telepon_rumah}}</td> --}}
                     <td class="d-flex justify-content-start">
                         <div class="action-buttons">
-                        <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-info btn-md me-1">Show</a>
+                            <button type="button" class="btn btn-primary btn-md me-1" data-bs-toggle="modal" data-bs-target="#tambahgallery">
+                                show
+                            </button>
+                        {{-- <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-info btn-md me-1">Show</a> --}}
                         <a href="/pendaftaran/{{$pendaftaran->id}}/edit" class="btn btn-warning btn-md me-1">Edit</a>
                         <form action="/pendaftaran/{{$pendaftaran->id}}" method="post">
                             @method('delete')
@@ -79,5 +82,26 @@
             crossorigin="anonymous"></script>
 </body>
 
+
+<!-- Modal show -->
+<div class="modal fade" id="tambahgallery" tabindex="-1" aria-labelledby="tambahgalleryLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tambahgalleryLabel">Tambah Gallery</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 @endsection

@@ -46,7 +46,7 @@
                     <td>{{$gallery->user_posting}}</td>
                     <td>
                         @if ($gallery->sampul)
-                            <img src="{{ asset('storage/'.$gallery->sampul) }}" alt="Foto" width="100px" height="70px">
+                            <img src="{{ asset('storage/'.$gallery->sampul) }}" alt="" width="100px" height="70px">
                         @else
                             No Image
                         @endif
@@ -133,8 +133,8 @@
         <div class="modal-body">
             <form action="{{ route('gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PATCH') {{-- atau @method('PUT') --}}
-
+                @method('PATCH')
+                
                 <div class="mb-3">
                     <label for="nama_gallery" class="form-label">nama_gallery</label>
                     <input type="text" class="form-control" name="nama_gallery"  value="{{ old('nama_gallery', $gallery->nama_gallery)}}">

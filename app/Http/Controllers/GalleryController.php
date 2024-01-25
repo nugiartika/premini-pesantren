@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+// use Illuminate\Support\Str;
 
 
 class GalleryController extends Controller
@@ -43,10 +43,15 @@ class GalleryController extends Controller
 
 
         $gambar = $request->file('sampul');
-        $filename = Str::random(20) . '.' . $gambar->getClientOriginalExtension();
-        Storage::disk('public')->put('images/' . $filename, file_get_contents($gambar));
+        $path = Storage::disk('public')->put('images', $gambar);
 
-        gallery::create($request->all());
+        gallery::create([
+            'nama_gallery' => $request->input('nama_gallery'),
+            'slug' => $request->input('slug'),
+            'tanggal' => $request->input('tanggal'),
+            'user_posting' => $request->input('user_posting'),
+            'sampul' => $path,
+        ]);
 
         return redirect()->route('gallery.index')->with('success', 'Berhasil menambahkan data');
     }
@@ -87,9 +92,17 @@ class GalleryController extends Controller
             $gallery->update(['sampul' => $path]);
         }
 
+        $gallery->update([
+            'nama_gallery' => $request->input('nama_gallery'),
+            'slug' => $request->input('slug'),
+            'tanggal' => $request->input('tanggal'),
+            'user_posting' => $request->input('user_posting'),
+            'sampul' => $path,
+        ]);
+
         return redirect()->route('gallery.index')->with('success', 'Berhasil mengubah data');
 
-        
+
     }
 
     /**
