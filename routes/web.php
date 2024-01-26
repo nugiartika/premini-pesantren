@@ -3,11 +3,12 @@
 use App\Http\Controllers\StafController;
 use App\Http\Controllers\AsatidController;
 use App\Http\Controllers\AsatidlistController;
-use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
+use App\Http\Controllers\SantriController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PendaftaranController;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +103,25 @@ Route::put('/kelulusan{kelulusan}', [KelulusanController::class, 'update'])->nam
 // Delete
 Route::delete('/kelulusan/{kelulusan}', [KelulusanController::class, 'destroy'])->name('kelulusan.destroy');
 
+//BERITA
+// Index Page
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+// Create and Store
+Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+// Update
+Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
+// Delete
+Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+
+//SANTRI
+// Index Page
+Route::get('/santri', [SantriController::class, 'index'])->name('santri.index');
+// Create and Store
+Route::post('/santri', [SantriController::class, 'store'])->name('santri.store');
+// Update
+Route::put('/santri{santri}', [SantriController::class, 'update'])->name('santri.update');
+// Delete
+Route::delete('/santri/{santri}', [SantriController::class, 'destroy'])->name('santri.destroy');
 
 // PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
@@ -109,7 +129,6 @@ Route::resource('/pendaftaran', PendaftaranController::class);
 // GALLERY
 Route::resource('gallery', GalleryController::class);
 
-// berita
-Route::resource('berita', BeritaController::class);
+
 
 });

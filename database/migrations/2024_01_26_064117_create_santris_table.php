@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mapels', function (Blueprint $table) {
+        Schema::create('santris', function (Blueprint $table) {
             $table->id();
+            $table->integer('nis');
             $table->string('nama');
+            // $table->string('kelas_id');
+            $table->string('alamat');
+            $table->string('ttl');
+            $table->string('jns_kelamin');
             $table->timestamps();
         });
     }
@@ -23,15 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($this->checkRelationships()) {
-            Session::flash('warning', 'Data MAPEL masih digunakan dan tidak dapat dihapus.');
-
-            return;
-        }
-        Schema::dropIfExists('mapels');
-    }
-    private function checkRelationships()
-    {
-        return DB::table('asatids')->where('mapel_id', '=', $someValue)->exists();
+        Schema::dropIfExists('santris');
     }
 };
