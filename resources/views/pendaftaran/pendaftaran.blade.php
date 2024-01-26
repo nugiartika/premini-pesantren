@@ -95,7 +95,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('pendaftaran.store', $pendaftaran->id) }}" method="POST" class="row g-3">
+            <form action="{{ route('pendaftaran.store') }}" method="POST" class="row g-3">
                 @csrf
                 <div class="col-md-6">
                   <label for="nama_lengkap" class="form-label">nama_lengkap</label>
@@ -172,7 +172,7 @@
 
 
  <!-- Modal Edit berita -->
- <div class="modal fade" id="editdaftar" tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true">
+ {{-- <div class="modal fade" id="editdaftar" tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -254,7 +254,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 
 

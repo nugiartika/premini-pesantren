@@ -8,18 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class pendaftaran extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nama_lengkap',
-        'email',
-        'jenis_kelamin',
-        'nik',
-        'tempat_lahir',
-        'alamat',
-        'tempat_tinggal',
-        'nama_ortu',
-        'pendidikan_ortu',
-        'pekerjaan_ortu',
-        'sekolah_asal',
-        'telepon_rumah'
-    ];
+
+    protected $table = 'pendaftarans';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public $incrementing = true;
+    public $timestamps = true;
 }
