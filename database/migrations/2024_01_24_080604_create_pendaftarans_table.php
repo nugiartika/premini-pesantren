@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('pekerjaan_ortu');
             $table->string('sekolah_asal');
             $table->string('telepon_rumah');
+            $table->string('telepon_rumah');
             $table->timestamps();
         });
     }

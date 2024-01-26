@@ -59,7 +59,7 @@ class PendaftaranController extends Controller
             'pendidikan_ortu.required' => 'Kolom PENDIDIKAN ORTU wajib diisi.',
             'pekerjaan_ortu.required' => 'Kolom PEKERJAAN ORTU wajib diisi.',
             'sekolah_asal.required' => 'Kolom SEKOLAH ASAL wajib diisi.',
-            'telepon_rumah.required' => 'Kolom TELEPON RUJMAH wajib diisi.',kkkkkkk
+            'telepon_rumah.required' => 'Kolom TELEPON RUJMAH wajib diisi.',
         ]);
 
         pendaftaran::create([
