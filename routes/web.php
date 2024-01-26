@@ -10,6 +10,7 @@ use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PendaftaranController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +129,8 @@ Route::resource('/pendaftaran', PendaftaranController::class);
 
 // GALLERY
 Route::resource('gallery', GalleryController::class);
+// GALLERY
+Route::resource('kelas', KelasController::class);
 
 
 

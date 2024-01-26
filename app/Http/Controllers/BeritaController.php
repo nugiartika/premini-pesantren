@@ -6,6 +6,7 @@ use App\Models\Berita;
 use App\Models\Kategori;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {

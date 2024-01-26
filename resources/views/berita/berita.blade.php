@@ -124,6 +124,7 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="kategori_id">kategori</label>
                                     <select class="form-select @error('kategori_id') is-invalid @enderror" name="kategori_id" aria-label="Default select example">
                                         <option value="" selected>PILIH KATEGORI</option>
                                         @foreach ($kategori as $kat)
@@ -260,6 +261,23 @@
                     </div>
                 </div>
             @endforeach
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        </table>
+    </div>
+
+
+  <!-- Modal tambah berita -->
+  <div class="modal fade" id="tambahberita" tabindex="-1" aria-labelledby="tambahberitaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tambahberitaLabel">Tambah berita</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+=======
+>>>>>>> 2b4288c2fdea4981221eb8773c22eaa060306847
+>>>>>>> Stashed changes
         </div>
     </div>
 @endsection

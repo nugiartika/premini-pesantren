@@ -48,6 +48,7 @@
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIS</th>
                                     <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">KELAS</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">TEMPAT TANGGAL LAHIT</th>
                                     <th scope="col" class="text-center">JENIS KELAMIN</th>
@@ -60,6 +61,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nis }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
+                                        <td class="text-center">{{ ($item->kelas) ? $item->kelas->nama_kelas : '' }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->ttl }}</td>
                                         <td class="text-center">{{ $item->jns_kelamin }}</td>
@@ -111,6 +113,23 @@
                                     <label for="nama" class="form-label">NAMA</label>
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama">
                                     @error('nama')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kelas_id">KELAS</label>
+                                    <select class="form-select @error('kelas_id') is-invalid @enderror" name="kelas_id" aria-label="Default select example">
+                                        <option value="" selected>pilih kelas</option>
+                                        @foreach ($kelas as $kls)
+                                            <option value="{{ $kls->id }}" {{ old('kelas_id') == $kls->id ? 'selected' : '' }}>
+                                                {{ $kls->nama_kelas}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('kelas_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -195,6 +214,23 @@
                                     </div>
 
                                     <div class="mb-3">
+                                        <label for="edit_kelas_id" class="form-label">KELAS</label>
+                                        <select class="form-select @error('kelas_id') is-invalid @enderror" id="edit_kelas_id" name="kelas_id">
+                                            <option value="" selected>PILIH KELAS</option>
+                                            @foreach ($kelas as $kls)
+                                                <option value="{{ $kls->id }}" {{ $item->kelas_id == $kls->id ? 'selected' : '' }}>
+                                                    {{ $kls->nama_kelas }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('kelas_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label for="edit_alamat" class="form-label">ALAMAT</label>
                                         <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $item->alamat) }}">
                                         @error('alamat')
@@ -224,12 +260,11 @@
                                         @enderror
                                     </div>
 
-
+                                <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

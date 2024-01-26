@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asatidlist;
 use App\Http\Requests\StoreAsatidlistRequest;
 use App\Http\Requests\UpdateAsatidlistRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AsatidlistController extends Controller
 {

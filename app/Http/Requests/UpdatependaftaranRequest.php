@@ -4,11 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-<<<<<<<< Updated upstream:app/Http/Requests/UpdateBeritaRequest.php
-class UpdateBeritaRequest extends FormRequest
-========
-class StoreBeritaRequest extends FormRequest
->>>>>>>> Stashed changes:app/Http/Requests/StoreBeritaRequest.php
+class UpdatependaftaranRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +22,7 @@ class StoreBeritaRequest extends FormRequest
     public function rules(): array
     {
         return [
-<<<<<<<< Updated upstream:app/Http/Requests/UpdateBeritaRequest.php
             //
-========
-        // 
->>>>>>>> Stashed changes:app/Http/Requests/StoreBeritaRequest.php
         ];
     }
 }
