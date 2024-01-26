@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatependaftaranRequest extends FormRequest
+class UpdatesantriRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class UpdatependaftaranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            /hn
+            //
         ];
     }
 }

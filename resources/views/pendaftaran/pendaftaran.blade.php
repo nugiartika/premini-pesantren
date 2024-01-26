@@ -163,6 +163,7 @@
 
 
  <!-- Modal Edit berita -->
+ @foreach ($pendaftaran as $item)
  <div class="modal fade" id="editdaftar" tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -171,7 +172,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('pendaftaran.update', $pendaftaran->id) }}" method="POST" class="row g-3">
+            <form action="{{ route('pendaftaran.update', ['pendaftaran' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="col-md-6">
@@ -246,6 +247,8 @@
       </div>
     </div>
   </div>
+  @endforeach
+
 
 
 

@@ -2,30 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\berita;
+use App\Models\Berita;
 use App\Models\Kategori;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreBeritaRequest;
+use App\Http\Requests\UpdateBeritaRequest;
 
 class BeritaController extends Controller
 {
 
     public function index()
     {
-        $beritas = berita::all();
-        $kategoris = Kategori::all();
-        return view('berita.berita', compact('beritas','kategoris'));
+        $berita = Berita::all();
+        $kategori = Kategori::all();
+        return view('berita.berita', compact('berita','kategori'));
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
+        $berita = Berita::all();
         $kategori = Kategori::all();
-        return view('berita.berita', compact('kategori'));
+        return view('berita.berita', compact('berita','kategori'));
     }
 
-
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreBeritaRequest $request)
     {
         $request->validate([
             'judul_berita' => 'required',
@@ -37,10 +42,10 @@ class BeritaController extends Controller
         ]);
 
 
-        $gambar = $request->file('sampul');
-        $path = Storage::disk('public')->put('images', $gambar);
+        $foto = $request->file('foto');
+        $path = Storage::disk('public')->put('images', $foto);
 
-        berita::create([
+        Berita::create([
             'judul_berita' => $request->input('judul_berita'),
             'slug' => $request->input('slug'),
             'kategori_id' => $request->input('kategori_id'),
@@ -53,24 +58,28 @@ class BeritaController extends Controller
     }
 
 
-    public function show(berita $berita)
+    public function show(Berita $berita)
     {
-//
+        //
     }
 
-
-    public function edit(berita $berita)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Berita $berita)
     {
-    $berita = berita::all();
-        return view('berita.berita', compact('berita'));
-
+        $berita = Berita::all();
+        $kategori = Kategori::all();
+        return view('berita.berita', compact('berita','kategori'));
     }
 
-
-    public function update(Request $request, berita $berita)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateBeritaRequest $request, Berita $berita)
     {
-         $request->validate([
-            'nama_berita' => 'required',
+        $request->validate([
+            'judul_berita' => 'required',
             'slug'  => 'required',
             'kategori_id'  => 'required',
             'tanggal' => 'required',
@@ -78,14 +87,14 @@ class BeritaController extends Controller
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if($request->hasFile('sampul')){
-            $gambar = $request->file('sampul');
-            $path = $gambar->store('images','public');
-            $berita->update(['sampul' => $path]);
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $path = $foto->store('images', 'public');
+            $staf->update(['foto' => $path]);
         }
 
         $berita->update([
-            'nama_berita' => $request->input('nama_berita'),
+            'judul_berita' => $request->input('judul_berita'),
             'slug' => $request->input('slug'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
@@ -94,13 +103,14 @@ class BeritaController extends Controller
         ]);
 
         return redirect()->route('berita.index')->with('success', 'Berhasil mengubah data');
-
     }
 
-
-    public function destroy(berita $berita)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Berita $berita)
     {
         $berita->delete();
-        return redirect()->route('berita.index')->with('success', 'berita berhasil dihapus');
+        return redirect()->route('berita.index')->with('success', 'BERITA berhasil dihapus');
     }
 }
