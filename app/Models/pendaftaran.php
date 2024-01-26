@@ -11,7 +11,7 @@ class pendaftaran extends Model
     protected $fillable = [
         'nama_lengkap',
         'email',
-        'jns_kelamin',
+        'jenis_kelamin',
         'nik',
         'tempat_lahir',
         'alamat',

@@ -30,10 +30,10 @@ class PendaftaranController extends Controller
     public function store(StorependaftaranRequest $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required|unique:pendaftaran,nama_lengkap',
-            'email' => 'required|unique:pendaftaran,email',
-            'jns_kelamin' => 'required',
-            'nik' => 'required|unique:pendaftaran,nik',
+            'nama_lengkap' => 'required|unique:pendaftarans,nama_lengkap',
+            'email' => 'required|unique:pendaftarans,email',
+            'jenis_kelamin' => 'required',
+            'nik' => 'required|unique:pendaftarans,nik',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'alamat' => 'required',
@@ -48,7 +48,7 @@ class PendaftaranController extends Controller
             'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
             'email.required' => 'Kolom EMAIL wajib diisi.',
             'email.unique' => ' sudah EMAIL digunakan.',
-            'jns_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
+            'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.unique' => ' sudah NIK digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
@@ -63,9 +63,9 @@ class PendaftaranController extends Controller
         ]);
 
         pendaftaran::create([
-            'nama' => $request->input('nama'),
+            'nama_lengkap' => $request->input('nama_lengkap'),
             'email' => $request->input('email'),
-            'jns_kelamin' => $request->input('jns_kelamin'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
             'nik' => $request->input('nik'),
             'tempat_lahir' => $request->input('tempat_lahir'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
@@ -104,7 +104,7 @@ class PendaftaranController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|unique:pendaftaran,nama_lengkap,' . $pendaftaran->id,
             'email' => 'required|unique:pendaftaran,email,' . $pendaftaran->id,
-            'jns_kelamin' => 'required',
+            'jenis_kelamin' => 'required',
             'nik' => 'required|unique:pendaftaran,nik,' . $pendaftaran->id,
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -120,7 +120,7 @@ class PendaftaranController extends Controller
             'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
             'email.required' => 'Kolom EMAIL wajib diisi.',
             'email.unique' => ' sudah EMAIL digunakan.',
-            'jns_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
+            'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.unique' => ' sudah NIK digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
@@ -136,9 +136,9 @@ class PendaftaranController extends Controller
 
 
         $pendaftaran->update([
-            'nama' => $request->input('nama'),
+            'nama_lengkap' => $request->input('nama_lengkap'),
             'email' => $request->input('email'),
-            'jns_kelamin' => $request->input('jns_kelamin'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
             'nik' => $request->input('nik'),
             'tempat_lahir' => $request->input('tempat_lahir'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),

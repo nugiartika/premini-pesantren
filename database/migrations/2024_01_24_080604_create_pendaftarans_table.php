@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nik')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('alamat');            $table->enum('tempat_tinggal', ['Bersama orang tua/wali','kos','Asrama/Pondok Pesantren','Panti Asuhan','lainnnya']);
+            $table->string('alamat');
+            $table->enum('tempat_tinggal', ['Bersama orang tua/wali','kos','Asrama/Pondok Pesantren','Panti Asuhan','lainnnya']);
             $table->string('nama_ortu');
             $table->string('pendidikan_ortu');
             $table->string('pekerjaan_ortu');
