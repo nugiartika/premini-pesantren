@@ -3,6 +3,7 @@
 use App\Http\Controllers\StafController;
 use App\Http\Controllers\AsatidController;
 use App\Http\Controllers\AsatidlistController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
@@ -107,5 +108,8 @@ Route::resource('/pendaftaran', PendaftaranController::class);
 
 // GALLERY
 Route::resource('gallery', GalleryController::class);
+
+// berita
+Route::resource('berita', BeritaController::class);
 
 });

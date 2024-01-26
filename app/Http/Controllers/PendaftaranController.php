@@ -62,7 +62,7 @@ class PendaftaranController extends Controller
             'telepon_rumah.required' => 'Kolom TELEPON RUJMAH wajib diisi.',
         ]);
 
-        Pedaftaran::create([
+        pendaftaran::create([
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
             'jns_kelamin' => $request->input('jns_kelamin'),

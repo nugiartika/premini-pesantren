@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
+            $table->string('judul_berita');
+            $table->string('slug');
+            $table->foreignId('kategori_id')->constrained();
+            $table->date('tanggal');
+            $table->string('user_posting');
+            $table->string('sampul');
             $table->timestamps();
         });
     }
