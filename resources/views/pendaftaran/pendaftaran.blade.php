@@ -52,21 +52,13 @@
                     <td>{{$pendaftaran->email}}</td>
                     <td>{{$pendaftaran->jenis_kelamin}}</td>
                     <td>{{$pendaftaran->nik}}</td>
-                    {{-- <td>{{$pendaftaran->tempat_lahir}}</td>
-                    <td>{{$pendaftaran->tanggal_lahir}}</td>
-                    <td>{{$pendaftaran->alamat}}</td>
-                    <td>{{$pendaftaran->tempat_tinggal}}</td>
-                    <td>{{$pendaftaran->nama_ortu}}</td>
-                    <td>{{$pendaftaran->pendidikan_ortu}}</td>
-                    <td>{{$pendaftaran->pekerjaan_ortu}}</td>
-                    <td>{{$pendaftaran->sekolah_asal}}</td>
-                    <td>{{$pendaftaran->telepon_rumah}}</td> --}}
+                  
                     <td class="d-flex justify-content-start">
                         <div class="action-buttons">
-                            <button type="button" class="btn btn-primary btn-md me-1" data-bs-toggle="modal" data-bs-target="#">
+                            <button type="button" class="btn btn-info btn-md me-1" data-bs-toggle="modal" data-bs-target="#">
                                 show
                             </button>
-                            <button type="button" class="btn btn-primary btn-md me-1" data-bs-toggle="modal" data-bs-target="#editdaftar">
+                            <button type="button" class="btn btn-warning btn-md me-1" data-bs-toggle="modal" data-bs-target="#editdaftar">
                                 Edit
                             </button>
                         {{-- <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-info btn-md me-1">Show</a> --}}
@@ -172,7 +164,7 @@
 
 
  <!-- Modal Edit berita -->
- {{-- <div class="modal fade" id="editdaftar" tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true">
+ <div class="modal fade" id="editdaftar" tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -254,7 +246,7 @@
         </form>
       </div>
     </div>
-  </div> --}}
+  </div>
 
 
 
