@@ -11,7 +11,7 @@
         <option value="" {{ old('kategori_id') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
         <option value="" {{ old('kategori_id') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
       </select>
-    </div> 
+    </div>
     <div class="col-12">
       <label for="nik" class="form-label">nik</label>
       <input type="text" class="form-control" name="nik" value="{{ old('nik')}}">

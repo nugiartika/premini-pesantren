@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('asatids', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_gallery');
-            $table->string('slug');
-            $table->date('tanggal');
-            $table->string('user_posting');
-            $table->string('sampul');
+            $table->foreignId('asatidlist_id')->constrained()->onDelete('restrict');
+            $table->foreignId('mapel_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }
 
-    
+
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('asatids');
     }
 };
