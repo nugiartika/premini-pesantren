@@ -58,7 +58,7 @@
                             <button type="button" class="btn btn-info btn-md me-1" data-bs-toggle="modal" data-bs-target="#">
                                 show
                             </button>
-                            <button type="button" class="btn btn-warning btn-md me-1" data-bs-toggle="modal" data-bs-target="#editdaftar">
+                            <button type="button" class="btn btn-warning btn-md me-1" data-bs-toggle="modal" data-bs-target="#tambahform">
                                 Edit
                             </button>
                         {{-- <a href="/pendaftaran/{{$pendaftaran->id}}/show" class="btn btn-info btn-md me-1">Show</a> --}}
@@ -246,7 +246,6 @@
       </div>
     </div>
   </div>
-
 
 
 
