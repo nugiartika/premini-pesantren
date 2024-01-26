@@ -52,7 +52,7 @@
                     <td>{{$pendaftaran->email}}</td>
                     <td>{{$pendaftaran->jenis_kelamin}}</td>
                     <td>{{$pendaftaran->nik}}</td>
-                  
+
                     <td class="d-flex justify-content-start">
                         <div class="action-buttons">
                             <button type="button" class="btn btn-info btn-md me-1" data-bs-toggle="modal" data-bs-target="#">
@@ -75,7 +75,6 @@
             @endforeach
         </table>
     </div>
-
 
 
  <!-- Modal tambah -->
