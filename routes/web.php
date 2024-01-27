@@ -32,8 +32,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 //STAF
 // Index Page
 Route::get('/staf', [StafController::class, 'index'])->name('staf.index');
@@ -126,12 +124,30 @@ Route::delete('/santri/{santri}', [SantriController::class, 'destroy'])->name('s
 
 // PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
-
 // GALLERY
 Route::resource('gallery', GalleryController::class);
-// GALLERY
-Route::resource('kelas', KelasController::class);
+// KELAS
 
 
+
+    Route::middleware('admin')->group(function(){
+        Route::resource('/kelas', KelasController::class);
+
+        Route::get('admin', function(){
+            return 'ini cuma bisa diakses oleh admin';
+        })->name('admin');
+
+    });
+
+    Route::middleware('user')->group(function(){
+
+        Route::get('user', function(){
+            return 'ini cuma bisa diakses oleh user';
+        });
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    });
 
 });
+
+
