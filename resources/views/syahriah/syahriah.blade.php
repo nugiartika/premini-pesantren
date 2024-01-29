@@ -58,7 +58,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ optional($item->santri)->nis }}</td>
                                         <td class="text-center">{{ optional($item->santri)->nama }}</td>
-                                        <td class="text-center">{{ optional($item->klssantri)->nama_kelas }}</td>
+                                        <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
 
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
@@ -108,22 +108,6 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" name="klssantri_id" aria-label="Default select example">
-                                        <option value="" selected>PILIH KELAS</option>
-                                        @foreach ($klssantri as $kat)
-                                            <option value="{{ $kat->id }}" {{ old('klssantri_id') == $kat->id ? 'selected' : '' }}>
-                                                {{ $kat->nama_kelas }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('klssantri_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -165,22 +149,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="edit_klssantri_id" class="form-label">KELAS</label>
-                                        <select class="form-select @error('klssantri_id') is-invalid @enderror" id="edit_klssantri_id" name="klssantri_id" value="{{ old('klssantri_id', $item->klssantri_id) }}">
-                                            <option value="" selected>PILIH KELAS</option>
-                                            @foreach ($klssantri as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->klssantri_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama_kelas }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('klssantri_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+
 
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </form>

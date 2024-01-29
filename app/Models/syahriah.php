@@ -9,17 +9,13 @@ class syahriah extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'santri_id',
-        'klssantri_id'
+        'santri_id'
     ];
 
     public function santri()
     {
         return $this->belongsTo(Santri::class);
     }
-    public function klssantri()
-    {
-        return $this->belongsTo(Klssantri::class);
-    }
+
 
 }

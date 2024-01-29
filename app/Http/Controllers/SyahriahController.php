@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\santri;
 use App\Models\syahriah;
-use App\Models\klssantri;
 use App\Http\Requests\SyahriahRequest;
 use Illuminate\Http\Request;
 
@@ -15,8 +14,7 @@ class SyahriahController extends Controller
     {
         $syahriah = Syahriah::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('syahriah.syahriah', compact('syahriah','santri','klssantri'));
+        return view('syahriah.syahriah', compact('syahriah','santri'));
     }
 
 
@@ -24,23 +22,19 @@ class SyahriahController extends Controller
     {
         $syahriah = Syahriah::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('syahriah.syahriah', compact('syahriah','santri','klssantri'));
+        return view('syahriah.syahriah', compact('syahriah','santri'));
     }
 
     public function store(SyahriahRequest $request)
     {
         $request->validate([
             'santri_id' => 'required',
-            'klssantri_id' => 'required',
         ],[
             'santri_id.required' => 'Kolom NAMA wajib diisi.',
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
         ]);
 
         Syahriah::create([
             'santri_id' => $request->input('santri_id'),
-            'klssantri_id' => $request->input('klssantri_id'),
         ]);
         return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH BERHASIL DITAMBAHKAN');
     }
@@ -56,8 +50,7 @@ class SyahriahController extends Controller
     {
         $syahriah = Syahriah::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('syahriah.syahriah', compact('syahriah','santri','klssantri'));
+        return view('syahriah.syahriah', compact('syahriah','santri'));
     }
 
 
@@ -65,15 +58,12 @@ class SyahriahController extends Controller
     {
         $request->validate([
             'santri_id' => 'required',
-            'klssantri_id' => 'required',
         ],[
             'santri_id.required' => 'Kolom NAMA wajib diisi.',
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
         ]);
 
         $syahriah->update([
             'santri_id' => $request->input('santri_id'),
-            'klssantri_id' => $request->input('klssantri_id'),
         ]);
 
         return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH BERHASIL DIUPDATE');
