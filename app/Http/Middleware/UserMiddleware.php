@@ -18,7 +18,7 @@ class UserMiddleware
         if(auth()->user()->role == 'user'){
             return $next($request);
         }else{
-            return to_route('admin');
+            return redirect()->route('dashboard.index');
         }
     }
 }

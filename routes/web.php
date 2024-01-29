@@ -5,6 +5,7 @@ use App\Http\Controllers\AsatidController;
 use App\Http\Controllers\AsatidlistController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SyahriahController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +33,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-// Route::middleware(['auth'])->group(function () {
+Auth::routes(['verify' => true]);
+Route::middleware(['auth'])->group(function () {
 
 //STAF
 // Index Page
@@ -57,7 +59,7 @@ Route::delete('/asatid/{asatid}', [AsatidController::class, 'destroy'])->name('a
 //LIST ASATID
 // Index Page
 Route::get('/asatidlist', [AsatidlistController::class, 'index'])->name('asatidlist.index');
-// Create and Store
+// Create and Stor0_~e
 Route::post('/asatidlist', [AsatidlistController::class, 'store'])->name('asatidlist.store');
 // Update
 Route::put('/asatidlist{asatidlist}', [AsatidlistController::class, 'update'])->name('asatidlist.update');
@@ -142,23 +144,31 @@ Route::resource('syahriah', SyahriahController::class);
 Route::resource('/pendaftaran', PendaftaranController::class);
 
 
-Route::middleware(['admin'])->group(function () {
-    Route::get('admin', function () {
-        return 'INI CUMA BISA DIAKSES OLEH ADMIN';
-    })->name('admin');
-});
 
-Route::middleware(['user'])->group(function () {
-    Route::get('user', function () {
-        return 'INI CUMA BISA DIAKSES OLEH USER';
+
+
+    Route::middleware('admin')->group(function(){
+        Route::resource('dashboard', DashboardController::class);
+
+        // Route::get('admin', function(){
+        // 
+        // })->name('admin');
+
     });
+
+    Route::middleware('user')->group(function(){
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+        Route::get('user', function(){
+            return 'ini cuma bisa diakses oleh user';
+        });
+
+    });
+
+    // });
+
+
+
+
+
 });
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');// });
-
-
-
-
-
-// });
-
