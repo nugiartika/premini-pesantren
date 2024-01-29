@@ -133,9 +133,7 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Berita $berita)
     {
         $berita->delete();

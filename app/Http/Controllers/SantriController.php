@@ -118,7 +118,7 @@ class SantriController extends Controller
 
     public function destroy(santri $santri)
     {
-        if ($santri->kelulusan ()->exists()) {
+        if ($santri->kelulusan ()->exists()|| $santri->syahriah()->exists()) {
             return redirect()->route('santri.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
         }
         $santri->delete();

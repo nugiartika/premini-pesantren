@@ -14,7 +14,32 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+
     <style>
+
+
+    .navbar-toggler {
+        font-size: 14px;
+        padding: .25rem .75rem;
+        margin-right: .75rem;
+        border: 1px solid #1c8934;
+        border-radius: .25rem;
+    }
+
+    .navbar-toggler-icon {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: .5rem 1rem;
+    }
+
+    .navbar-nav .nav-link.active {
+        background-color: #5cb85c;
+    }
+
         .navbar {
             background-color: #000;
             border-bottom: 2px solid #000000;
@@ -26,7 +51,7 @@
         }
 
         .navbar-nav .nav-link.active {
-            background-color: #5cb85c;
+            background-color: #3a922d;
         }
 
         .dropdown-menu {
@@ -35,6 +60,44 @@
 
         .dropdown-menu a {
             color: #fff !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+        th {
+            background-color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-success,
+        .btn-warning,
+        .btn-danger {
+            font-size: 14px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            color: #000000;
+        }
+
+        .navbar-brand h2 {
+            margin-bottom: 0;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -46,12 +109,15 @@
         @if (!request()->is('login') && !request()->is('register'))
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
+
+                <a class="navbar-brand" href="#">
+                    <h2>PONPES JATIM</h2>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}" href="{{ route('staf.index') }}">
                                 <i class="fa-solid fa-user-plus me-1"></i>STAF
@@ -75,6 +141,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="nav-link dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
                                 <a class="nav-link dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
                             </div>
                         </li>
 
@@ -98,7 +165,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}">GALLERIE</a>
+                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
                         </li>
 
                         <li class="nav-item">

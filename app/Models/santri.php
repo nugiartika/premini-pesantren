@@ -24,4 +24,8 @@ class santri extends Model
     {
         return $this->hasMany(Kelulusan::class);
     }
+    public function syahriah()
+    {
+        return $this->hasMany(Syahriah::class);
+    }
 }

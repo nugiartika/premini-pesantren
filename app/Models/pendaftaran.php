@@ -22,4 +22,5 @@ class pendaftaran extends Model
         'sekolah_asal',
         'telepon_rumah'
     ];
+    iniiiiiiiiii
 }

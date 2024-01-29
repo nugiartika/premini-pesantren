@@ -14,6 +14,7 @@ class PendaftaranController extends Controller
     {
         $pendaftaran = Pendaftaran::all();
         return view('pendaftaran.pendaftaran', compact('pendaftaran'));
+        iniiiiiiiiiiiiii
     }
 
 

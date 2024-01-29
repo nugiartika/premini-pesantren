@@ -35,6 +35,6 @@ return new class extends Migration
     }
     private function checkRelationships()
     {
-        return DB::table('kelulusan')->where('santri_id', '=', $someValue)->exists();
+        return DB::table('kelulusan')->where('santri_id', '=', $someValue)->exists()|| DB::table('syahriah')->where('santri_id', $mapelId)->exists();
     }
 };
