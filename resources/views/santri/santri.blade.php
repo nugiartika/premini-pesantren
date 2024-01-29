@@ -35,9 +35,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
+                                <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
@@ -50,7 +50,7 @@
                                     <th scope="col" class="text-center">NAMA</th>
                                     <th scope="col" class="text-center">KELAS</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
-                                    <th scope="col" class="text-center">TEMPAT TANGGAL LAHIT</th>
+                                    <th scope="col" class="text-center">TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">JENIS KELAMIN</th>
                                     <th scope="col" class="text-center">AKSI</th>
                                 </tr>
@@ -61,21 +61,19 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nis }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
-                                        <td class="text-center">{{ ($item->kelas) ? $item->kelas->nama_kelas : '' }}</td>
+                                        <td class="text-center">{{ optional($item->klssantri)->nama_kelas }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
-                                        <td class="text-center">{{ $item->ttl }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->jns_kelamin }}</td>
-
-
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('santri.destroy', ['santri' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -101,7 +99,7 @@
 
                                 <div class="mb-3">
                                     <label for="nis" class="form-label">NIS</label>
-                                    <input type="text" class="form-control @error('nis') is-invalid @enderror" id="nis" name="nis">
+                                    <input type="text" class="form-control @error('nis') is-invalid @enderror" id="nis" name="nis" value="{{ old('nis') }}">
                                     @error('nis')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -111,7 +109,7 @@
 
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">NAMA</label>
-                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama">
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -120,16 +118,15 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="kelas_id">KELAS</label>
-                                    <select class="form-select @error('kelas_id') is-invalid @enderror" name="kelas_id" aria-label="Default select example">
-                                        <option value="" selected>pilih kelas</option>
-                                        @foreach ($kelas as $kls)
-                                            <option value="{{ $kls->id }}" {{ old('kelas_id') == $kls->id ? 'selected' : '' }}>
-                                                {{ $kls->nama_kelas}}
+                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" name="klssantri_id" aria-label="Default select example">
+                                        <option value="" selected>PILIH KELAS</option>
+                                        @foreach ($klssantri as $kat)
+                                            <option value="{{ $kat->id }}" {{ old('klssantri_id') == $kat->id ? 'selected' : '' }}>
+                                                {{ $kat->nama_kelas }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('kelas_id')
+                                    @error('klssantri_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -138,7 +135,7 @@
 
                                 <div class="mb-3">
                                     <label for="alamat" class="form-label">ALAMAT</label>
-                                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat">
+                                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat') }}">
                                     @error('alamat')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -147,26 +144,33 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="ttl" class="form-label">TEMPAT TANGGAL LAHIR</label>
-                                    <input type="text" class="form-control @error('ttl') is-invalid @enderror" id="ttl" name="ttl">
+                                    <label for="ttl" class="form-label">TANGGAL LAHIR</label>
+                                    <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="ttl" name="ttl" value="{{ old('ttl') }}" max="{{ now()->toDateString() }}" required>
                                     @error('ttl')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
+                                        <small class="text-danger">
+                                            @if ($errors->has('ttl'))
+                                                {{ $errors->first('ttl') }}
+                                            @endif
+                                        </small>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="jns_kelamin" class="form-label">JENIS KELAMIN</label>
-                                    <input type="text" class="form-control @error('jns_kelamin') is-invalid @enderror" id="jns_kelamin" name="jns_kelamin">
+                                    <select class="form-select @error('jns_kelamin') is-invalid @enderror" name="jns_kelamin" aria-label="Default select example">
+                                        <option value="" selected>PILIH JENIS KELAMIN</option>
+                                        <option value="Laki-Laki" {{ old('jns_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                        <option value="Perempuan" {{ old('jns_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    </select>
                                     @error('jns_kelamin')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-
-
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -192,7 +196,6 @@
                                     @csrf
                                     @method('PUT')
 
-
                                     <div class="mb-3">
                                         <label for="edit_nis" class="form-label">NIS</label>
                                         <input type="text" class="form-control @error('nis') is-invalid @enderror" id="edit_nis" name="nis" value="{{ old('nis', $item->nis) }}">
@@ -214,16 +217,16 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="edit_kelas_id" class="form-label">KELAS</label>
-                                        <select class="form-select @error('kelas_id') is-invalid @enderror" id="edit_kelas_id" name="kelas_id">
+                                        <label for="edit_klssantri_id" class="form-label">KELAS</label>
+                                        <select class="form-select @error('klssantri_id') is-invalid @enderror" id="edit_klssantri_id" name="klssantri_id" value="{{ old('klssantri_id', $item->klssantri_id) }}">
                                             <option value="" selected>PILIH KELAS</option>
-                                            @foreach ($kelas as $kls)
-                                                <option value="{{ $kls->id }}" {{ $item->kelas_id == $kls->id ? 'selected' : '' }}>
-                                                    {{ $kls->nama_kelas }}
+                                            @foreach ($klssantri as $kat)
+                                                <option value="{{ $kat->id }}" {{ $item->klssantri_id == $kat->id ? 'selected' : '' }}>
+                                                    {{ $kat->nama_kelas }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('kelas_id')
+                                        @error('klssantri_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -241,8 +244,8 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="edit_ttl" class="form-label">TEMPAT TANGGAL LAHIR</label>
-                                        <input type="text" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="ttl" value="{{ old('ttl', $item->ttl) }}">
+                                        <label for="edit_ttl" class="form-label">TANGGAL LAHIR</label>
+                                        <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="ttl" max="{{ now()->toDateString() }}" value="{{ old('ttl', $item->ttl) }}">
                                         @error('ttl')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -252,7 +255,11 @@
 
                                     <div class="mb-3">
                                         <label for="edit_jns_kelamin" class="form-label">JENIS KELAMIN</label>
-                                        <input type="text" class="form-control @error('jns_kelamin') is-invalid @enderror" id="edit_jns_kelamin" name="jns_kelamin" value="{{ old('jns_kelamin', $item->jns_kelamin) }}">
+                                        <select class="form-select @error('jns_kelamin') is-invalid @enderror" id="edit_jns_kelamin" name="jns_kelamin">
+                                            <option value="" selected>PILIH JENIS KELAMIN</option>
+                                            <option value="Laki-Laki" {{ old('jns_kelamin', $item->jns_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                            <option value="Perempuan" {{ old('jns_kelamin', $item->jns_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        </select>
                                         @error('jns_kelamin')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

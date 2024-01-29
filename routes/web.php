@@ -9,8 +9,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\SantriController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KlssantriController;
+use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\PendaftaranController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes(['verify' => true]);
-Route::middleware(['auth'])->group(function () {
+Auth::routes();
+// Route::middleware(['auth'])->group(function () {
 
 //STAF
 // Index Page
@@ -122,16 +122,26 @@ Route::put('/santri{santri}', [SantriController::class, 'update'])->name('santri
 // Delete
 Route::delete('/santri/{santri}', [SantriController::class, 'destroy'])->name('santri.destroy');
 
+//GALLERIE
+// Index Page
+Route::get('/gallerie', [GallerieController::class, 'index'])->name('gallerie.index');
+// Create and Store
+Route::post('/gallerie', [GallerieController::class, 'store'])->name('gallerie.store');
+// Update
+Route::put('/gallerie{gallerie}', [GallerieController::class, 'update'])->name('gallerie.update');
+// Delete
+Route::delete('/gallerie/{gallerie}', [GallerieController::class, 'destroy'])->name('gallerie.destroy');
+
 // PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
-// GALLERY
-Route::resource('gallery', GalleryController::class);
+// GALLERiE
+//  Route::resource('gallerie', GallerieController::class);
 // KELAS
-        Route::resource('/kelas', KelasController::class);
 
 
 
     Route::middleware('admin')->group(function(){
+        Route::resource('/kelas', KelasController::class);
 
         Route::get('admin', function(){
             return 'ini cuma bisa diakses oleh admin';
@@ -148,6 +158,11 @@ Route::resource('gallery', GalleryController::class);
     });
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-});
+    // });
 
+
+
+
+
+// });
 

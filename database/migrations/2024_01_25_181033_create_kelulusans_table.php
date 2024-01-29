@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('kelulusans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->foreignId('santri_id')->constrained()->onDelete('restrict');
             $table->string('no_ujian');
-            $table->string('jurusan');
-            $table->string('mapel');
-            // $table->string('keterangan');
+            $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
+            $table->foreignId('mapel_id')->constrained()->onDelete('restrict');
+            $table->integer('nilai');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

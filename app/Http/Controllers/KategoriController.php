@@ -13,7 +13,6 @@ class KategoriController extends Controller
     {
         $kategori = kategori::all();
         return view('kategori.kategori', compact('kategori'));
-
     }
 
 
@@ -37,7 +36,7 @@ class KategoriController extends Controller
             'nama' => $request->input('nama'),
         ]);
 
-        return redirect()->route('kategori.index')->with('success', 'KATEGORI berhasil ditambahkan');
+        return redirect()->route('kategori.index')->with('success', 'KATEGORI BERHASIL DITAMBAHKAN');
 
     }
 
@@ -50,7 +49,8 @@ class KategoriController extends Controller
 
     public function edit(Kategori $kategori)
     {
-        return view('kategori.edit', compact('kategori'));
+        $kategori = kategori::all();
+        return view('kategori.kategori', compact('kategori'));
     }
 
 
@@ -68,14 +68,16 @@ class KategoriController extends Controller
         $kategori->update([
             'nama' => $request->input('nama'),
         ]);
-        return redirect()->route('kategori.index')->with('success', 'KATEGORI berhasil diupdate');
+        return redirect()->route('kategori.index')->with('success', 'KATEGORI BERHASIL DIUPDATE');
     }
 
 
     public function destroy(Kategori $kategori)
     {
+        if ($kategori->berita ()->exists()) {
+            return redirect()->route('kategori.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
+        }
         $kategori->delete();
-        return redirect()->route('kategori.index')->with('success', 'KATEGORI berhasil dihapus');
-
+        return redirect()->route('kategori.index')->with('success', 'KATEGORI BERHASIL DIHAPUS');
     }
 }

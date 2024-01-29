@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('asatids', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asatidlist_id')->constrained()->onDelete('restrict');
+            $table->foreignId('asatidlist_id')->constrained('asatidlists')->onDelete('restrict');
             $table->foreignId('mapel_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });

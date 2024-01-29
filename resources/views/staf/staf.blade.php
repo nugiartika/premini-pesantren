@@ -35,20 +35,18 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
+                                <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped border-primary">
-                            <thead class="table-dark">
-                                <tr>
+                        <table class="table table-bordered table-striped table-hover text-center">
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIP</th>
                                     <th scope="col" class="text-center">NAMA</th>
-                                    <th scope="col" class="text-center">TEMPAT TANGGAL LAHIR</th>
+                                    <th scope="col" class="text-center">TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">PENDIDIKAN</th>
                                     <th scope="col" class="text-center">JABATAN</th>
@@ -62,7 +60,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nip }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
-                                        <td class="text-center">{{ $item->ttl }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->pendidikan }}</td>
                                         <td class="text-center">{{ $item->jabatan }}</td>
@@ -75,13 +73,13 @@
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('staf.destroy', ['staf' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -117,7 +115,7 @@
 
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">NAMA</label>
-                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama">
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -126,12 +124,17 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="ttl" class="form-label">TEMPAT TANGGAL LAHIR</label>
-                                    <input type="text" class="form-control @error('ttl') is-invalid @enderror" id="ttl" name="ttl" value="{{ old('ttl') }}">
+                                    <label for="ttl" class="form-label">TANGGAL LAHIR</label>
+                                    <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="ttl" name="ttl" value="{{ old('ttl') }}" max="{{ now()->toDateString() }}" required>
                                     @error('ttl')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
+                                        <small class="text-danger">
+                                            @if ($errors->has('ttl'))
+                                                {{ $errors->first('ttl') }}
+                                            @endif
+                                        </small>
                                     @enderror
                                 </div>
 
@@ -220,8 +223,8 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="edit_ttl" class="form-label">TEMPAT TANGGAL LAHIR</label>
-                                        <input type="text" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="nip" value="{{ old('ttl', $item->ttl) }}">
+                                        <label for="edit_ttl" class="form-label">TANGGAL LAHIR</label>
+                                        <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="ttl" max="{{ now()->toDateString() }}" value="{{ old('ttl', $item->ttl) }}">
                                         @error('ttl')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -233,6 +236,26 @@
                                         <label for="edit_alamat" class="form-label">ALAMAT</label>
                                         <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="nip" value="{{ old('alamat', $item->alamat) }}">
                                         @error('alamat')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_pendidikan" class="form-label">PENDIDIDKAN</label>
+                                        <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="edit_pendidikan" name="nip" value="{{ old('pendidikan', $item->pendidikan) }}">
+                                        @error('pendidikan')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_jabatan" class="form-label">JABATAN</label>
+                                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="edit_jabatan" name="nip" value="{{ old('jabatan', $item->jabatan) }}">
+                                        @error('jabatan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

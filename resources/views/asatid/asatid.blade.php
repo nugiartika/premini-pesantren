@@ -35,9 +35,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
+                                <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
@@ -47,6 +47,11 @@
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NAMA ASATID</th>
+                                    <th scope="col" class="text-center">NIP</th>
+                                    <th scope="col" class="text-center">TANGGAL LAHIR</th>
+                                    <th scope="col" class="text-center">ALAMAT</th>
+                                    <th scope="col" class="text-center">PENDIDIKAN</th>
+                                    <th scope="col" class="text-center">FOTO</th>
                                     <th scope="col" class="text-center">MAPEL</th>
                                     <th scope="col" class="text-center">AKSI</th>
                                 </tr>
@@ -55,17 +60,24 @@
                                 @foreach ($asatid as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ optional($item->asatidlist_id)->nama }}</td>
+                                        <td class="text-center">{{ optional($item->asatidlist)->nama }}</td>
+                                        <td class="text-center">{{ optional($item->asatidlist)->nip }}</td>
+                                        <td class="text-center">{{ optional($item->asatidlist)->ttl }}</td>
+                                        <td class="text-center">{{ optional($item->asatidlist)->alamat }}</td>
+                                        <td class="text-center">{{ optional($item->asatidlist)->pendidikan }}</td>
+                                        <td class="text-center">
+                                            <img src="{{ asset('storage/' . optional($item->asatidlist)->foto) }}" alt="Foto Asatid" width="100">
+                                        </td>
                                         <td class="text-center">{{ optional($item->mapel)->nama }}</td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('asatid.destroy', ['asatid' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -114,6 +126,7 @@
                                             </option>
                                         @endforeach
                                     </select>
+
                                     @error('mapel_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -147,7 +160,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_asatidlist_id" class="form-label">NAMA ASATID</label>
-                                        <select class="form-select @error('asatidlist_id') is-invalid @enderror" id="edit_asatidlist_id" name="asatidlist_id">
+                                        <select class="form-select @error('asatidlist_id') is-invalid @enderror" id="edit_asatidlist_id" name="asatidlist_id" value="{{ old('asatidlist_id', $item->asatidlist_id) }}">
                                             <option value="" selected>PILIH NAMA ASATID</option>
                                             @foreach ($asatidlist as $kat)
                                                 <option value="{{ $kat->id }}" {{ $item->asatidlist_id == $kat->id ? 'selected' : '' }}>
@@ -164,7 +177,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_mapel_id" class="form-label">MAPEL</label>
-                                        <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id">
+                                        <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id" value="{{ old('mapel_id', $item->mapel_id) }}">
                                             <option value="" selected>PILIH MAPEL</option>
                                             @foreach ($mapel as $kat)
                                                 <option value="{{ $kat->id }}" {{ $item->mapel_id == $kat->id ? 'selected' : '' }}>

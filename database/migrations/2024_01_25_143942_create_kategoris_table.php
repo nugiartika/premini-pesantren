@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('kategoris', function (Blueprint $table) {
@@ -18,11 +16,18 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
+        if ($this->checkRelationships()) {
+            Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
+
+            return;
+        }
         Schema::dropIfExists('kategoris');
+    }
+    private function checkRelationships()
+    {
+        return DB::table('berita')->where('kategori_id', '=', $someValue)->exists();
     }
 };

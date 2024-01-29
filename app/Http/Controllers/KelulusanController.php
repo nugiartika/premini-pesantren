@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelulusan;
+use App\Models\mapel;
+use App\Models\santri;
+use App\Models\klssantri;
 use App\Http\Requests\StoreKelulusanRequest;
 use App\Http\Requests\UpdateKelulusanRequest;
 
@@ -12,7 +15,10 @@ class KelulusanController extends Controller
     public function index()
     {
         $kelulusan = Kelulusan::all();
-        return view('kelulusan.kelulusan', compact('kelulusan'));
+        $mapel = Mapel::all();
+        $santri = Santri::all();
+        $klssantri = Klssantri::all();
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
 
     }
 
@@ -22,8 +28,10 @@ class KelulusanController extends Controller
     public function create()
     {
         $kelulusan = Kelulusan::all();
-        return view('kelulusan.kelulusan', compact('kelulusan'));
-
+        $mapel = Mapel::all();
+        $santri = Santri::all();
+        $klssantri = Klssantri::all();
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
     }
 
     /**
@@ -32,27 +40,41 @@ class KelulusanController extends Controller
     public function store(StoreKelulusanRequest $request)
     {
         $request->validate([
-            'nama' => 'required|unique:kelulusans,nama',
-            'no_ujian' => 'required|unique:kelulusans,no_ujian',
-            'jurusan' => 'required',
-            'mapel' => 'required',
+            'santri_id' => 'required|unique:kelulusans,santri_id',
+            'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian',
+            'klssantri_id' => 'required',
+            'mapel_id' => 'required',
+            'nilai' => 'required|numeric|min:0',
+            // 'keterangan' => 'required',
         ], [
-            'nama.required' => 'Kolom NAMA SANTRI wajib diisi.',
-            'nama.unique' => 'NAMA SANTRI sudah digunakan.',
+            'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
+            'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
             'no_ujian.required' => 'Kolom NON UJIAN wajib diisi.',
+            'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
+            'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
             'no_ujian.unique' => 'NO UJIAN sudah digunakan.',
-            'jurusan.required' => 'Kolom JURUSAN wajib diisi.',
-            'mapel.required' => 'Kolom MAPEL wajib diisi.',
+            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
+            'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
+            'nilai.required' => 'Kolom NILAI wajib diisi.',
+            'nilai.numeric' => ' NILAI harus berupa angka',
+            'nilai.min' => ' NILAI tidak boleh MIN-',
+            // 'keterangan.required' => 'Kolom KETERANGAN wajib diisi.',
+
         ]);
+
+        $nilai = $request->input('nilai');
+        $keterangan = ($nilai >= 80) ? 'Lulus' : 'Tidak Lulus';
 
         Kelulusan::create([
-            'nama' => $request->input('nama'),
+            'santri_id' => $request->input('santri_id'),
             'no_ujian' => $request->input('no_ujian'),
-            'jurusan' => $request->input('jurusan'),
-            'mapel' => $request->input('mapel'),
-        ]);
+            'klssantri_id' => $request->input('klssantri_id'),
+            'mapel_id' => $request->input('mapel_id'),
+            'nilai' => $nilai,
+            'keterangan' => $keterangan,
+         ]);
 
-        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN berhasil ditambahkan');
+        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DITAMBAHKAN');
 
     }
 
@@ -70,7 +92,10 @@ class KelulusanController extends Controller
     public function edit(Kelulusan $kelulusan)
     {
         $kelulusan = Kelulusan::all();
-        return view('kelulusan.kelulusan', compact('kelulusan'));
+        $mapel = Mapel::all();
+        $santri = Santri::all();
+        $klssantri = Klssantri::all();
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
     }
 
     /**
@@ -79,26 +104,39 @@ class KelulusanController extends Controller
     public function update(UpdateKelulusanRequest $request, Kelulusan $kelulusan)
     {
         $request->validate([
-            'nama' => 'required|unique:kelulusans,nama',
-            'no_ujian' => 'required|unique:kelulusans,no_ujian',
-            'jurusan' => 'required',
-            'mapel' => 'required',
+            'santri_id' => 'required|unique:kelulusans,santri_id,' . $kelulusan->id,
+            'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian,' . $kelulusan->id,
+            'klssantri_id' => 'required',
+            'mapel_id' => 'required',
+            'nilai' => 'required|numeric|min:0',
+            // 'keterangan' => 'required',
         ], [
-            'nama.required' => 'Kolom NAMA SANTRI wajib diisi.',
-            'nama.unique' => 'NAMA SANTRI sudah digunakan.',
+            'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
+            'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
             'no_ujian.required' => 'Kolom NON UJIAN wajib diisi.',
+            'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
+            'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
             'no_ujian.unique' => 'NO UJIAN sudah digunakan.',
-            'jurusan.required' => 'Kolom JURUSAN wajib diisi.',
-            'mapel.required' => 'Kolom MAPEL wajib diisi.',
+            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
+            'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
+            'nilai.required' => 'Kolom NILAI wajib diisi.',
+            'nilai.numeric' => ' NILAI harus berupa angka',
+            'nilai.min' => ' NILAI tidak boleh MIN-',
+            // 'keterangan.required' => 'Kolom KETERANGAN wajib diisi.',
         ]);
-        $kelulusan->update([
-            'nama' => $request->input('nama'),
-            'no_ujian' => $request->input('no_ujian'),
-            'jurusan' => $request->input('jurusan'),
-            'mapel' => $request->input('mapel'),
-        ]);
-        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN berhasil diupdate');
 
+        $nilai = $request->input('nilai');
+        $keterangan = ($nilai >= 80) ? 'Lulus' : 'Tidak Lulus';
+
+        $kelulusan->update([
+            'santri_id' => $request->input('santri_id'),
+            'no_ujian' => $request->input('no_ujian'),
+            'klssantri_id' => $request->input('klssantri_id'),
+            'mapel_id' => $request->input('mapel_id'),
+            'nilai' => $nilai,
+            'keterangan' => $keterangan,
+        ]);
+        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DIUPDATE');
 
     }
 
@@ -108,7 +146,6 @@ class KelulusanController extends Controller
     public function destroy(Kelulusan $kelulusan)
     {
         $kelulusan->delete();
-        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN berhasil dihapus');
-
+        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DIHAPUS');
     }
 }

@@ -16,9 +16,15 @@ class Asatidlist extends Model
         'pendidikan',
         'foto'
     ];
-    
+
     public function asatid()
     {
         return $this->hasMany(Asatid::class);
     }
+
+    public function klssantri()
+    {
+        return $this->hasMany(Klssantri::class);
+    }
+
 }

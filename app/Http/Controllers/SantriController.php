@@ -3,66 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\santri;
+use App\Models\klssantri;
+use Carbon\Carbon;
 use App\Http\Requests\StoresantriRequest;
 use App\Http\Requests\UpdatesantriRequest;
-use App\Models\kelas;
 
 class SantriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $santri = Santri::all();
-        $kelas = kelas::all();
-        return view('santri.santri', compact('santri','kelas'));
-
+        $klssantri = Klssantri::all();
+        return view('santri.santri', compact('santri','klssantri'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        // $santri = Santri::all();
-        $kelas = kelas::all();
-        // return view('santri.santri', compact('santri','kelas'));
-        return view('santri.create', compact('kelas'));
+        $santri = Santri::all();
+        $klssantri = Klssantri::all();
+        return view('santri.santri', compact('santri','klssantri'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoresantriRequest $request)
     {
         $request->validate([
-            'nis' => 'required|unique:santris,nis',
+            'nis' => 'required|numeric|min:0|unique:santris,nis',
             'nama' => 'required|unique:santris,nama',
-            'kelas_id' => 'required',
+            'klssantri_id' => 'required',
             'alamat' => 'required',
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'jns_kelamin' => 'required',
         ], [
             'nis.required' => 'Kolom NIS wajib diisi.',
+            'nis.numeric' => 'NIS harus berupa angka',
+            'nis.min' => 'NIS tidak boleh MIN-',
             'nis.unique' => ' sudah NIS digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => ' sudah NAMA digunakan.',
-            'kelas_id.required' => 'Kolom kelas wajib diisi',
+            'klssantri_id.required' => 'Kolom KELAS wajib diisi',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
-            'ttl.required' => 'Kolom wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'jns_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
         ]);
         Santri::create([
             'nis' => $request->input('nis'),
             'nama' => $request->input('nama'),
-            'kelas_id' => $request->input('kelas_id'),
+            'klssantri_id' => $request->input('klssantri_id'),
             'alamat' => $request->input('alamat'),
             'ttl' => $request->input('ttl'),
             'jns_kelamin' => $request->input('jns_kelamin'),
         ]);
 
-        return redirect()->route('santri.index')->with('success', 'SANTRI berhasil ditambahkan');
+        return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DITAMBAHKAN');
 
     }
 
@@ -72,58 +69,59 @@ class SantriController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(santri $santri)
     {
         $santri = Santri::all();
-        return view('santri.santri', compact('santri'));
+        $klssantri = Klssantri::all();
+        return view('santri.santri', compact('santri','klssantri'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdatesantriRequest $request, santri $santri)
     {
         $request->validate([
-            'nis' => 'required|unique:santris,nis,' . $santri->id,
+            'nis' => 'required|numeric|min:0|unique:santris,nis,' . $santri->id,
             'nama' => 'required|unique:santris,nama,' . $santri->id,
-            'kelas_id' => 'required',
+            'klssantri_id' => 'required',
             'alamat' => 'required',
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'jns_kelamin' => 'required',
         ], [
             'nis.required' => 'Kolom NIS wajib diisi.',
+            'nis.numeric' => 'NIS harus berupa angka',
+            'nis.min' => 'NIS tidak boleh MIN-',
             'nis.unique' => ' sudah NIS digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => ' sudah NAMA digunakan.',
-            'kelas_id.required' => 'Kolom KELAS wajib diisi.',
+            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
-            'ttl.required' => 'Kolom wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'jns_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
         ]);
         $santri->update([
             'nis' => $request->input('nis'),
             'nama' => $request->input('nama'),
-            'kelas_id' => $request->input('kelas_id'),
+            'klssantri_id' => $request->input('klssantri_id'),
             'alamat' => $request->input('alamat'),
             'ttl' => $request->input('ttl'),
             'jns_kelamin' => $request->input('jns_kelamin'),
 
         ]);
 
-        return redirect()->route('santri.index')->with('success', 'SANTRI berhasil diupdate');
+        return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIUPDATE');
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(santri $santri)
     {
+        if ($santri->kelulusan ()->exists()) {
+            return redirect()->route('santri.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
+        }
         $santri->delete();
-        return redirect()->route('santri.index')->with('success', 'SANTRI berhasil dihapus');
-
+        return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIHAPUS');
     }
 }

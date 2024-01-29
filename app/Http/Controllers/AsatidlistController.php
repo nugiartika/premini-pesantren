@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asatidlist;
+use Carbon\Carbon;
 use App\Http\Requests\StoreAsatidlistRequest;
 use App\Http\Requests\UpdateAsatidlistRequest;
 use Illuminate\Support\Facades\Storage;
@@ -29,18 +30,22 @@ class AsatidlistController extends Controller
     public function store(StoreAsatidlistRequest $request)
     {
         $request->validate([
-            'nip' => 'required|unique:asatidlists,nip',
+            'nip' => 'required|numeric|min:0|unique:stafs,nip',
             'nama' => 'required|unique:asatidlists,nama',
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
+            'nip.numeric' => 'NIP harus berupa angka',
+            'nip.min' => 'NIP tidak boleh MIN-',
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
-            'ttl.required' => 'Kolom ttl wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
@@ -60,7 +65,7 @@ class AsatidlistController extends Controller
             'foto' => $path,
         ]);
 
-        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID berhasil ditambahkan');
+        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN ');
 
     }
 
@@ -81,18 +86,22 @@ class AsatidlistController extends Controller
     public function update(UpdateAsatidlistRequest $request, Asatidlist $asatidlist)
     {
         $request->validate([
-            'nip' => 'required|unique:asatidlists,nip,' . $asatidlist->id,
+            'nip' => 'required|numeric|min:0|unique:asatidlists,nip,' . $asatidlist->id,
             'nama' => 'required|unique:asatidlists,nama,' . $asatidlist->id,
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
+            'nip.numeric' => 'NIP harus berupa angka',
+            'nip.min' => 'NIP tidak boleh MIN-',
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
-            'ttl.required' => 'Kolom ttl wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
@@ -100,10 +109,11 @@ class AsatidlistController extends Controller
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
+
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = $foto->store('images', 'public');
-            $staf->update(['foto' => $path]);
+            $asatidlist->update(['foto' => $path]);
         }
 
         $asatidlist->update([
@@ -115,14 +125,17 @@ class AsatidlistController extends Controller
             'foto' => $path,
         ]);
 
-        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID berhasil diupdate');
+        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DIUPDATE');
 
     }
 
 
     public function destroy(Asatidlist $asatidlist)
     {
+        if ($asatidlist->klssantri ()->exists()|| $asatidlist->asatid()->exists()) {
+            return redirect()->route('asatidlist.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
+        }
         $asatidlist->delete();
-        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID berhasil dihapus');
+        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DIHAPUS');
     }
 }

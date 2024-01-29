@@ -32,7 +32,6 @@ class RolePermissionSeeder extends Seeder
             $rolePenulis->givePermissionTo('edit-tulisan');
             $rolePenulis->givePermissionTo('hapus-tulisan');
         } catch (\Exception $e) {
-            // Log atau cetak pesan kesalahan untuk debugging
             echo "Seeder gagal: " . $e->getMessage() . "\n";
         }
     }

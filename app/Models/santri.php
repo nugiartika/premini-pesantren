@@ -11,15 +11,17 @@ class santri extends Model
     protected $fillable = [
         'nis',
         'nama',
-        'kelas_id',
+        'klssantri_id',
         'alamat',
         'ttl',
         'jns_kelamin'
     ];
-
-
-    public function kelas()
+    public function klssantri()
     {
-        return $this->belongsTo(kelas::class, 'kelas_id');
+        return $this->belongsTo(Klssantri::class);
+    }
+    public function kelulusan()
+    {
+        return $this->hasMany(Kelulusan::class);
     }
 }

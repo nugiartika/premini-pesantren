@@ -11,9 +11,14 @@ class mapel extends Model
     protected $fillable = [
         'nama'
     ];
-    
+
     public function asatid()
     {
         return $this->hasMany(Asatid::class);
     }
+    public function kelulusan()
+    {
+        return $this->hasMany(Kelulusan::class);
+    }
+   
 }

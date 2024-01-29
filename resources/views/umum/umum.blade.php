@@ -35,15 +35,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
-                        </button>
+                                <i class="fas fa-plus me-1"></i>TAMBAH
+                            </button>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped border-primary">
-                            <thead class="table-dark">
+                        <table class="table table-bordered table-striped border-primary table-hover">
+                            <thead class="table-primary">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">JUDUL PENGUMUMAN</th>
@@ -56,18 +56,18 @@
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->judul_pengumuman }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('D MMMM YYYY') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('D-MMMM-YYYY') }}</td>
 
 
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('umum.destroy', ['umum' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -93,7 +93,7 @@
 
                                 <div class="mb-3">
                                     <label for="judul_pengumuman" class="form-label">JUDUL PENGUMUMAN</label>
-                                    <input type="text" class="form-control @error('judul_pengumuman') is-invalid @enderror" id="judul_pengumuman" name="judul_pengumuman">
+                                    <input type="text" class="form-control @error('judul_pengumuman') is-invalid @enderror" id="judul_pengumuman" name="judul_pengumuman" value="{{ old('judul_pengumuman') }}">
                                     @error('judul_pengumuman')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -142,7 +142,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_judul_pengumuman" class="form-label">JUDUL PENGUMUMAN</label>
-                                        <input type="text" class="form-control @error('judul_pengumuman') is-invalid @enderror" id="edit_judul_pengumuman" name="nip" value="{{ old('judul_pengumuman', $item->judul_pengumuman) }}">
+                                        <input type="text" class="form-control @error('judul_pengumuman') is-invalid @enderror" id="edit_judul_pengumuman" name="judul_pengumuman" value="{{ old('judul_pengumuman', $item->judul_pengumuman) }}">
                                         @error('judul_pengumuman')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -152,7 +152,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_tanggal" class="form-label">TANGGAL</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" max="{{ now()->toDateString() }}" value="{{ old('tanggal', $item->tanggal) }}" required>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" max="{{ now()->toDateString() }}" value="{{ old('tanggal', $item->tanggal) }}">
                                         @error('tanggal')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

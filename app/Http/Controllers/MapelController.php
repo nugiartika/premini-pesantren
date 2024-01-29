@@ -43,7 +43,7 @@ class MapelController extends Controller
             'nama' => $request->input('nama'),
         ]);
 
-        return redirect()->route('mapel.index')->with('success', 'MAPEL berhasil ditambahkan');
+        return redirect()->route('mapel.index')->with('success', 'MAPEL BERHASIL DITAMBAHKAN');
 
     }
 
@@ -80,7 +80,7 @@ class MapelController extends Controller
         $mapel->update([
             'nama' => $request->input('nama'),
         ]);
-        return redirect()->route('mapel.index')->with('success', 'MAPEL berhasil diupdate');
+        return redirect()->route('mapel.index')->with('success', 'MAPEL BERHASIL DIUPDATE');
 
     }
 
@@ -89,7 +89,10 @@ class MapelController extends Controller
      */
     public function destroy(mapel $mapel)
     {
+        if ($mapel->kelulusan()->exists() || $mapel->asatid()->exists()) {
+            return redirect()->route('mapel.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
+        }
         $mapel->delete();
-        return redirect()->route('mapel.index')->with('success', 'MAPEL berhasil dihapus');
+        return redirect()->route('mapel.index')->with('success', 'MAPEL BERHASIL DIHAPUS');
     }
 }

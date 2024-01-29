@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Kategori;
+use Carbon\Carbon;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
-use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -34,14 +34,26 @@ class BeritaController extends Controller
     public function store(StoreBeritaRequest $request)
     {
         $request->validate([
-            'judul_berita' => 'required',
+            'judul_berita' => 'required|unique:beritas,judul_berita',
             'slug'  => 'required',
             'kategori_id' => 'required',
-            'tanggal' => 'required',
+            'tanggal' => 'required|date|after:yesterday',
             'user_posting' => 'required',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
+            'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
+            'slug.required' => 'Kolom SLUG wajib diisi.',
+            'kategori_id.unique' => 'KATEGORI sudah digunakan.',
+            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
+            'tanggal.after' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
+            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
+            'foto.required' => 'Kolom FOTO  wajib diisi.',
+            'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
+            'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
-
 
         $foto = $request->file('foto');
         $path = Storage::disk('public')->put('images', $foto);
@@ -55,10 +67,12 @@ class BeritaController extends Controller
             'sampul' => $path,
         ]);
 
-        return redirect()->route('berita.index')->with('success', 'Berhasil menambahkan data');
+        return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
     }
 
-
+    /**
+     * Display the specified resource.
+     */
     public function show(Berita $berita)
     {
         //
@@ -80,12 +94,25 @@ class BeritaController extends Controller
     public function update(UpdateBeritaRequest $request, Berita $berita)
     {
         $request->validate([
-            'judul_berita' => 'required',
+            'judul_berita' => 'required|unique:beritas,judul_berita,' . $berita->id,
             'slug'  => 'required',
-            'kategori_id'  => 'required',
-            'tanggal' => 'required',
+            'kategori_id' => 'required',
+            'tanggal' => 'required|date|after_or_equal:today',
             'user_posting' => 'required',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
+            'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
+            'slug.required' => 'Kolom SLUG wajib diisi.',
+            'kategori_id.unique' => 'KATEGORI sudah digunakan.',
+            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
+            'tanggal.after_or_equal' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
+            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
+            'foto.required' => 'Kolom FOTO  wajib diisi.',
+            'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
+            'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -103,7 +130,7 @@ class BeritaController extends Controller
             'sampul' => $path,
         ]);
 
-        return redirect()->route('berita.index')->with('success', 'Berhasil mengubah data');
+        return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');
     }
 
     /**
@@ -112,6 +139,6 @@ class BeritaController extends Controller
     public function destroy(Berita $berita)
     {
         $berita->delete();
-        return redirect()->route('berita.index')->with('success', 'BERITA berhasil dihapus');
+        return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIHAPUS');
     }
 }

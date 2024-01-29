@@ -35,9 +35,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
+                                <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
@@ -58,13 +58,13 @@
 
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('mapel.destroy', ['mapel' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -90,7 +90,7 @@
 
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">NAMA</label>
-                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama">
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -124,7 +124,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_nama" class="form-label">NAMA</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nip" value="{{ old('nama', $item->nama) }}">
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
                                         @error('nama')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

@@ -46,7 +46,7 @@ class AsatidController extends Controller
             'mapel_id' => $request->input('mapel_id'),
         ]);
 
-        return redirect()->route('asatid.index')->with('success', 'ASATID berhasil ditambahkan');
+        return redirect()->route('asatid.index')->with('success', 'ASATID BERHASIL DITAMBAHKAN');
 
     }
 
@@ -77,13 +77,13 @@ class AsatidController extends Controller
             'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
             'mapel_id.unique' => ' MAPEL sudah digunakan.',
         ]);
-        return redirect()->route('asatid.index')->with('success', 'ASATID berhasil diupdate');
+        return redirect()->route('asatid.index')->with('success', 'ASATID BERHASIL DIUPDATE');
     }
 
 
     public function destroy(Asatid $asatid)
     {
         $asatid->delete();
-        return redirect()->route('asatid.index')->with('success', 'ASATID berhasil dihapus');
+        return redirect()->route('asatid.index')->with('success', 'ASATID BERHASIL DIHAPUS');
     }
 }

@@ -38,8 +38,8 @@ class UmumController extends Controller
         ], [
             'judul_pengumuman.required' => 'Kolom JUDUL PENGUMUMAN wajib diisi.',
             'judul_pengumuman.unique' => 'JUDUL PENGUMUMAN sudah digunakan.',
-            'tanggal.required' => 'Kolom TANGGAL  wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL  harus berupa tanggal.',
+            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
             'tanggal.after_or_equal' => 'Kolom TANGGAL harus setelah atau sama dengan tanggal sekarang.',
         ]);
 
@@ -48,7 +48,7 @@ class UmumController extends Controller
             'tanggal' => $request->input('tanggal'),
         ]);
 
-        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM berhasil ditambahkan');
+        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM BERHASIL DITAMBAHKAN');
 
     }
 
@@ -75,7 +75,7 @@ class UmumController extends Controller
     public function update(UpdateUmumRequest $request, Umum $umum)
     {
         $request->validate([
-            'judul_pengumuman' => 'required|unique:umums,judul_pengumuman',
+            'judul_pengumuman' => 'required|unique:umums,judul_pengumuman,' . $umum->id,
             'tanggal' => 'required|date|after_or_equal:today',
         ], [
             'judul_pengumuman.required' => 'Kolom JUDUL PENGUMUMAN wajib diisi.',
@@ -88,7 +88,7 @@ class UmumController extends Controller
             'judul_pengumuman' => $request->input('judul_pengumuman'),
             'tanggal' => $request->input('tanggal'),
         ]);
-        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM berhasil diupdate');
+        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM BERHASIL DIUPDATE');
 
     }
 
@@ -98,6 +98,6 @@ class UmumController extends Controller
     public function destroy(Umum $umum)
     {
         $umum->delete();
-        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM berhasil dihapus');
+        return redirect()->route('umum.index')->with('success', 'PENGUMUMAN UMUM BERHASIL DIHAPUS');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\staf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,21 +31,26 @@ class StafController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|unique:stafs,nip',
+            'nip' => 'required|numeric|min:0|unique:stafs,nip',
             'nama' => 'required|unique:stafs,nama',
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
             'jabatan' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
+            'nip.numeric' => 'NIP harus berupa angka',
+            'nip.min' => 'NIP tidak boleh MIN-',
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
-            'ttl.required' => 'Kolom ttl wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
+            'jabatan.required' => 'Kolom JABATAN wajib diisi.',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -63,7 +69,7 @@ class StafController extends Controller
             'foto' => $path,
         ]);
 
-        return redirect()->route('staf.index')->with('success', 'STAF berhasil ditambahkan');
+        return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DITAMBAHKAN');
 
     }
 
@@ -90,21 +96,26 @@ class StafController extends Controller
     public function update(Request $request, staf $staf)
     {
         $request->validate([
-            'nip' => 'required|unique:stafs,nip,' . $staf->id,
+            'nip' => 'required|numeric|min:0|unique:stafs,nip,' . $staf->id,
             'nama' => 'required|unique:stafs,nama,' . $staf->id,
-            'ttl' => 'required',
+            'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
             'jabatan' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
+            'nip.numeric' => 'NIP harus berupa angka',
+            'nip.min' => 'NIP tidak boleh MIN-',
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
-            'ttl.required' => 'Kolom ttl wajib diisi.',
+            'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
+            'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
+            'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
+            'jabatan.required' => 'Kolom JABATAN wajib diisi.',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -126,7 +137,7 @@ class StafController extends Controller
             'foto' => $path,
         ]);
 
-        return redirect()->route('staf.index')->with('success', 'STAF berhasil diupdate');
+        return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIUPDATE');
     }
 
     /**
@@ -135,6 +146,6 @@ class StafController extends Controller
     public function destroy(staf $staf)
     {
         $staf->delete();
-        return redirect()->route('staf.index')->with('success', 'STAF berhasil dihapus');
+        return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIHAPUS');
     }
 }
