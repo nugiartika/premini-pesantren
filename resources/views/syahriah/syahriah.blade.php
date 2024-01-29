@@ -35,9 +35,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                            TAMBAH
+                                <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
@@ -46,9 +46,9 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
-                                    <th>NIS</th>
-                                    <th>NAMA</th>
-                                    <th>KELAS</th>
+                                    <th scope="col" class="text-center">NIS</th>
+                                    <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">KELAS</th>
                                     <th scope="col" class="text-center">AKSI</th>
                                 </tr>
                             </thead>
@@ -56,18 +56,19 @@
                                 @foreach ($syahriah as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td>{{ ($item->santri) ? $item->santri->nis : '' }}</td>
-                                        <td>{{ ($item->santri) ? $item->santri->nama : '' }}</td>
-                                        <td>{{ ($item->santri) ? $item->santri->klssantri->nama_kelas : '' }}</td>
-                                            <td class="text-center">
+                                        <td class="text-center">{{ optional($item->santri)->nis }}</td>
+                                        <td class="text-center">{{ optional($item->santri)->nama }}</td>
+                                        <td class="text-center">{{ optional($item->klssantri)->nama_kelas }}</td>
+
+                                        <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                Edit
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('syahriah.destroy', ['syahriah' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    Hapus
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -88,15 +89,15 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('syahriah.store') }}" method="POST">
+                            <form action="{{ route('syahriah.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+
                                 <div class="mb-3">
-                                    <label for="santri_id">NAMA</label>
                                     <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" aria-label="Default select example">
                                         <option value="" selected>PILIH NAMA</option>
-                                        @foreach ($santri as $san)
-                                            <option value="{{ $san->id }}" {{ old('santri_id') == $san->id ? 'selected' : '' }}>
-                                                {{ $san->nama }}
+                                        @foreach ($santri as $kat)
+                                            <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
+                                                {{ $kat->nama }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -106,9 +107,26 @@
                                         </span>
                                     @enderror
                                 </div>
+
+                                <div class="mb-3">
+                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" name="klssantri_id" aria-label="Default select example">
+                                        <option value="" selected>PILIH KELAS</option>
+                                        @foreach ($klssantri as $kat)
+                                            <option value="{{ $kat->id }}" {{ old('klssantri_id') == $kat->id ? 'selected' : '' }}>
+                                                {{ $kat->nama_kelas }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('klssantri_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                             </form>
                         </div>
@@ -131,12 +149,12 @@
                                     @method('PUT')
 
                                     <div class="mb-3">
-                                        <label for="edit_santri_id">NAMA</label>
-                                        <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" id="edit_santri_id" aria-label="Default select example">
+                                        <label for="edit_santri_id" class="form-label">NAMA</label>
+                                        <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id" value="{{ old('santri_id', $item->santri_id) }}">
                                             <option value="" selected>PILIH NAMA</option>
-                                            @foreach ($santri as $san)
-                                                <option value="{{ $san->id }}" {{ $item->santri_id == $san->id ? 'selected' : '' }}>
-                                                    {{ $san->nama }}
+                                            @foreach ($santri as $kat)
+                                                <option value="{{ $kat->id }}" {{ $item->santri_id == $kat->id ? 'selected' : '' }}>
+                                                    {{ $kat->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -146,7 +164,25 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+
+                                    <div class="mb-3">
+                                        <label for="edit_klssantri_id" class="form-label">KELAS</label>
+                                        <select class="form-select @error('klssantri_id') is-invalid @enderror" id="edit_klssantri_id" name="klssantri_id" value="{{ old('klssantri_id', $item->klssantri_id) }}">
+                                            <option value="" selected>PILIH KELAS</option>
+                                            @foreach ($klssantri as $kat)
+                                                <option value="{{ $kat->id }}" {{ $item->klssantri_id == $kat->id ? 'selected' : '' }}>
+                                                    {{ $kat->nama_kelas }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('klssantri_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -156,8 +192,6 @@
                     </div>
                 </div>
             @endforeach
-
-        </table>
+        </div>
     </div>
-
 @endsection

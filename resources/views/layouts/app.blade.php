@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -87,7 +88,7 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell me-1"></i> PENGUMUMAN
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -146,5 +147,6 @@
             @yield('content')
         </main>
     </div>
+
 </body>
 </html>

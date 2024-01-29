@@ -30,8 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Auth::routes();
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 
 //STAF
 // Index Page
@@ -135,39 +136,29 @@ Route::delete('/gallerie/{gallerie}', [GallerieController::class, 'destroy'])->n
 
 
 Route::resource('klssantri', KlssantriController::class);
+
 Route::resource('syahriah', SyahriahController::class);
 
-// PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
-// GALLERiE
-//  Route::resource('gallerie', GallerieController::class);
-// KELAS
-        // Route::resource('/kelas', KelasController::class);
 
 
-
-    Route::middleware('admin')->group(function(){
-
-        Route::get('admin', function(){
-            return 'ini cuma bisa diakses oleh admin';
-        })->name('admin');
-
-    });
-
-    Route::middleware('user')->group(function(){
-
-        Route::get('user', function(){
-            return 'ini cuma bisa diakses oleh user';
-        });
-
-    });
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-    // });
-
-
-
-
-
+Route::middleware(['admin'])->group(function () {
+    Route::get('admin', function () {
+        return 'INI CUMA BISA DIAKSES OLEH ADMIN';
+    })->name('admin');
 });
+
+Route::middleware(['user'])->group(function () {
+    Route::get('user', function () {
+        return 'INI CUMA BISA DIAKSES OLEH USER';
+    });
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');// });
+
+
+
+
+
+// });
 

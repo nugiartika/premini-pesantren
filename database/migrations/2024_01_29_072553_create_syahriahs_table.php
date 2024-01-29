@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('syahriahs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('santri_id')->constrained()->onDelete('restrict');
+            $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('syahriahs');

@@ -8,17 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class syahriah extends Model
 {
     use HasFactory;
-
-    protected $table = 'syahriahs';
-    protected $primaryKey = 'id';
-    protected $guarded = [];
-
-    public $incrementing = true;
-    public $timestamps = true;
+    protected $fillable = [
+        'santri_id',
+        'klssantri_id'
+    ];
 
     public function santri()
     {
-        return $this->belongsTo(santri::class);
+        return $this->belongsTo(Santri::class);
+    }
+    public function klssantri()
+    {
+        return $this->belongsTo(Klssantri::class);
     }
 
 }
