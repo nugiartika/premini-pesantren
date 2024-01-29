@@ -35,9 +35,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                                <i class="fas fa-plus me-1"></i>TAMBAH
+                            TAMBAH
                         </button>
                     </div>
 
@@ -46,9 +46,9 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
-                                    <th scope="col" class="text-center">NIS</th>
-                                    <th scope="col" class="text-center">NAMA</th>
-                                    <th scope="col" class="text-center">KELAS</th>
+                                    <th>NIS</th>
+                                    <th>NAMA</th>
+                                    <th>KELAS</th>
                                     <th scope="col" class="text-center">AKSI</th>
                                 </tr>
                             </thead>
@@ -56,18 +56,18 @@
                                 @foreach ($syahriah as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ ($item->santri)->nis }}</td>
-                                        <td class="text-center">{{ ($item->santri)->nama }}</td>
-                                        <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
-                                        <td class="text-center">
+                                        <td>{{ ($item->santri) ? $item->santri->nis : '' }}</td>
+                                        <td>{{ ($item->santri) ? $item->santri->nama : '' }}</td>
+                                        <td>{{ ($item->santri) ? $item->santri->klssantri->nama_kelas : '' }}</td>
+                                            <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                Edit
                                             </button>
-                                            <form action="{{ route('santri.destroy', ['santri' => $item->id]) }}" method="POST" style="display:inline">
+                                            <form action="{{ route('syahriah.destroy', ['syahriah' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    <i class="fa-solid fa-trash-can"></i>
+                                                    Hapus
                                                 </button>
                                             </form>
                                         </td>
@@ -90,13 +90,13 @@
                         <div class="modal-body">
                             <form action="{{ route('syahriah.store') }}" method="POST">
                                 @csrf
-
                                 <div class="mb-3">
+                                    <label for="santri_id">NAMA</label>
                                     <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" aria-label="Default select example">
-                                        <option value="" selected>PILIH KELAS</option>
-                                        @foreach ($santri as $kat)
-                                            <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
-                                                {{ $kat->nama }}
+                                        <option value="" selected>PILIH NAMA</option>
+                                        @foreach ($santri as $san)
+                                            <option value="{{ $san->id }}" {{ old('santri_id') == $san->id ? 'selected' : '' }}>
+                                                {{ $san->nama }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -117,7 +117,7 @@
             </div>
 
             <!-- Modal Edit di sini -->
-            {{-- @foreach ($santri as $item)
+            @foreach ($syahriah as $item)
                 <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -126,37 +126,17 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('santri.update', ['santri' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('syahriah.update', ['syahriah' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
                                     <div class="mb-3">
-                                        <label for="edit_nis" class="form-label">NIS</label>
-                                        <input type="text" class="form-control @error('nis') is-invalid @enderror" id="edit_nis" name="nis" value="{{ old('nis', $item->nis) }}">
-                                        @error('nis')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_nama" class="form-label">NAMA</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
-                                        @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_santri_id" class="form-label">KELAS</label>
-                                        <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id" value="{{ old('santri_id', $item->santri_id) }}">
-                                            <option value="" selected>PILIH KELAS</option>
-                                            @foreach ($klssantri as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->santri_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama_kelas }}
+                                        <label for="edit_santri_id">NAMA</label>
+                                        <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" id="edit_santri_id" aria-label="Default select example">
+                                            <option value="" selected>PILIH NAMA</option>
+                                            @foreach ($santri as $san)
+                                                <option value="{{ $san->id }}" {{ $item->santri_id == $san->id ? 'selected' : '' }}>
+                                                    {{ $san->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -166,51 +146,18 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_alamat" class="form-label">ALAMAT</label>
-                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $item->alamat) }}">
-                                        @error('alamat')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_ttl" class="form-label">TANGGAL LAHIR</label>
-                                        <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="ttl" max="{{ now()->toDateString() }}" value="{{ old('ttl', $item->ttl) }}">
-                                        @error('ttl')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_jns_kelamin" class="form-label">JENIS KELAMIN</label>
-                                        <select class="form-select @error('jns_kelamin') is-invalid @enderror" id="edit_jns_kelamin" name="jns_kelamin">
-                                            <option value="" selected>PILIH JENIS KELAMIN</option>
-                                            <option value="Laki-Laki" {{ old('jns_kelamin', $item->jns_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
-                                            <option value="Perempuan" {{ old('jns_kelamin', $item->jns_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-                                        </select>
-                                        @error('jns_kelamin')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach--}}
-        </div>
+            @endforeach
+
+        </table>
     </div>
+
 @endsection

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SyahriahRequest;
+use App\Models\kelas;
 use App\Models\santri;
 use App\Models\syahriah;
 use Illuminate\Http\Request;
@@ -14,6 +16,7 @@ class SyahriahController extends Controller
     public function index()
     {
         $syahriah = syahriah::all();
+        // $kelas = kelas::all();
         $santri = santri::all();
         return view('syahriah.syahriah', compact('syahriah','santri'));
     }
@@ -23,28 +26,25 @@ class SyahriahController extends Controller
      */
     public function create()
     {
-        $syahriah = syahriah::all();
+        // $syahriah = syahriah::all();
+        // $kelas = kelas::all();
         $santri = santri::all();
-        return view('syahriah.syahriah', compact('santri','syahriah'));
+        return view('syahriah.create', compact('santri'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SyahriahRequest $request)
     {
-      $request->validate([
-        'santri_id' => 'required',
-      ]);
+        $request->validate([
+            'santri_id' => 'required',
+        ]);
 
-      syahriah::create([
-        'santri_id' => $request->input('santri_id'),
-      ]);
-
-    // syahriah::create($request);
-
-
-      return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH BERHASIL DITAMBAHKAN');
+        syahriah::create([
+            'santri_id' => $request->input('santri_id'),
+        ]);
+        return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH berhasil ditambahkan');
     }
 
     /**
@@ -61,8 +61,7 @@ class SyahriahController extends Controller
     public function edit(syahriah $syahriah)
     {
         $syahriah = syahriah::all();
-        $santri = santri::all();
-        return view('syahriah.syahriah', compact('santri','syahriah'));
+        return view('syahriah.syahriah', compact('syahriah'));
     }
 
     /**
@@ -72,15 +71,15 @@ class SyahriahController extends Controller
     {
         $request->validate([
             'santri_id' => 'required',
-          ]);
+        ]);
 
         $syahriah->update([
             'santri_id' => $request->input('santri_id'),
-          ]);
+        ]);
+        // $syahriah->update($request->all());
 
-          return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH BERHASIL DIUPDATE');
-
-        }
+        return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH berhasil diupdate');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -88,6 +87,6 @@ class SyahriahController extends Controller
     public function destroy(syahriah $syahriah)
     {
         $syahriah->delete();
-        return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH BERHASIL DIHAPUS');
+        return redirect()->route('syahriah.index')->with('success', 'SYAHRIAH berhasil dihapus');
     }
 }
