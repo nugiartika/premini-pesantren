@@ -12,6 +12,7 @@ use App\Http\Controllers\SantriController;
 use App\Http\Controllers\KlssantriController;
 use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\SyahriahController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
 //STAF
 // Index Page
@@ -132,16 +133,20 @@ Route::put('/gallerie{gallerie}', [GallerieController::class, 'update'])->name('
 // Delete
 Route::delete('/gallerie/{gallerie}', [GallerieController::class, 'destroy'])->name('gallerie.destroy');
 
+
+Route::resource('klssantri', KlssantriController::class);
+Route::resource('syahriah', SyahriahController::class);
+
 // PENDAFTARAN
 Route::resource('/pendaftaran', PendaftaranController::class);
 // GALLERiE
 //  Route::resource('gallerie', GallerieController::class);
 // KELAS
+        // Route::resource('/kelas', KelasController::class);
 
 
 
     Route::middleware('admin')->group(function(){
-        Route::resource('/kelas', KelasController::class);
 
         Route::get('admin', function(){
             return 'ini cuma bisa diakses oleh admin';
@@ -164,5 +169,5 @@ Route::resource('/pendaftaran', PendaftaranController::class);
 
 
 
-// });
+});
 

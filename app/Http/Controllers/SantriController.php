@@ -13,16 +13,16 @@ class SantriController extends Controller
 
     public function index()
     {
-        $santri = Santri::all();
-        $klssantri = Klssantri::all();
+        $santri = santri::all();
+        $klssantri = klssantri::all();
         return view('santri.santri', compact('santri','klssantri'));
     }
 
 
     public function create()
     {
-        $santri = Santri::all();
-        $klssantri = Klssantri::all();
+        $santri = santri::all();
+        $klssantri = klssantri::all();
         return view('santri.santri', compact('santri','klssantri'));
     }
 
@@ -72,8 +72,8 @@ class SantriController extends Controller
 
     public function edit(santri $santri)
     {
-        $santri = Santri::all();
-        $klssantri = Klssantri::all();
+        $santri = santri::all();
+        $klssantri = klssantri::all();
         return view('santri.santri', compact('santri','klssantri'));
     }
 
