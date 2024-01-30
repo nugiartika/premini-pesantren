@@ -19,6 +19,7 @@ class AdminMiddleware
             return $next($request);
         }else{
             return to_route('home');
+            // return redirect()->route('userdashboard.index');
         }
     }
 }

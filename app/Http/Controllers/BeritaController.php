@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Carbon\Carbon;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -118,7 +119,7 @@ class BeritaController extends Controller
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = $foto->store('images', 'public');
-            $staf->update(['foto' => $path]);
+            // $staf->update(['foto' => $path]);
         }
 
         $berita->update([

@@ -35,7 +35,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
@@ -214,7 +214,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_nama" class="form-label">NAMA</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nip" value="{{ old('nama', $item->nama) }}">
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
                                         @error('nama')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -234,7 +234,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_alamat" class="form-label">ALAMAT</label>
-                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="nip" value="{{ old('alamat', $item->alamat) }}">
+                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $item->alamat) }}">
                                         @error('alamat')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -244,7 +244,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_pendidikan" class="form-label">PENDIDIDKAN</label>
-                                        <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="edit_pendidikan" name="nip" value="{{ old('pendidikan', $item->pendidikan) }}">
+                                        <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="edit_pendidikan" name="pendidikan" value="{{ old('pendidikan', $item->pendidikan) }}">
                                         @error('pendidikan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -254,7 +254,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_jabatan" class="form-label">JABATAN</label>
-                                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="edit_jabatan" name="nip" value="{{ old('jabatan', $item->jabatan) }}">
+                                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="edit_jabatan" name="jabatan" value="{{ old('jabatan', $item->jabatan) }}">
                                         @error('jabatan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -279,7 +279,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                             <div class="modal-footer">

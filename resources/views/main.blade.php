@@ -150,8 +150,8 @@
                            <!-- Sidebar -->
                            <div class="bg-light p-3">
                                <ul class="list-unstyled">
-                                   <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                                   <li><a href="{{ route('users.index') }}">Users</a></li>
+                                   <li><a href="te('dashboard') }}">Dashboard</a></li>
+                                   <li><a href="('users.index') }}">Users</a></li>
                                    <!-- Tambahkan item menu lainnya sesuai kebutuhan -->
                                </ul>
                            </div>

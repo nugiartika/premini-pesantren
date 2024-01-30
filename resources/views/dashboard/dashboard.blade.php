@@ -38,7 +38,9 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            margin: 20px; /* Menambahkan margin agar lebih terlihat rapi */
+            margin: 20px;
+            padding-left: 20%;
+            padding-right: 20%;
         }
 
         .card-link {
@@ -79,83 +81,96 @@
             line-height: 1.4;
         }
 
-        /* Menambahkan class .full-height untuk tinggi maksimum kartu */
-        .full-height {
-            height: 100%; /* Mengisi tinggi sesuai tinggi maksimum */
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+        .no-bootstrap-table tr {
+        background-color: transparent;
+    }
     </style>
 
-
         <section>
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Staf</h2>
-                    <p>Jumlah Staf: {{ $jumlahStaf }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Asatid</h2>
-                    <p>Jumlah Asatid: {{ $jumlahAsatid }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Santri</h2>
-                    <p>Jumlah Santri: {{ $jumlahSantri }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Kelas</h2>
-                    <p>Jumlah Kelas: {{ $jumlahKelas }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Galery</h2>
-                    <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Berita</h2>
-                    <p>Jumlah Berita: {{ $jumlahBerita }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Kelulusan</h2>
-                    <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
-                </div>
-            </a>
-
-            <a href="room.php" class="card-link">
-                <div class="card">
-                    <h2>Pengumuman</h2>
-                    <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
-                </div>
-            </a>
+            <table class="no-bootstrap-table" >
+                <tr>
+                    <td>
+                        <a href="{{ route('staf.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Staf</h2>
+                                <p>Jumlah Staf: {{ $jumlahStaf }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('asatid.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Asatid</h2>
+                                <p>Jumlah Asatid: {{ $jumlahAsatid }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('santri.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Santri</h2>
+                                <p>Jumlah Santri: {{ $jumlahSantri }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('klssantri.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Kelas</h2>
+                                <p>Jumlah Kelas: {{ $jumlahKelas }}</p>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ route('gallerie.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Galery</h2>
+                                <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('berita.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Berita</h2>
+                                <p>Jumlah Berita: {{ $jumlahBerita }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('kelulusan.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Kelulusan</h2>
+                                <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
+                            </div>
+                        </a>
+                    </td>
+                {{-- </tr>
+                <tr> --}}
+                    <td>
+                        <a href="{{ route('umum.index') }}" class="card-link">
+                            <div class="card">
+                                <h2>Pengumuman</h2>
+                                <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+        </table>
         </section>
-        {{-- <footer> --}}
-            <!-- Footer content -->
-        {{-- </footer> --}}
+
 
 @endsection
 

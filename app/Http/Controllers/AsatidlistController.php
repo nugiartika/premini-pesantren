@@ -91,7 +91,7 @@ class AsatidlistController extends Controller
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
             'nip.numeric' => 'NIP harus berupa angka',
@@ -110,20 +110,22 @@ class AsatidlistController extends Controller
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $path = $foto->store('images', 'public');
-            $asatidlist->update(['foto' => $path]);
-        }
 
-        $asatidlist->update([
-            'nip' => $request->input('nip'),
-            'nama' => $request->input('nama'),
-            'ttl' => $request->input('ttl'),
-            'alamat' => $request->input('alamat'),
-            'pendidikan' => $request->input('pendidikan'),
-            'foto' => $path,
-        ]);
+    $data = [
+        'nip' => $request->input('nip'),
+        'nama' => $request->input('nama'),
+        'ttl' => $request->input('ttl'),
+        'alamat' => $request->input('alamat'),
+        'pendidikan' => $request->input('pendidikan'),
+    ];
+
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto');
+        $path = $foto->store('images', 'public');
+        $data['foto'] = $path;
+    }
+
+    $asatidlist->update($data);
 
         return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DIUPDATE');
 

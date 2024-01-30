@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StafRequest;
 use App\Models\staf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class StafController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StafRequest $request)
     {
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip',
@@ -93,7 +94,7 @@ class StafController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, staf $staf)
+    public function update(StafRequest $request, staf $staf)
     {
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip,' . $staf->id,
@@ -102,7 +103,7 @@ class StafController extends Controller
             'alamat' => 'required',
             'pendidikan' => 'required',
             'jabatan' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
             'nip.numeric' => 'NIP harus berupa angka',
@@ -116,26 +117,28 @@ class StafController extends Controller
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
             'jabatan.required' => 'Kolom JABATAN wajib diisi.',
-            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
+            'foto.image' => 'Kolom FOTO harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $path = $foto->store('images', 'public');
-            $staf->update(['foto' => $path]);
-        }
 
-        $staf->update([
+        $data = [
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
             'ttl' => $request->input('ttl'),
             'alamat' => $request->input('alamat'),
             'pendidikan' => $request->input('pendidikan'),
             'jabatan' => $request->input('jabatan'),
-            'foto' => $path,
-        ]);
+        ];
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $path = $foto->store('images', 'public');
+            $data['foto'] = $path;
+
+        }
+
+        $staf->update($data);
 
         return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIUPDATE');
     }

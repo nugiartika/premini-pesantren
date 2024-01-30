@@ -102,8 +102,9 @@
             </div>
         </div>
     </div>
-iniiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
- <!-- Modal tambah -->
+
+
+    <!-- Modal tambah -->
  <div class="modal" tabindex="-1" id="tambahModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -270,10 +271,11 @@ iniiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
                     <div class="col-md-6">
                         <label for="edit_jenis_kelamin" class="form-label">JENIS KELAMIN</label>
                         <select id="edit_jenis_kelamin" name="jenis_kelamin" class="form-select">
-                            <option value="" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == '' ? 'selected' : '' }}>- Pilih jenis kelamin -</option>
+                            <option value="" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == '' ? '' : 'selected' }}>- Pilih jenis kelamin -</option>
                             <option value="Laki-laki" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="perempuan" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
+
                     </div>
 
                      <div class="mb-3">

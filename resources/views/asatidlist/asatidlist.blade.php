@@ -22,7 +22,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
                             <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
@@ -246,7 +246,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                             <div class="modal-footer">

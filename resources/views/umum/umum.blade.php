@@ -35,7 +35,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                             </button>

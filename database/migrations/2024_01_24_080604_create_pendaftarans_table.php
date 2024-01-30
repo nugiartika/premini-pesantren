@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('sekolah_asal');
             $table->string('telepon_rumah');
             $table->timestamps();
-            iniiiiiiiii
         });
     }
 

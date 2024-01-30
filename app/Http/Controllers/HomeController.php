@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
+use App\Models\Gallerie;
+use App\Models\Umum;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $jumlahGallery = Gallerie::count();
+        $jumlahBerita = Berita::count();
+        // $jumlahKelulusan = Kelulusan::count();
+        $jumlahPengumuman = Umum::count();
+
+        return view('home', [
+            'jumlahGallery' => $jumlahGallery,
+            'jumlahBerita' => $jumlahBerita,
+            // 'jumlahKelulusan' => $jumlahKelulusan,
+            'jumlahPengumuman' => $jumlahPengumuman,
+        ]);
     }
 }
