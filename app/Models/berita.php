@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Kelulusan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +20,9 @@ class Berita extends Model
     public function Kategori()
     {
         return $this->belongsTo(Kategori::class);
+    }
+    public static function getJumlahKelulusan()
+    {
+        return Kelulusan::count();
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SyahriahController;
+use App\Http\Controllers\UserdashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -25,7 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('staf', StafController::class);
@@ -59,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
 
         Route::middleware('admin')->group(function(){
             Route::resource('dashboard', DashboardController::class);
@@ -69,20 +73,17 @@ Route::middleware(['auth'])->group(function () {
 
         });
 
-        Route::middleware('user')->group(function(){
-            Route::resource('home', HomeController::class);
-
-            // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-            // Route::get('user', function(){
-            //     return 'ini cuma bisa diakses oleh user';
-            // });
-
-        });
-
-        // });
-ini
-
-
-
-
+Route::middleware(['user'])->group(function () {
+    Route::get('user', function () {
+        return 'INI CUMA BISA DIAKSES OLEH USER';
     });
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');// });
+
+
+
+
+
+});
+

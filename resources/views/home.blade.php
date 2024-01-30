@@ -147,7 +147,7 @@
                     <td>
                         <a href="{{ route('gallerie.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Galery</h2>
+                                <h2><i class="fa-regular fa-image me-1"></i>Galery</h2>
                                 <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
                             </div>
                         </a>
@@ -157,27 +157,27 @@
                     <td>
                         <a href="{{ route('berita.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Berita</h2>
+                                <h2><i class="fas fa-newspaper me-1"></i>Berita</h2>
                                 <p>Jumlah Berita: {{ $jumlahBerita }}</p>
                             </div>
                         </a>
                     </td>
                 {{-- </tr>
                 <tr> --}}
-                    {{-- <td>
+                    <td>
                         <a href="{{ route('kelulusan.index') }}" class="card-link">
                             <div class="card">
                                 <h2>Kelulusan</h2>
                                 <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
                             </div>
                         </a>
-                    </td> --}}
+                    </td>
                 {{-- </tr>
                 <tr> --}}
                     <td>
                         <a href="{{ route('umum.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Pengumuman</h2>
+                                <h2><i class="fas fa-bell me-1"></i>Pengumuman</h2>
                                 <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
                             </div>
                         </a>
