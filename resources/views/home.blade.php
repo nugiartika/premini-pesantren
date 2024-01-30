@@ -96,7 +96,7 @@
             margin: 20px;
             padding-left: 20%;
             padding-right: 20%;
-        }
+            }
 
         .card-link {
             text-decoration: none;
