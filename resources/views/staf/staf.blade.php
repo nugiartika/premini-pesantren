@@ -46,7 +46,7 @@
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIP</th>
                                     <th scope="col" class="text-center">NAMA</th>
-                                    <th scope="col" class="text-center">TANGGAL LAHIR</th>
+                                    <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">PENDIDIKAN</th>
                                     <th scope="col" class="text-center">JABATAN</th>
@@ -60,7 +60,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nip }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
+                                        <td>{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->pendidikan }}</td>
                                         <td class="text-center">{{ $item->jabatan }}</td>
@@ -117,6 +117,16 @@
                                     <label for="nama" class="form-label">NAMA</label>
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
                                     @error('nama')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tempat_lahir" class="form-label">TEMPAT LAHIR</label>
+                                    <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}">
+                                    @error('tempat_lahir')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -216,6 +226,16 @@
                                         <label for="edit_nama" class="form-label">NAMA</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
                                         @error('nama')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_tempat_lahir" class="form-label">TEMPAT LAHIR</label>
+                                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="edit_tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $item->tempat_lahir) }}">
+                                        @error('tempat_lahir')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

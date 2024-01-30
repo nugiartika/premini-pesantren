@@ -28,7 +28,6 @@ class PendaftaranController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|unique:pendaftarans,nama_lengkap',
-            'email' => 'required|unique:pendaftarans,email',
             'jenis_kelamin' => 'required',
             'nik' => 'required|numeric|min:0|unique:pendaftarans,nik',
             'tempat_lahir' => 'required',
@@ -42,8 +41,6 @@ class PendaftaranController extends Controller
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
             'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
-            'email.required' => 'Kolom EMAIL wajib diisi.',
-            'email.unique' => ' sudah EMAIL digunakan.',
             'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.numeric' => 'NIK harus berupa angka',
@@ -66,7 +63,6 @@ class PendaftaranController extends Controller
 
         Pendaftaran::create([
             'nama_lengkap' => $request->input('nama_lengkap'),
-            'email' => $request->input('email'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'nik' => $request->input('nik'),
             'tempat_lahir' => $request->input('tempat_lahir'),
@@ -100,7 +96,6 @@ class PendaftaranController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|unique:pendaftarans,nama_lengkap,' . $pendaftaran->id,
-            'email' => 'required|unique:pendaftarans,email,' . $pendaftaran->id,
             'jenis_kelamin' => 'required',
             'nik' => 'required|numeric|min:0|unique:pendaftarans,nik,' . $pendaftaran->id,
             'tempat_lahir' => 'required',
@@ -114,8 +109,6 @@ class PendaftaranController extends Controller
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
             'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
-            'email.required' => 'Kolom EMAIL wajib diisi.',
-            'email.unique' => ' sudah EMAIL digunakan.',
             'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.numeric' => 'NIK harus berupa angka',
@@ -139,7 +132,6 @@ class PendaftaranController extends Controller
 
         $pendaftaran->update([
             'nama_lengkap' => $request->input('nama_lengkap'),
-            'email' => $request->input('email'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'nik' => $request->input('nik'),
             'tempat_lahir' => $request->input('tempat_lahir'),
@@ -159,6 +151,9 @@ class PendaftaranController extends Controller
 
     public function destroy(pendaftaran $pendaftaran)
     {
+        if ($pendaftaran->santri ()->exists()) {
+            return redirect()->route('pendaftaran.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
+        }
         $pendaftaran->delete();
         return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIHAPUS');
     }

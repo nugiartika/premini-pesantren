@@ -10,7 +10,6 @@ class pendaftaran extends Model
     use HasFactory;
     protected $fillable = [
         'nama_lengkap',
-        'email',
         'jenis_kelamin',
         'nik',
         'tempat_lahir',
@@ -22,4 +21,8 @@ class pendaftaran extends Model
         'sekolah_asal',
         'telepon_rumah'
     ];
+    public function santri()
+    {
+        return $this->hasMany(Santri::class);
+    }
 }

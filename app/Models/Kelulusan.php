@@ -11,7 +11,6 @@ class Kelulusan extends Model
     protected $fillable = [
         'santri_id',
         'no_ujian',
-        'klssantri_id',
         'mapel_id',
         'nilai',
         'status'
@@ -24,8 +23,5 @@ class Kelulusan extends Model
     {
         return $this->belongsTo(Santri::class);
     }
-    public function klssantri()
-    {
-        return $this->belongsTo(Klssantri::class);
-    }
+   
 }

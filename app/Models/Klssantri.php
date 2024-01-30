@@ -20,8 +20,5 @@ class Klssantri extends Model
     {
         return $this->hasMany(Santri::class);
     }
-    public function kelulusan()
-    {
-        return $this->hasMany(Kelulusan::class);
-    }
+   
 }

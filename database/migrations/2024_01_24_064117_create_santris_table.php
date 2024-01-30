@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
-            $table->integer('nis');
-            $table->string('nama');
+            $table->string('nis');
+            $table->foreignId('pendaftaran_id')->constrained()->onDelete('restrict');
             $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
-            $table->string('alamat');
-            $table->string('ttl');
-            $table->string('jns_kelamin');
             $table->timestamps();
         });
     }

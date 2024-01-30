@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('nip');
             $table->string('nama');
+            $table->string('tempat_lahir');
             $table->date('ttl');
             $table->string('alamat');
             $table->string('pendidikan');

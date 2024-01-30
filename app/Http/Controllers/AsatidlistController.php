@@ -32,6 +32,7 @@ class AsatidlistController extends Controller
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip',
             'nama' => 'required|unique:asatidlists,nama',
+            'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
@@ -43,6 +44,7 @@ class AsatidlistController extends Controller
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
+            'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
             'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
@@ -59,6 +61,7 @@ class AsatidlistController extends Controller
         Asatidlist::create([
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
             'ttl' => $request->input('ttl'),
             'alamat' => $request->input('alamat'),
             'pendidikan' => $request->input('pendidikan'),
@@ -88,6 +91,7 @@ class AsatidlistController extends Controller
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:asatidlists,nip,' . $asatidlist->id,
             'nama' => 'required|unique:asatidlists,nama,' . $asatidlist->id,
+            'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'pendidikan' => 'required',
@@ -99,6 +103,7 @@ class AsatidlistController extends Controller
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
+            'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
             'ttl.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
@@ -114,6 +119,7 @@ class AsatidlistController extends Controller
     $data = [
         'nip' => $request->input('nip'),
         'nama' => $request->input('nama'),
+        'tempat_lahir' => $request->input('tempat_lahir'),
         'ttl' => $request->input('ttl'),
         'alamat' => $request->input('alamat'),
         'pendidikan' => $request->input('pendidikan'),

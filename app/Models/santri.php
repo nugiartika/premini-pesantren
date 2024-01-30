@@ -10,11 +10,8 @@ class santri extends Model
     use HasFactory;
     protected $fillable = [
         'nis',
-        'nama',
+        'pendaftaran_id',
         'klssantri_id',
-        'alamat',
-        'ttl',
-        'jns_kelamin'
     ];
     public function klssantri()
     {
@@ -27,5 +24,9 @@ class santri extends Model
     public function syahriah()
     {
         return $this->hasMany(Syahriah::class);
+    }
+    public function pendaftaran()
+    {
+        return $this->belongsTo(Pendaftaran::class);
     }
 }

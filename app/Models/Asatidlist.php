@@ -11,6 +11,7 @@ class Asatidlist extends Model
     protected $fillable = [
         'nip',
         'nama',
+        'tempat_lahir',
         'ttl',
         'alamat',
         'pendidikan',

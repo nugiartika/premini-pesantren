@@ -51,7 +51,6 @@
                                         <tr>
                                             <th class="text-center">NO</th>
                                             <th class="text-center">NAMA LENGKAP</th>
-                                            <th class="text-center">EMAIL</th>
                                             <th class="text-center">JENIS KELAMIN</th>
                                             <th class="text-center">NIK</th>
                                             <th class="text-center">TEMPAT & TANGGAL LAHIR</th>
@@ -69,7 +68,6 @@
                                             <tr>
                                                 <td class="text-center">{{ $index + 1 }}</td>
                                                 <td class="text-center">{{ $item->nama_lengkap }}</td>
-                                                <td class="text-center">{{ $item->email }}</td>
                                                 <td class="text-center">{{ $item->jenis_kelamin }}</td>
                                                 <td class="text-center">{{ $item->nik }}</td>
                                                 <td class="text-center">{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->tanggal_lahir)->isoFormat('D-MMMM-YYYY') }}</td>
@@ -102,9 +100,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal tambah -->
+ <!-- Modal tambah -->
  <div class="modal" tabindex="-1" id="tambahModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -120,14 +116,6 @@
                         <label for="nama_lengkap" class="form-label">NAMA LENGKAP</label>
                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
                         @error('nama_lengkap')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">EMAIL</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -252,16 +240,6 @@
                         <label for="edit_nama_lengkap" class="form-label">NAMA LENGKAP</label>
                         <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="edit_nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap', $item->nama_lengkap) }}">
                         @error('nama_lengkap')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_email" class="form-label">EMAIL</label>
-                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="edit_email" name="email" value="{{ old('email', $item->email) }}">
-                        @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

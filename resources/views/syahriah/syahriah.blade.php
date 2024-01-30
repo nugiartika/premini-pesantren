@@ -57,7 +57,7 @@
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ optional($item->santri)->nis }}</td>
-                                        <td class="text-center">{{ optional($item->santri)->nama }}</td>
+                                        <td class="text-center">{{ optional($item->santri->pendaftaran)->nama_lengkap }}</td>
                                         <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
 
                                         <td class="text-center">
@@ -97,7 +97,7 @@
                                         <option value="" selected>PILIH NAMA</option>
                                         @foreach ($santri as $kat)
                                             <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
-                                                {{ $kat->nama }}
+                                                {{ $kat->pendaftaran->nama_lengkap }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -138,7 +138,7 @@
                                             <option value="" selected>PILIH NAMA</option>
                                             @foreach ($santri as $kat)
                                                 <option value="{{ $kat->id }}" {{ $item->santri_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama }}
+                                                    {{ $kat->pendaftaran->nama_lengkap }}
                                                 </option>
                                             @endforeach
                                         </select>

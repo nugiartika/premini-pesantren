@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('santri_id')->constrained()->onDelete('restrict');
             $table->string('no_ujian');
-            $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
             $table->foreignId('mapel_id')->constrained()->onDelete('restrict');
             $table->integer('nilai');
             $table->string('keterangan')->nullable();

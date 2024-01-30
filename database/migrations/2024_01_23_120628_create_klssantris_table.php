@@ -27,8 +27,8 @@ return new class extends Migration
         }
         Schema::dropIfExists('klssantris');
     }
-    private function checkRelationships($klssantriId)
+    private function checkRelationships()
     {
-        return DB::table('santri')->where('klssantri_id', $klssantriId)->exists() || DB::table('kelulusan')->where('klssantri_id', $klssantriId)->exists();
+        return DB::table('santri')->where('klssantri_id')->exists();
     }
 };

@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
-            $table->string('email')->unique();
             $table->enum('jenis_kelamin', ['Laki-laki','Perempuan']);
             $table->string('nik')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('alamat');
-            // $table->enum('tempat_tinggal', ['Bersama orang tua/wali','kos','Asrama/Pondok Pesantren','Panti Asuhan','lainnnya']);
             $table->string('nama_ortu');
             $table->string('pendidikan_ortu');
             $table->string('pekerjaan_ortu');
@@ -30,11 +28,18 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
+        if ($this->checkRelationships()) {
+            Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
+
+            return;
+        }
         Schema::dropIfExists('pendaftarans');
+    }
+    private function checkRelationships()
+    {
+        return DB::table('santri')->where('pendaftaran_id', '=', $someValue)->exists();
     }
 };

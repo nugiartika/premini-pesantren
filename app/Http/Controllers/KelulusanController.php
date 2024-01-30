@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Kelulusan;
 use App\Models\mapel;
 use App\Models\santri;
-use App\Models\klssantri;
 use App\Http\Requests\StoreKelulusanRequest;
 use App\Http\Requests\UpdateKelulusanRequest;
 
@@ -17,9 +16,7 @@ class KelulusanController extends Controller
         $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
-
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
     }
 
     /**
@@ -30,8 +27,7 @@ class KelulusanController extends Controller
         $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
     }
 
     /**
@@ -42,10 +38,8 @@ class KelulusanController extends Controller
         $request->validate([
             'santri_id' => 'required|unique:kelulusans,santri_id',
             'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian',
-            'klssantri_id' => 'required',
             'mapel_id' => 'required',
             'nilai' => 'required|numeric|min:0',
-            // 'keterangan' => 'required',
         ], [
             'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
             'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
@@ -53,13 +47,10 @@ class KelulusanController extends Controller
             'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
             'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
             'no_ujian.unique' => 'NO UJIAN sudah digunakan.',
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
             'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
             'nilai.required' => 'Kolom NILAI wajib diisi.',
             'nilai.numeric' => ' NILAI harus berupa angka',
             'nilai.min' => ' NILAI tidak boleh MIN-',
-            // 'keterangan.required' => 'Kolom KETERANGAN wajib diisi.',
-
         ]);
 
         $nilai = $request->input('nilai');
@@ -68,7 +59,6 @@ class KelulusanController extends Controller
         Kelulusan::create([
             'santri_id' => $request->input('santri_id'),
             'no_ujian' => $request->input('no_ujian'),
-            'klssantri_id' => $request->input('klssantri_id'),
             'mapel_id' => $request->input('mapel_id'),
             'nilai' => $nilai,
             'keterangan' => $keterangan,
@@ -94,19 +84,15 @@ class KelulusanController extends Controller
         $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
         $santri = Santri::all();
-        $klssantri = Klssantri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'klssantri', 'santri'));
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateKelulusanRequest $request, Kelulusan $kelulusan)
     {
         $request->validate([
             'santri_id' => 'required|unique:kelulusans,santri_id,' . $kelulusan->id,
             'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian,' . $kelulusan->id,
-            'klssantri_id' => 'required',
             'mapel_id' => 'required',
             'nilai' => 'required|numeric|min:0',
             // 'keterangan' => 'required',
@@ -117,7 +103,6 @@ class KelulusanController extends Controller
             'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
             'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
             'no_ujian.unique' => 'NO UJIAN sudah digunakan.',
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi.',
             'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
             'nilai.required' => 'Kolom NILAI wajib diisi.',
             'nilai.numeric' => ' NILAI harus berupa angka',
@@ -131,7 +116,6 @@ class KelulusanController extends Controller
         $kelulusan->update([
             'santri_id' => $request->input('santri_id'),
             'no_ujian' => $request->input('no_ujian'),
-            'klssantri_id' => $request->input('klssantri_id'),
             'mapel_id' => $request->input('mapel_id'),
             'nilai' => $nilai,
             'keterangan' => $keterangan,
@@ -140,9 +124,7 @@ class KelulusanController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Kelulusan $kelulusan)
     {
         $kelulusan->delete();

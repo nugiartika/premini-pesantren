@@ -91,10 +91,10 @@ class KlssantriController extends Controller
         return redirect()->route('klssantri.index')->with('success', 'KELAS BERHASIL DIUPDATE');
     }
 
-    
+
     public function destroy(Klssantri $klssantri)
     {
-        if ($klssantri->kelulusan()->exists() ||$klssantri->santri ()->exists()) {
+        if ($klssantri->santri ()->exists()) {
             return redirect()->route('klssantri.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
         }
         $klssantri->delete();
