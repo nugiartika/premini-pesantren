@@ -40,7 +40,7 @@ class BeritaController extends Controller
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after:yesterday',
             'user_posting' => 'required',
-            'sampul' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
@@ -65,12 +65,11 @@ class BeritaController extends Controller
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
             'user_posting' => $request->input('user_posting'),
-            'sampul' => $path,
+            'foto' => $path,
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
     }
-
     /**
      * Display the specified resource.
      */
@@ -100,7 +99,7 @@ class BeritaController extends Controller
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
             'user_posting' => 'required',
-            'sampul' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
@@ -114,6 +113,7 @@ class BeritaController extends Controller
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -128,7 +128,7 @@ class BeritaController extends Controller
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
             'user_posting' => $request->input('user_posting'),
-            'sampul' => $path,
+            'foto' => $path,
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');

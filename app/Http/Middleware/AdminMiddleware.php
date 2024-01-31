@@ -20,6 +20,6 @@ class AdminMiddleware
         }else{
             // return to_route('home');
             return redirect()->route('home.index');
-        }ini
+        }
     }
 }

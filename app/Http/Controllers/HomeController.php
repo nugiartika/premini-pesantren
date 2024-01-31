@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Gallerie;
+use App\Models\Kelulusan;
 use App\Models\Umum;
 use Illuminate\Http\Request;
 
@@ -28,13 +29,13 @@ class HomeController extends Controller
     {
         $jumlahGallery = Gallerie::count();
         $jumlahBerita = Berita::count();
-        // $jumlahKelulusan = Kelulusan::count();
+        $jumlahKelulusan = Kelulusan::count();
         $jumlahPengumuman = Umum::count();
 
         return view('home', [
             'jumlahGallery' => $jumlahGallery,
             'jumlahBerita' => $jumlahBerita,
-            // 'jumlahKelulusan' => $jumlahKelulusan,
+            'jumlahKelulusan' => $jumlahKelulusan,
             'jumlahPengumuman' => $jumlahPengumuman,
         ]);
     }

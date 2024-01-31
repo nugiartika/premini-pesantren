@@ -61,8 +61,8 @@
                                 @foreach ($kelulusan as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ optional($item->santri->pendaftaran)->nama_lengkap }}</td>
                                         <td class="text-center">{{ optional($item->santri)->nis }}</td>
+                                        <td class="text-center">{{ optional($item->santri->pendaftaran)->nama_lengkap }}</td>
                                         <td class="text-center">{{ $item->no_ujian }}</td>
                                         <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
                                         <td class="text-center">{{ optional($item->mapel)->nama }}</td>

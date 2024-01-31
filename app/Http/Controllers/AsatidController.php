@@ -44,7 +44,7 @@ class AsatidController extends Controller
         Asatid::create([
             'asatidlist_id' => $request->input('asatidlist_id'),
             'mapel_id' => $request->input('mapel_id'),
-        ]);
+        ]);   
 
         return redirect()->route('asatid.index')->with('success', 'ASATID BERHASIL DITAMBAHKAN');
 

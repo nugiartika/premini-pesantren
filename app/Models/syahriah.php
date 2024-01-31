@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class syahriah extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'santri_id'
-    ];
+    protected $table = 'syahriahs';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public $incrementing = true;
+    public $timestamps = true;
 
     public function santri()
     {

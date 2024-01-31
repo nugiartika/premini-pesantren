@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('syahriahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('santri_id')->constrained()->onDelete('restrict');
+            $table->foreignId('santri_id')->constrained();
+            // $table->foreignId('kelas_id')->constrained();
             $table->timestamps();
         });
     }

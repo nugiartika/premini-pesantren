@@ -47,7 +47,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nip }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
-                                        <td>{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
+                                        <td>{{ $item->tempat_lahir }}, {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->pendidikan }}</td>
                                         <td class="text-center">

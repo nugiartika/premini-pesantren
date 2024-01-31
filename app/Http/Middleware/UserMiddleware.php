@@ -19,6 +19,6 @@ class UserMiddleware
             return $next($request);
         }else{
             return redirect()->route('dashboard.index');
-        }ini
+        }
     }
 }
