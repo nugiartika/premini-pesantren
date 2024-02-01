@@ -108,11 +108,13 @@
                             <div class="col-md-6">
                                 <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap', $data->nama_lengkap) }}">
+                                @error('nama_lengkap')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             </div>
-                    {{-- <div class="col-md-6">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" name="email"  value="{{ old('email', $data->email)}}">
-                    </div> --}}
+                  
 
                     <div class="col-md-6">
                         <label for="jenis_kelamin" class="form-label">jenis kelamin</label>
@@ -121,22 +123,47 @@
                             <option value="Laki-laki" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                             <option value="perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
+                        @error('jenis_kelamin')
+                        <span class="invalid-feedback" role="alert">
+                             <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                       <label for="nik" class="form-label">NIK</label>
                       <input type="number" class="form-control" name="nik"  value="{{ old('nik', $data->nik)}}">
+                      @error('nik')
+               <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+               </span>
+               @enderror
                     </div>
                     <div class="col-md-6">
                       <label for="tempat_lahir" class="form-label">tempat_lahir</label>
                       <input type="text" class="form-control" name="tempat_lahir"  value="{{ old('tempat_lahir', $data->tempat_lahir)}}">
+                      @error('tempat_lahir')
+               <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+               </span>
+               @enderror
                     </div>
                     <div class="col-md-6">
                       <label for="tanggal_lahir" class="form-label">tanggal_lahir</label>
                       <input type="date" class="form-control" name="tanggal_lahir"  value="{{ old('tanggal_lahir', $data->tanggal_lahir)}}">
+                      @error('tanggal_lahir')
+               <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+               </span>
+               @enderror
                     </div>
                     <div class="col-md-6">
                       <label for="alamat" class="form-label">alamat</label>
                       <textarea type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat">{{ old('alamat', $data->alamat) }}</textarea>
+                      @error('alamat')
+               <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+               </span>
+               @enderror
                     </div>
                     {{-- <div class="col-md-6">
                         <label for="tempat_tinggal" class="form-label">tempat tinggal</label>
@@ -152,25 +179,50 @@
                     <div class="col-md-6">
                     <label for="nama_ortu" class="form-label">nama_ortu</label>
                     <input type="text" class="form-control" name="nama_ortu"  value="{{ old('nama_ortu', $data->nama_ortu)}}">
-                    </div>
+                    @error('nama_ortu')
+                    <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                     <div class="col-md-6">
                     <label for="pendidikan_ortu" class="form-label">pendidikan_ortu</label>
                     <input type="text" class="form-control" name="pendidikan_ortu"  value="{{ old('pendidikan_ortu', $data->pendidikan_ortu)}}">
-                    </div>
+                    @error('pendidikan_ortu')
+                    <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                     <div class="col-md-6">
                     <label for="pekerjaan_ortu" class="form-label">pekerjaan_ortu</label>
                     <input type="text" class="form-control" name="pekerjaan_ortu"  value="{{ old('pekerjaan_ortu', $data->pekerjaan_ortu)}}">
-                    </div>
+                    @error('pekerjaan_ortu')
+                    <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                     <div class="col-md-6">
                     <label for="sekolah_asal" class="form-label">sekolah_asal</label>
                     <input type="text" class="form-control" name="sekolah_asal"  value="{{ old('sekolah_asal', $data->sekolah_asal)}}">
-                    </div>
+                    @error('sekolah_asal')
+                    <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                     <div class="col-md-6">
                     <label for="telepon_rumah" class="form-label">telepon_rumah</label>
                     <input type="number" class="form-control" name="telepon_rumah"  value="{{ old('telepon_rumah', $data->telepon_rumah)}}">
-                    </div>
+                    @error('telepon_rumah')
+                    <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
@@ -293,151 +345,14 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
- {{-- <!-- Modal Edit berita -->
- @foreach ($pendaftaran as $data)
- <div class="modal" tabindex="-1" id="editModal{{ $data->id }}">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title">EDIT</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <form action="{{ route('pendaftaran.update', ['pendaftaran' => $data->id]) }}" method="POST" enctype="multipart/form-data">
-                     @csrf
-                     @method('PUT')
-
-                     <div class="mb-3">
-                        <label for="edit_nama_lengkap" class="form-label">NAMA LENGKAP</label>
-                        <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="edit_nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap', $data->nama_lengkap) }}">
-                        @error('nama_lengkap')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="edit_jenis_kelamin" class="form-label">JENIS KELAMIN</label>
-                        <select id="edit_jenis_kelamin" name="jenis_kelamin" class="form-select">
-                            <option value="" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == '' ? '' : 'selected' }}>- Pilih jenis kelamin -</option>
-                            <option value="Laki-laki" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="Perempuan" {{ old('jenis_kelamin', $pendaftaran->first()->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-                        </select>
-
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control @error('nik') is-invalid @enderror" id="edit_nik" name="nik" value="{{ old('nik', $data->nik) }}">
-                        @error('nik')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_tempat_lahir" class="form-label">TEMPAT LAHIR</label>
-                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="edit_tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $data->tempat_lahir) }}">
-                        @error('tempat_lahir')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="edit_tanggal_lahir" class="form-label">TANGGAL LAHIR</label>
-                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="edit_tanggal_lahir" name="tanggal_lahir" max="{{ now()->toDateString() }}" value="{{ old('tanggal_lahir', $data->tanggal_lahir) }}">
-                        @error('tanggal_lahir')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-
-                     <div class="mb-3">
-                        <label for="edit_alamat" class="form-label">ALAMAT</label>
-                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $data->alamat) }}">
-                        @error('alamat')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_nama_ortu" class="form-label">NAMA ORTU</label>
-                        <input type="text" class="form-control @error('nama_ortu') is-invalid @enderror" id="edit_nama_ortu" name="nama_ortu" value="{{ old('nama_ortu', $data->nama_ortu) }}">
-                        @error('nama_ortu')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_pendidikan_ortu" class="form-label">PENDIDIKAN ORTU</label>
-                        <input type="text" class="form-control @error('pendidikan_ortu') is-invalid @enderror" id="edit_pendidikan_ortu" name="pendidikan_ortu" value="{{ old('pendidikan_ortu', $data->pendidikan_ortu) }}">
-                        @error('pendidikan_ortu')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_pekerjaan_ortu" class="form-label">PEKERJAAN ORTU</label>
-                        <input type="text" class="form-control @error('pekerjaan_ortu') is-invalid @enderror" id="edit_pekerjaan_ortu" name="pekerjaan_ortu" value="{{ old('pekerjaan_ortu', $data->pekerjaan_ortu) }}">
-                        @error('pekerjaan_ortu')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_sekolah_asal" class="form-label">SEKOLAH ASAL </label>
-                        <input type="text" class="form-control @error('sekolah_asal') is-invalid @enderror" id="edit_sekolah_asal" name="sekolah_asal" value="{{ old('sekolah_asal', $data->sekolah_asal) }}">
-                        @error('sekolah_asal')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                     <div class="mb-3">
-                        <label for="edit_telepon_rumah" class="form-label">TELEPON RUMAH</label>
-                        <input type="text" class="form-control @error('telepon_rumah') is-invalid @enderror" id="edit_telepon_rumah" name="telepon_rumah" value="{{ old('telepon_rumah', $data->telepon_rumah) }}">
-                        @error('telepon_rumah')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                             <button type="submit" class="btn btn-primary">Save changes</button>
-                                 </form>
-                             </div>
-                             <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             @endforeach --}}
          </div>
      </div>
  @endsection

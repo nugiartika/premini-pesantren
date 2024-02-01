@@ -35,81 +35,77 @@
         padding: .5rem 1rem;
     }
 
-    .navbar-nav .nav-link.active {
-        background-color: #5cb85c;
+    .navbar {
+        background-color: #000;
+        border-bottom: 2px solid #000000;
     }
 
-        .navbar {
-            background-color: #000;
-            border-bottom: 2px solid #000000;
-        }
+    .navbar-nav .nav-link {
+        color: #000000 !important;
+        padding: 0.5rem 1rem;
+    }
 
-        .navbar-nav .nav-link {
-            color: #000000 !important;
-            padding: 0.5rem 1rem;
-        }
+    .dropdown-menu {
+        background-color: #000;
+    }
 
-        .navbar-nav .nav-link.active {
-            background-color: #3a922d;
-        }
+    .dropdown-menu a {
+        color: #fff !important;
+    }
 
-        .dropdown-menu {
-            background-color: #000;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
 
-        .dropdown-menu a {
-            color: #fff !important;
-        }
+    th, td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 14px; 
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
+    th {
+        background-color: #ffffff;
+    }
 
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            text-align: left;
-            font-size: 14px; /* Adjust the font size as needed */
-        }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 
-        th {
-            background-color: #ffffff;
-        }
+    .btn-success,
+    .btn-warning,
+    .btn-danger {
+        font-size: 14px;
+    }
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+        color: #000000;
+    }
 
-        .btn-success,
-        .btn-warning,
-        .btn-danger {
-            font-size: 14px;
-        }
+    .navbar-brand h2 {
+        margin-bottom: 0;
+    }
 
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            font-size: 30px;
-            color: #000000;
-        }
+    .logout-item {
+        color: black !important;
+    }
+    .nav-item.dropdown .nav-link {
+        color: black !important;
+    }
 
-        .navbar-brand h2 {
-            margin-bottom: 0;
-            /* margin-right: auto; */
-        }
-
-        .logout-item {
-            color: black !important; /* Ganti dengan warna yang diinginkan */
-        }
-        .nav-item.dropdown .nav-link {
-            color: black !important; /* Ganti dengan warna yang diinginkan */
-        }
+    .navbar-nav .nav-link.active {
+        background-color: #8de98d;
+        color: #fff;
+    }
 
         body {
     background-image: url('/path/to/bg01.jpg');
-    background-size: cover; /* Atau properti lain sesuai kebutuhan */
+    background-size: cover;
 }
 
 
@@ -134,10 +130,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
 
+                        @auth
                         @php
                             $role = auth()->user()->role;
                         @endphp
-
                         <li class="nav-item">
                             @if($role == 'admin')
                             <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
@@ -157,6 +153,13 @@
                                 <i class="fa-solid fa-user-plus me-1"></i>STAF
                             </a>
                         </li>
+
+                        {{-- Your authenticated user navigation here --}}
+                    @endauth
+
+                    {{-- Other navigation items that don't depend on user authentication --}}
+
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}" href="{{ route('asatid.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
