@@ -26,6 +26,7 @@ class TemplateController extends Controller
 
         $beritas = Berita::all();
         $galleris = Gallerie::all();
+        $staf = staf::all();
 
         return view('layouts.template', [
             'jumlahStaf' => $jumlahStaf,

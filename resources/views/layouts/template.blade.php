@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Selamat Datang</title>
+    <title>PONDOK JATIM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -28,74 +28,77 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    {{-- <link href="css/style2.css" rel="stylesheet"> --}}
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+     {{-- <link href="css/style2.css" rel="stylesheet"> --}}
+     <link href="css/style.css" rel="stylesheet">
 
-<style>
-    /* CSS untuk container kolom */
-.col-lg-5 {
-    padding: 0;
-}
+     <style>
+         /* CSS untuk container kolom */
+     .col-lg-5 {
+         padding: 0;
+     }
 
-/* CSS untuk baris dalam kolom */
-.row.mx-0 {
-    margin-left: 0;
-    margin-right: 0;
-}
+     /* CSS untuk baris dalam kolom */
+     .row.mx-0 {
+         margin-left: 0;
+         margin-right: 0;
+     }
 
-/* CSS untuk gambar */
-.position-relative.overflow-hidden {
-    height: 250px;
-}
+     /* CSS untuk gambar */
+     .position-relative.overflow-hidden {
+         height: 250px;
+     }
 
-.img-fluid.w-100.h-100 {
-    object-fit: cover;
-}
+     .img-fluid.w-100.h-100 {
+         object-fit: cover;
+     }
 
-/* CSS untuk overlay */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-}
+     /* CSS untuk overlay */
+     .overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.5);
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-end;
+         padding: 20px;
+     }
 
-/* CSS untuk badge dan tanggal */
-.overlay .mb-2 {
-    display: flex;
-    align-items: center;
-}
+     /* CSS untuk badge dan tanggal */
+     .overlay .mb-2 {
+         display: flex;
+         align-items: center;
+     }
 
-.overlay a.badge {
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-}
+     .overlay a.badge {
+         background-color: #007bff;
+         color: #fff;
+         text-decoration: none;
+         padding: 0.5rem;
+         margin-right: 0.5rem;
+     }
 
-.overlay a.text-white {
-    color: #fff;
-    text-decoration: none;
-}
+     .overlay a.text-white {
+         color: #fff;
+         text-decoration: none;
+     }
 
-/* CSS untuk judul berita */
-.overlay a.h6 {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-}
+     /* CSS untuk judul berita */
+     .overlay a.h6 {
+         color: #fff;
+         text-decoration: none;
+         font-size: 1.25rem;
+         font-weight: 600;
+         margin-top: 0.5rem;
+         margin-bottom: 0;
+     }
 
-</style>
+     </style>
+         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
 </head>
 
@@ -108,75 +111,127 @@
     </div>
     <!-- Spinner End -->
 
-
+    @if (!request()->is('login') && !request()->is('register'))
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>eLEARNING</h2>
-        </a>
+        {{-- <a href="{{ url('index.html') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h5 class="m-0 text-success"><i class="fa-regular fa-house"></i>PONDOK JATIM</h5>
+        </a> --}}
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link"></a>
-                <a href="courses.html" class="nav-item nav-link">Courses</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
+            <ul class="navbar-nav ms-auto p-4 p-lg-0">
+
+                <li class="nav-item">
+                    <a href="{{ route('staf.index') }}" class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}">
+                        <i class="fa-solid fa-user-plus me-1"></i>STAF
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}" id="asatidDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa-solid fa-users me-1"></i>ASATID
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="asatidDropdown">
+                        <a class="dropdown-item {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}" href="{{ route('asatidlist.index') }}">LIST ASATID</a>
+                        <a class="dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}" href="{{ route('mapel.index') }}">MAPEL</a>
                     </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+                </li>
+
+                {{-- <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['santri.index', 'klssantri.index', 'syahriah.index']) ? 'active' : '' }}" id="santriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa-regular fa-address-book me-1"></i>SANTRI
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="santriDropdown">
+                        <a class="dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
+                        <a class="dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
+                        <a class="dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
+                    </div>
+                </li> --}}
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['berita.index', 'kategori.index']) ? 'active' : '' }}" id="beritaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-newspaper me-1"></i> BERITA
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="beritaDropdown">
+                        <a class="dropdown-item {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">LIST BERITA</a>
+                        <a class="dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}" href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
+                    </div>
+                </li>
+
+                {{-- <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="pengumumanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell me-1"></i> PENGUMUMAN
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pengumumanDropdown">
+                        <a class="dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
+                        <a class="dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
+                    </div>
+                </li> --}}
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}">
+                        <i class="fa-regular fa-image me-1"></i>GALLERIE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}">
+                        <i class="fas fa-clipboard me-1"></i>PENDAFTARAN
+                    </a>
+                </li>
+            </ul>
+            @if (Route::has('register'))
+            <li class="nav-item list-unstyled">
+                <a href="{{ route('register') }}" class="btn btn-success py-4 px-lg-5 d-none d-lg-block">
+                    BERGABUNG <i class="fa fa-arrow-right ms-3"></i>
+                </a>
+            </li>
+            @endif
         </div>
     </nav>
     <!-- Navbar End -->
+@endif
+
 
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
             <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" >
+                <img class="img-fluid" src="storage/img/HEADER1.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style=";">
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025.</h5>
+                                <h1 class="display-3 text-white animated slideInDown style=";>PENDAFTARAN</h1>
+                                <h1 class="display-3 text-white animated slideInDown">SANTRI BARU</h1> --}}
+                                <a href="{{ route('pendaftaran.index') }}" class="btn btn-success py-md-3 px-md-5 animated slideInRight {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}">DAFTAR</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="">
+                <img class="img-fluid" src="storage/img/HEADER2.png" alt="">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025</h5>
+                                <h1 class="display-3 text-black animated slideInDown">DARI SANTRI UNTUK SANTRI</h1> --}}
+                                <a href="{{ route('pendaftaran.index') }}" class="btn btn-success py-md-3 px-md-5 animated slideInRight {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}">DAFTAR</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Carousel End -->
-
 
     <!-- Start -->
     <div class="container-xxl py-5">
@@ -358,31 +413,50 @@
     </div>
     <!-- berita End -->
 
-    {{-- <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-4 justify-content-center">
-                @foreach ($beritas as $key => $berita)
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="course-item bg-light">
-
-                    <div class="row mx-0">
-                        <div class="position-relative overflow-hidden" style="height: 200px; display: flex; align-items: center; justify-content: center;">
-                            <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt=""  style="object-fit: cover; height: 100%;">
-                            <div class="overlay">
+   {{-- staf --}}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-6">
+                        @foreach ($staf as $key => $staf)
+                        <div class="position-relative mb-3">
+                            <img class="img-fluid" src="{{ asset('storage/'.$staf->foto) }}" alt=""
+                                style="object-fit: cover; height: 100%;">
+                            <div class="bg-white border border-top-0 p-4">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">Business</a>
-                                    <a class="text-white" href=""><small>Jan 01, 2045</small></a>
+                                        href="#">Business</a>
+                                    {{-- <a class="text-body" href=""><small>{{ $berita->tanggal }}</small></a> --}}
                                 </div>
-                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit...</a>
+                                <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold"
+                                    href="">{{ $staf->nama }}</a>
+                                <p class="m-0">{{ $staf->nip }}</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                                <div class="d-flex align-items-center">
+                                    {{-- <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt=""> --}}
+                                    <small>{{ $staf->jabatan }}</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="ml-3">
+                                        {{ \Carbon\Carbon::parse($staf->ttl)->isoFormat('D-MMMM-YYYY') }}
+                                    </small>
+                                </div>
                             </div>
                         </div>
+                        @endforeach
+                    </div>
                 </div>
-                @endforeach
             </div>
         </div>
-        </div>
-    </div> --}}
+    </div>
+</div>
+
+
+
 
     <div class="container-xxl py-5">
         <div class="container">
@@ -500,6 +574,7 @@
         </div>
     </div>
     <!-- Team End -->
+    <!-- Carousel End -->
 
 
     <!-- Testimonial Start -->
@@ -629,6 +704,9 @@
     <!-- Footer End -->
 
 
+
+
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
@@ -644,5 +722,4 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>

@@ -13,15 +13,22 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
-    <style>
 
+
+<style>
+
+    .bg {
+        background-color: #ffffff;
+        background-image: url('storage/img/bg01.jpg');
+    }
 
     .navbar-toggler {
         font-size: 14px;
         padding: .25rem .75rem;
         margin-right: .75rem;
-        border: 1px solid #1c8934;
+        border: 1px solid #ffffff;
         border-radius: .25rem;
     }
 
@@ -35,23 +42,27 @@
         padding: .5rem 1rem;
     }
 
-    .navbar {
-        background-color: #000;
-        border-bottom: 2px solid #000000;
-    }
+        .navbar {
+            background-color: #000;
+            border-bottom: 2px solid #000000;
+        }
 
-    .navbar-nav .nav-link {
-        color: #000000 !important;
-        padding: 0.5rem 1rem;
-    }
+        .navbar-nav .nav-link {
+            color: #000000 !important;
+            padding: 0.5rem 1rem;
+        }
 
-    .dropdown-menu {
-        background-color: #000;
-    }
+        .navbar-nav .nav-link.active {
+            background-color: #3a922d;
+        }
 
-    .dropdown-menu a {
-        color: #fff !important;
-    }
+        .dropdown-menu {
+            background-color: #000;
+        }
+
+        .dropdown-menu a {
+            color: #fff !important;
+        }
 
     table {
         width: 100%;
@@ -59,65 +70,61 @@
         margin: 20px 0;
     }
 
-    th, td {
-        padding: 8px;
-        border: 1px solid #ddd;
-        text-align: left;
-        font-size: 14px; 
-    }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
 
-    th {
-        background-color: #ffffff;
-    }
+        th {
+            background-color: #ffffff;
+        }
 
-    tr:hover {
-        background-color: #f5f5f5;
-    }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
 
-    .btn-success,
-    .btn-warning,
-    .btn-danger {
-        font-size: 14px;
-    }
+        .btn-success,
+        .btn-warning,
+        .btn-danger {
+            font-size: 14px;
+        }
 
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-        font-size: 30px;
-        color: #000000;
-    }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            color: #000000;
+        }
 
-    .navbar-brand h2 {
-        margin-bottom: 0;
-    }
+        .navbar-brand h2 {
+            margin-bottom: 0;
+            /* margin-right: auto; */
+        }
 
-    .logout-item {
-        color: black !important;
-    }
-    .nav-item.dropdown .nav-link {
-        color: black !important;
-    }
-
-    .navbar-nav .nav-link.active {
-        background-color: #8de98d;
-        color: #fff;
-    }
+        .logout-item {
+            color: black !important; /* Ganti dengan warna yang diinginkan */
+        }
+        .nav-item.dropdown .nav-link {
+            color: black !important; /* Ganti dengan warna yang diinginkan */
+        }
 
         body {
     background-image: url('/path/to/bg01.jpg');
-    background-size: cover;
+    background-size: cover; /* Atau properti lain sesuai kebutuhan */
 }
 
 
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
     <div id="app">
         @if (!request()->is('login') && !request()->is('register'))
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
 
                 <a class="navbar-brand" href="#">
@@ -141,7 +148,7 @@
                             </a>
                             @else
                                 <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">
-                                    <i class="fa-solid fa-user-plus me-1"></i>DASHBOARD
+                                    <i class="fa-regular fa-house me-1">DASHBOARD</i>
                                 </a>
                             @endif
 

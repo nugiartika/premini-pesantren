@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+<div class="bg">
+@extends('layouts.template')
 @section('content')
 @if(session('success'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -312,3 +312,4 @@
         </div>
     </div>
 @endsection
+</div>

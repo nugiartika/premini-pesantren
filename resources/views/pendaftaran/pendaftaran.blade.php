@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<div class="body">
 @section('content')
     @if(session('success'))
         <!-- Success Modal -->
@@ -355,7 +355,8 @@
 </div>
          </div>
      </div>
- @endsection
+     @endsection
+    </div>
 
 
 

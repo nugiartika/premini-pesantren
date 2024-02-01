@@ -104,11 +104,11 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: #ff1e1e;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(217, 26, 26, 0.1);
             overflow: hidden;
             transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
             width: 300px;
@@ -140,7 +140,6 @@
         background-color: transparent;
     }
     </style>
-
         <section>
             <table class="no-bootstrap-table" >
                 <tr>
@@ -164,14 +163,14 @@
                     </td>
                 {{-- </tr>
                 <tr> --}}
-                    <td>
+                    {{-- <td>
                         <a href="{{ route('kelulusan.index') }}" class="card-link">
                             <div class="card">
                                 <h2>Kelulusan</h2>
                                 <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
                             </div>
                         </a>
-                    </td>
+                    </td> --}}
                 {{-- </tr>
                 <tr> --}}
                     <td>

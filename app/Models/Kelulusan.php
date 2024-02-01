@@ -23,5 +23,6 @@ class Kelulusan extends Model
     {
         return $this->belongsTo(Santri::class);
     }
-   
+
+
 }

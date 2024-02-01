@@ -34,6 +34,29 @@
 
 
     <style>
+         body {
+        background-color: rgb(255, 255, 255);
+        background-image: url('');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        width: auto;
+        right: auto;
+    }
+
+    .img {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        transform: translate(20%, 0);
+    }
+
+    .img img {
+        width: 50%;
+    }
+
         section {
             display: flex;
             justify-content: space-around;
@@ -49,14 +72,14 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: #000000;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-            width: 300px;
+            width: 250px;
             height: 150px;
             display: flex;
             flex-direction: column;
@@ -65,44 +88,45 @@
         }
 
         .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
             transform: translateY(-5px);
         }
 
         h2 {
-            color: #333;
+            color: #fffefe;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
 
         p {
-            color: #666;
+            color: #2bff00;
             font-size: 1em;
             line-height: 1.4;
         }
 
-        .no-bootstrap-table tr {
-        background-color: transparent;
-    }
+        .tb {
+            border: none;
+            color: #2bff00;
+        }
     </style>
-
+<body>
         <section>
-            <table class="no-bootstrap-table" >
-                <tr>
+            <table class="tb no-bootstrap-table" >
+                {{-- <tr> --}}
                     <td>
                         <a href="{{ route('staf.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Staf</h2>
+                                <h2><i class="fa-solid fa-user-plus me-1"></i>STAF</h2>
                                 <p>Jumlah Staf: {{ $jumlahStaf }}</p>
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+                {{-- </tr> --}}
+                {{-- <tr> --}}
                     <td>
                         <a href="{{ route('asatid.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Asatid</h2>
+                                <h2><i class="fa-solid fa-users me-1"></i>ASATID</h2>
                                 <p>Jumlah Asatid: {{ $jumlahAsatid }}</p>
                             </div>
                         </a>
@@ -112,7 +136,7 @@
                     <td>
                         <a href="{{ route('santri.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Santri</h2>
+                                <h2> <i class="fa-regular fa-address-book me-1"></i>SANTRI</h2>
                                 <p>Jumlah Santri: {{ $jumlahSantri }}</p>
                             </div>
                         </a>
@@ -122,7 +146,7 @@
                     <td>
                         <a href="{{ route('klssantri.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Kelas</h2>
+                                <h2><i class="fa-brands fa-odnoklassniki me-1"></i>KELAS</h2>
                                 <p>Jumlah Kelas: {{ $jumlahKelas }}</p>
                             </div>
                         </a>
@@ -132,7 +156,7 @@
                     <td>
                         <a href="{{ route('gallerie.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Galery</h2>
+                                <h2><i class="fa-regular fa-image me-1"></i>GALERY</h2>
                                 <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
                             </div>
                         </a>
@@ -142,7 +166,7 @@
                     <td>
                         <a href="{{ route('berita.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Berita</h2>
+                                <h2> <i class="fas fa-newspaper me-1"></i> BERITA</h2>
                                 <p>Jumlah Berita: {{ $jumlahBerita }}</p>
                             </div>
                         </a>
@@ -152,7 +176,7 @@
                     <td>
                         <a href="{{ route('kelulusan.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Kelulusan</h2>
+                                <h2><i class="fa-solid fa-chart-simple me-1"></i>KELULUSAN</h2>
                                 <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
                             </div>
                         </a>
@@ -162,7 +186,7 @@
                     <td>
                         <a href="{{ route('umum.index') }}" class="card-link">
                             <div class="card">
-                                <h2>Pengumuman</h2>
+                                <h2><i class="fas fa-bell me-1"></i>PENGUMUMAN</h2>
                                 <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
                             </div>
                         </a>
@@ -170,7 +194,6 @@
                 </tr>
         </table>
         </section>
-
-
 @endsection
+</body>
 

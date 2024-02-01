@@ -1,248 +1,265 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-    @if(session('success'))
-        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">SUCCESS</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {{ session('success') }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script>
-            $(document).ready(function () {
-                $('#successModal').modal('show');
-            });
-        </script>
-    @endif
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @if(session('warning'))
-        <div class="alert alert-warning">
-            {{ session('warning') }}
-        </div>
-    @endif
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
-                            <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button>
-                    </div>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped border-primary">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col" class="text-center">NO</th>
-                                    <th scope="col" class="text-center">NIS</th>
-                                    <th scope="col" class="text-center">NAMA SANTRI</th>
-                                    <th scope="col" class="text-center">NO UJIAN</th>
-                                    <th scope="col" class="text-center">KELAS</th>
-                                    <th scope="col" class="text-center">MAPEL</th>
-                                    <th scope="col" class="text-center">NILAI</th>
-                                    <th scope="col" class="text-center">KETERANGAN</th>
-                                    <th scope="col" class="text-center">AKSI</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider text-center">
-                                @foreach ($kelulusan as $index => $item)
-                                    <tr>
-                                        <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ optional($item->santri->pendaftaran)->nama_lengkap }}</td>
-                                        <td class="text-center">{{ optional($item->santri)->nis }}</td>
-                                        <td class="text-center">{{ $item->no_ujian }}</td>
-                                        <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
-                                        <td class="text-center">{{ optional($item->mapel)->nama }}</td>
-                                        <td class="text-center">{{ $item->nilai }}</td>
-                                        <td class="text-center">
-                                            @if($item->nilai >= 80)
-                                                Lulus
-                                            @else
-                                                Tidak Lulus
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fas fa-pen-to-square"></i>
-                                            </button>
-                                            <form action="{{ route('kelulusan.destroy', ['kelulusan' => $item->id]) }}" method="POST" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    <i class="fas fa-trash-can"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
-        <!-- Modal Tambah -->
-        <div class="modal" tabindex="-1" id="tambahModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">TAMBAH</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('kelulusan.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" aria-label="Default select example">
-                                    <option value="" selected>PILIH NAMA</option>
-                                    @foreach ($santri as $kat)
-                                        <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
-                                            {{ $kat->pendaftaran->nama_lengkap }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('santri_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+
+
+<style>
+
+    .bg {
+        background-color: #ffffff;
+        background-image: url('storage/img/bg01.jpg');
+    }
+
+    .navbar-toggler {
+        font-size: 14px;
+        padding: .25rem .75rem;
+        margin-right: .75rem;
+        border: 1px solid #ffffff;
+        border-radius: .25rem;
+    }
+
+    .navbar-toggler-icon {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: .5rem 1rem;
+    }
+
+        .navbar {
+            background-color: #000;
+            border-bottom: 2px solid #000000;
+        }
+
+        .navbar-nav .nav-link {
+            color: #000000 !important;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link.active {
+            background-color: #3a922d;
+        }
+
+        .dropdown-menu {
+            background-color: #000;
+        }
+
+        .dropdown-menu a {
+            color: #fff !important;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+        th {
+            background-color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-success,
+        .btn-warning,
+        .btn-danger {
+            font-size: 14px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            color: #000000;
+        }
+
+        .navbar-brand h2 {
+            margin-bottom: 0;
+            /* margin-right: auto; */
+        }
+
+        .logout-item {
+            color: black !important; /* Ganti dengan warna yang diinginkan */
+        }
+        .nav-item.dropdown .nav-link {
+            color: black !important; /* Ganti dengan warna yang diinginkan */
+        }
+
+        body {
+    background-image: url('/path/to/bg01.jpg');
+    background-size: cover; /* Atau properti lain sesuai kebutuhan */
+}
+
+
+    </style>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        @if (!request()->is('login') && !request()->is('register'))
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="#">
+                    <h2>PONPES JATIM</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+
+                        @auth
+                        @php
+                            $role = auth()->user()->role;
+                        @endphp
+                        <li class="nav-item">
+                            @if($role == 'admin')
+                            <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
+                                <i class="fas fa-user-plus me-1"></i>DASHBOARD
+                            </a>
+                            @else
+                                <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">
+                                    <i class="fa-regular fa-house me-1">DASHBOARD</i>
+                                </a>
+                            @endif
+
+                        </li>
+
+                        @if($role == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}" href="{{ route('staf.index') }}">
+                                <i class="fa-solid fa-user-plus me-1"></i>STAF
+                            </a>
+                        </li>
+
+                        {{-- Your authenticated user navigation here --}}
+                    @endauth
+
+                    {{-- Other navigation items that don't depend on user authentication --}}
+
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}" href="{{ route('asatid.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-users me-1"></i>ASATID
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}" href="{{ route('asatidlist.index') }}">LIST ASATID</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}" href="{{ route('mapel.index') }}">MAPEL</a>
                             </div>
+                        </li>
 
-                            <div class="mb-3">
-                                <label for="no_ujian" class="form-label">NO UJIAN</label>
-                                <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
-                                @error('no_ujian')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['santri.index', 'klssantri.index', 'syahriah.index']) ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-regular fa-address-book me-1"></i>SANTRI
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="mapel" class="form-label">MAPEL</label>
-                                <select class="form-select @error('mapel_id') is-invalid @enderror" name="mapel_id" aria-label="Default select example">
-                                    <option value="" selected>PILIH MAPEL</option>
-                                    @foreach ($mapel as $kat)
-                                        <option value="{{ $kat->id }}" {{ old('mapel_id') == $kat->id ? 'selected' : '' }}>
-                                            {{ $kat->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                        </li>
+                        @endif
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['berita.index', 'kategori.index']) ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-newspaper me-1"></i> BERITA
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">LIST BERITA</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}" href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
                             </div>
+                        </li>
 
-                                <div class="mb-3">
-                                    <label for="nilai" class="form-label">NILAI</label>
-                                    <input type="text" class="form-control @error('nilai') is-invalid @enderror" id="nilai" name="nilai" value="{{ old('nilai') }}">
-                                    @error('nilai')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell me-1"></i> PENGUMUMAN
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
+                        </li>
+                    </ul>
+
+
+
+                    <ul class="navbar-nav ms-auto">
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item logout-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
             </div>
-        </div>
-
-        <!-- Modal Edit -->
-        @foreach ($kelulusan as $item)
-            <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">EDIT</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('kelulusan.update', ['kelulusan' => $item->id]) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-
-                                    <div class="mb-3">
-                                        <label for="edit_santri_id" class="form-label">NAMA SANTRI</label>
-                                        <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id" value="{{ old('santri_id', $item->santri_id) }}">
-                                            <option value="" selected>PILIH NAMA SANTRI</option>
-                                            @foreach ($santri as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->santri_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->pendaftaran->nama_lengkap }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('santri_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_no_ujian" class="form-label">NO UJIAN</label>
-                                        <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="edit_no_ujian" name="no_ujian" value="{{ old('no_ujian', $item->no_ujian) }}">
-                                        @error('no_ujian')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_mapel_id" class="form-label">MAPEL</label>
-                                        <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id">
-                                            <option value="" selected>PILIH MAPEL</option>
-                                            @foreach ($mapel as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->mapel_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('mapel_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_nilai" class="form-label">NILAI</label>
-                                        <input type="text" class="form-control @error('nilai') is-invalid @enderror" id="edit_nilai" name="nilai" value="{{ old('nilai', $item->nilai) }}">
-                                        @error('nilai')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+        </nav>
+        @endif
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
-@endsection
+
+</body>
+</html>
