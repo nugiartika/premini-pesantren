@@ -41,7 +41,7 @@
         display: flex;
         justify-content: flex-start;
         transform: translate(20%, 30%);
-        grid-column: 1 / 2; /* Align to the left */
+        grid-column: 1 / 2;
         grid-row: 1 / 2;
     }
 
@@ -172,8 +172,6 @@
 
                         <div class="row mb-3">
 
-                            {{-- <div class="col-md-6 two"> --}}
-                                    {{-- <label for="password">{{ __('Password') }}</label> --}}
                                     <i class="fas fa-lock"></i>
                                     <input class="input" id="password" type="password" placeholder="{{ __('Password') }}" class="form-control input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
@@ -185,39 +183,31 @@
                         </div>
 
                         <div class="row mb-4">
-                            {{-- <div class="col-md-6 offset-md-4"> --}}
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
-                            {{-- </div> --}}
                         </div>
 
                         <div class="row mb-5">
-                            {{-- <div class="col-md-8 offset-md-4"> --}}
                                 <button type="submit" class="btn btn-primary mt-3">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                {{-- <div class="mt-3"> --}}
                                     <a class="btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                {{-- </div> --}}
                                 @endif
-                            {{-- </div> --}}
                         </div>
-                    </form>
-                {{-- </div> --}}
-            {{-- </div> --}}
+                  </form>
             </div>
         </div>
     </div>
-    <div class="img">
+    {{-- <div class="img">
         <img src="{{ asset('storage/img/Mobile_login-bro__5_-removebg-preview.png') }}" alt="Foto">
-    </div>
+    </div> --}}
 </div>
 @endsection

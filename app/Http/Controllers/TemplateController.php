@@ -27,11 +27,8 @@ class TemplateController extends Controller
         $beritas = Berita::all();
         $galleris = Gallerie::all();
         $staf = staf::all();
-<<<<<<< HEAD
         $asatid = asatid::all();
-=======
         $asatidlist = Asatidlist::all();
->>>>>>> fc259cd7d164e35a2bca017119a214f918f627f4
 
         return view('layouts.template', [
             'jumlahStaf' => $jumlahStaf,
