@@ -104,7 +104,7 @@
         }
 
         .card {
-            background-color: #ff1e1e;
+            background-color: #ffffff;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
@@ -184,7 +184,5 @@
                 </tr>
         </table>
         </section>
-
-
 @endsection
 

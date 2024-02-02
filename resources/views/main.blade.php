@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -17,23 +17,28 @@
             background-color: #000;
             border-bottom: 2px solid #000000;
         }
+
         .navbar-nav .nav-link {
-            color: #000000 !important;
+            color: #000000 ;
             padding: 0.5rem 1rem;
         }
+
         .navbar-nav .nav-link.active {
             background-color: #5cb85c;
         }
+
         .dropdown-menu {
             background-color: #000;
         }
+
         .dropdown-menu a {
-            color: #fff !important;
+            color: #fff ;
         }
-        /* Dasbor Admin Styling */
+
         .bg-light {
-            background-color: #f8f9fa !important;
+            background-color: #f8f9fa ;
         }
+
         .list-unstyled li {
             margin-bottom: 10px;
         }
@@ -170,4 +175,4 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html> --}}

@@ -34,7 +34,7 @@
 
 
     <style>
-         body {
+        /* .body {
         background-color: rgb(255, 255, 255);
         background-image: url('');
         background-size: cover;
@@ -43,19 +43,19 @@
         background-attachment: fixed;
         width: auto;
         right: auto;
-    }
+        } */
 
-    .img {
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        transform: translate(20%, 0);
-    }
+        .img {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            transform: translate(20%, 0);
+        }
 
-    .img img {
-        width: 50%;
-    }
+        .img img {
+            width: 50%;
+        }
 
         section {
             display: flex;
@@ -72,7 +72,7 @@
         }
 
         .card {
-            background-color: #000000;
+            background-color: #ffffff;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
@@ -93,7 +93,7 @@
         }
 
         h2 {
-            color: #fffefe;
+            color: #294B29;
             font-size: 1.5em;
             margin-bottom: 10px;
         }

@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -157,7 +157,7 @@
                         @if($role == 'admin')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}" href="{{ route('staf.index') }}">
-                                <i class="fa-solid fa-user-plus me-1"></i>STAF
+                                 <i class="fa-solid fa-user-plus me-1"></i>STAF
                             </a>
                         </li>
 
@@ -168,7 +168,7 @@
 
 
 
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}" href="{{ route('asatid.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa-solid fa-users me-1"></i>ASATID
                             </a>
@@ -215,11 +215,11 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
                         </li>
-                    </ul>
+                    </ul> --}}
 
 
 
-                    <ul class="navbar-nav ms-auto">
+                    {{-- <ul class="navbar-nav ms-auto">
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -262,4 +262,4 @@
     </div>
 
 </body>
-</html>
+</html> --}} 
