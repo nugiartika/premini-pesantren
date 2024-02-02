@@ -7,6 +7,8 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailberitaController;
+use App\Http\Controllers\DlistasatidController;
+use App\Http\Controllers\DstafController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
@@ -27,8 +29,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('', [TemplateController::class, 'index']);
 Route::get('/detailberita', [DetailberitaController::class, 'index'])->name('layouts.detailberita');
 Route::get('/dgallery', [GalleryController::class, 'index'])->name('layouts.dgallery');
+Route::get('/dstaf', [DstafController::class, 'index'])->name('layouts.dstaf');
+Route::get('/asatids', [DlistasatidController::class, 'index'])->name('layouts.asatids');
+
+
 // web.php
-// Route::get('/staf/{id}', [StafController::class, 'stafPage'])->name('staf.page');
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
@@ -60,5 +65,4 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
             Route::resource('umum', UmumController::class);
             Route::resource('kelulusan', KelulusanController::class);
-
-    });
+});

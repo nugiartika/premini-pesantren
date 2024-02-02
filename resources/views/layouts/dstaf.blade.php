@@ -209,97 +209,105 @@
 
 
     <!-- gallery Start -->
+    <!-- STAF -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="text-center">
-                <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
-                <h1 class="mb-5">GALLERY</h1>
-              </div>
-            <div class="row g-4 justify-content-center">
-                @foreach ($gallery as $key => $galleri)
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item bg-light" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                            <div class="overflow-hidden" style="height: 350px; display: flex; align-items: center; justify-content: center;">
-                                <img class="img-fluid" src="{{ asset('storage/' . $galleri->sampul) }}" alt="" style="object-fit: cover; height: 100%;">
-                            </div>
-                                    <div class="mb-2 ">
-                                    <a class="position-relative d-flex btn btn-primary justify-content-center">{{$galleri->nama_gallery}}</a>
-                                    </div>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">STAF</h6>
+                <h1 class="mb-5">STAF</h1>
+            </div>
+            <div class="row g-4">
+                @foreach ($stafs as $key => $staf)
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
 
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{{ asset('storage/' . $staf->foto) }}" alt="">
+                        </div>
+                         <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$staf->nama}}</a></h5>
+                            </div>
+                        </div>
+                       <div class="text-center p-4">
+                            <small><a class="btn btn-lg text-black btn-block">{{$staf->jabatan}}</a></small>
+                            <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $staf->tempat_lahir }} {{ \Carbon\Carbon::parse($staf->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
                         </div>
                     </div>
+                    </div>
+                </div>
                 @endforeach
             </div>
         </div>
     </div>
-{{-- gallery end --}}
-
+    <!-- STAF End -->
 
 
 {{-- Footer start --}}
-<div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">            <div class="container py-5">
-    <div class="row g-5">
-        <div class="col-lg-3 col-md-6">
-            <h4 class="text-white mb-3">INFO FITUR</h4>
-            <a class="btn btn-link" href="{{ route('staf.index') }}">STAF</a>
-            <a class="btn btn-link" href="{{ route('asatidlist.index') }}">ASATID</a>
-            <a class="btn btn-link" href="{{ route('pendaftaran.index') }}">PENDAFTARAN</a>
-            <a class="btn btn-link" href="{{ route('santri.index') }}">SANTRI</a>
-            <a class="btn btn-link" href="{{ route('klssantri.index') }}">KELAS</a>
-            <a class="btn btn-link" href="{{ route('berita.index') }}">BERITA</a>
-            <a class="btn btn-link" href="{{ route('gallerie.index') }}">GALERY</a>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-            <h4 class="text-white mb-3">KONTAK</h4>
-            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>JL.KH..Hasyim Asy'ari RT:34 RW:11 JATIM</p>
-            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 333 333</p>
-            <p class="mb-2"><i class="fa fa-envelope me-3"></i>pondokjatim@gmail.com</p>
-            <div class="d-flex justify-content-center pt-2 px-1">
-              <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-facebook-f text-white"></i></a>
-              <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-twitter text-white"></i></a>
-              <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-instagram text-white"></i></a>
+    <div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">            <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">INFO FITUR</h4>
+                <a class="btn btn-link" href="{{ route('staf.index') }}">STAF</a>
+                <a class="btn btn-link" href="{{ route('asatidlist.index') }}">ASATID</a>
+                <a class="btn btn-link" href="{{ route('pendaftaran.index') }}">PENDAFTARAN</a>
+                <a class="btn btn-link" href="{{ route('santri.index') }}">SANTRI</a>
+                <a class="btn btn-link" href="{{ route('klssantri.index') }}">KELAS</a>
+                <a class="btn btn-link" href="{{ route('berita.index') }}">BERITA</a>
+                <a class="btn btn-link" href="{{ route('gallerie.index') }}">GALERY</a>
             </div>
-          </div>
 
-        <div class="col-lg-3 col-md-6">
-            <h4 class="text-white mb-3">GALLERY</h4>
-            <div class="row g-2 pt-2">
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER1.jpg') }}" alt="" style="width: 100%; height: auto;">
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">KONTAK</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>JL.KH..Hasyim Asy'ari RT:34 RW:11 JATIM</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 333 333</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>pondokjatim@gmail.com</p>
+                <div class="d-flex justify-content-center pt-2 px-1">
+                  <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-facebook-f text-white"></i></a>
+                  <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-twitter text-white"></i></a>
+                  <a class="btn btn-sm btn-square mx-1" href=""><i class="fab fa-instagram text-white"></i></a>
+                </div>
               </div>
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER2.jpg') }}" alt="" style="width: 100%; height: auto;">
-              </div>
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER3.jpg') }}" alt="" style="width: 100%; height: auto;">
-              </div>
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER4.jpg') }}" alt="" style="width: 100%; height: auto;">
-              </div>
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER5.jpg') }}" alt="" style="width: 100%; height: auto;">
-              </div>
-              <div class="col-4">
-                <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER6.jpg') }}" alt="" style="width: 100%; height: auto;">
-              </div>
-            </div>
-          </div>
 
-    </div>
-</div>
-<div class="container">
-    <div class="copyright">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                &copy; <a class="border-bottom" href="#">PONDOKJATIM</a>, Hak cipta dilindungi undang-undang.
-
-                Dirancang Oleh <a class="border-bottom" href="#">SANTRI</a>
-            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">GALLERY</h4>
+                <div class="row g-2 pt-2">
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER1.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER2.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER3.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER4.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER5.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid bg-light p-1" src="{{ asset('storage/img/FOOTER6.jpg') }}" alt="" style="width: 100%; height: auto;">
+                  </div>
+                </div>
+              </div>
 
         </div>
     </div>
-</div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">PONDOKJATIM</a>, Hak cipta dilindungi undang-undang.
+
+                    Dirancang Oleh <a class="border-bottom" href="#">SANTRI</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Footer End -->
 

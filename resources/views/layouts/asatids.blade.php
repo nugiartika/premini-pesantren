@@ -34,7 +34,6 @@
      <link href="css/style.css" rel="stylesheet">
 
      <style>
-
          /* CSS untuk container kolom */
      .col-lg-5 {
          padding: 0;
@@ -98,23 +97,6 @@
          margin-bottom: 0;
      }
 
-.team-item {
-    position: relative; /* Membuat posisi relatif untuk elemen ini */
-}
-
-.down {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Menambahkan gaya overflow agar teks tidak keluar dari card */
-.team-item p {
-    overflow: hidden;
-    text-overflow: ellipsis; /* Menambahkan titik tiga (...) jika teks terlalu panjang */
-    white-space: nowrap; /* Mencegah wrap teks */
-}
-
      </style>
          <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
@@ -141,6 +123,11 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto p-4 p-lg-0">
 
+                {{-- <li class="nav-item">
+                    <a href="{{ route('template.index') }}" class="nav-link {{ request()->routeIs('template.index') ? 'active' : '' }}">
+                        <i class="fa-solid fa-user-plus me-1"></i>HOME
+                    </a>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('staf.index') }}" class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}">
                         <i class="fa-solid fa-user-plus me-1"></i>STAF
@@ -156,43 +143,6 @@
                         <a class="dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}" href="{{ route('mapel.index') }}">MAPEL</a>
                     </div>
                 </li>
-
-                {{-- <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['santri.index', 'klssantri.index', 'syahriah.index']) ? 'active' : '' }}" id="santriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-regular fa-address-book me-1"></i>SANTRI
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="santriDropdown">
-                        <a class="dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
-                        <a class="dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
-                        <a class="dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
-                    </div>
-                </li> --}}
-
-                {{-- <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['detailberita.index', 'kategori.index']) ? 'active' : '' }}" id="beritaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-newspaper me-1"></i> BERITA
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="beritaDropdown">
-                        <a class="dropdown-item {{ request()->routeIs('detailberita.index') ? 'active' : '' }}" href="{{ route('detailberita.index') }}">LIST BERITA</a>
-                        <a class="dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}" href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
-                    </div>
-                </li> --}}
-
-                {{-- <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="pengumumanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-bell me-1"></i> PENGUMUMAN
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="pengumumanDropdown">
-                        <a class="dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
-                        <a class="dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
-                    </div>
-                </li> --}}
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('detailberita.index') ? 'active' : '' }}" href="{{ route('detailberita.index') }}">
-                        <i class="fa-regular fa-image me-1"></i>BERITA
-                    </a>
-                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}">
@@ -218,7 +168,6 @@
 @endif
 
 
-
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
@@ -228,9 +177,6 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025.</h5>
-                                <h1 class="display-3 text-white animated slideInDown style=";>PENDAFTARAN</h1>
-                                <h1 class="display-3 text-white animated slideInDown">SANTRI BARU</h1> --}}
                                 <a href="{{ route('pendaftaran.index') }}" class="btn btn-success py-md-3 px-md-5 animated slideInRight {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}">DAFTAR</a>
                             </div>
                         </div>
@@ -239,7 +185,7 @@
             </div>
 
             <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="storage/img/HEADER2.png" alt="">
+                <img class="img-fluid" src="storage/img/HEADER2.jpg" alt="">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -252,65 +198,32 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- Carousel End -->
 
-
-    <!-- Courses Start -->
-    <div class="container-xxl py-5">
+     <!-- ASATID Start -->
+     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
-                <h1 class="mb-5">Berita</h1>
+          <div class="text-center">
+            <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
+            <h1 class="mb-5">ASATID</h1>
+          </div>
+          <div class="owl-carousel testimonial-carousel position-relative">
+            @foreach($asatids as $asatidlist)
+            <div class="testimonial-item text-center">
+              <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ asset('storage/'.$asatidlist->foto) }}" style="width: 80px; height: 80px;">
+              <h5 class="mb-0">{{ $asatidlist->nama }}</h5>
+              <p>{{ $asatidlist->pendidikan }}</p>
+              <div class="text-white bg-success text-center p-4">
+                <p class="mb-0">{{ $asatidlist->tempat_lahir }}, {{ \Carbon\Carbon::parse($asatidlist->ttl)->isoFormat('D-MMMM-YYYY') }}</p>
+              </div>
             </div>
-            <div class="row justify-content-center">
-
-                @foreach ($beritas as $key => $berita)
-                <div class="col-lg-10 mb-4">
-                    {{-- <a href="{{ route('detailberita.index', ['id' => $berita->id]) }}"> --}}
-                        <div class="wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex;">
-                                <div class="overflow-hidden " style="height: 300px; display: flex; max-width: 100%;  align-items: center; justify-content: center;">
-                                <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt=""  style="object-fit: cover; height: 100%; align-item: center;">
-                                </div>
-                                <div class="team-item bg-light border border-top-0 p-4" style="flex: 1; padding-right: 10px;">
-                                    <div class="mb-2">
-                                        <p class="position-relative d-flex btn btn-lg btn-primary btn-block">{{ $berita->kategori->nama }}</p>
-                                    </div>
-                                    <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" >{{ $berita->judul_berita }}</p>
-                                    <p class="m-0">{{$berita->slug}}</p>
-                                    <div class="d-flex justify-content-between down" style="position: absolute; bottom: 15px; width: 95%;">
-                                        <div class="d-flex align-items-center">
-                                            <small><li class="fa fa-user text-primary me-2"></li>{{ $berita->user_posting }}</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <small class="ml-3">
-                                                {{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
-                                    <div class="d-flex align-items-center">
-                                                                          </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                    {{-- </a> --}}
-                            </div>
-                            @endforeach
-            </div>
-                        {{-- </div>
-                    </div> --}}
-                </div>
-            </div>
-            </div>
+            @endforeach
+          </div>
         </div>
-    </div>
-    <!-- berita End -->
-
+      </div>
+    <!-- ASATID End -->
 
 {{-- Footer start --}}
 <div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">            <div class="container py-5">
@@ -378,7 +291,6 @@
 </div>
 </div>
 <!-- Footer End -->
-
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

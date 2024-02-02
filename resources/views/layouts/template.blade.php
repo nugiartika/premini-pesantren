@@ -110,12 +110,20 @@
     @if (!request()->is('login') && !request()->is('register'))
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-success navbar-light shadow sticky-top p-0">
+        {{-- <a href="{{ url('index.html') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h5 class="m-0 text-success"><i class="fa-regular fa-house"></i>PONDOK JATIM</h5>
+        </a> --}}
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto p-4 p-lg-0">
 
+                {{-- <li class="nav-item">
+                    <a href="{{ route('template.index') }}" class="nav-link {{ request()->routeIs('template.index') ? 'active' : '' }}">
+                        <i class="fa-solid fa-user-plus me-1"></i>HOME
+                    </a>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('staf.index') }}" class="nav-link text-white {{ request()->routeIs('staf.index') ? 'active' : '' }}">
                         <i class="fa-solid fa-user-plus text-white me-1"></i>STAF
@@ -143,13 +151,23 @@
                     <a href="{{ route('berita.index') }}" class="nav-link text-white  {{ request()->routeIs('berita.index') ? 'active' : '' }}">
                         <i class="fas fa-newspaper text-white  me-1"></i> BERITA
                     </a>
-
-                    <div class="dropdown-menu" aria-labelledby="santriDropdown">
-                        <a class="dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
-                        <a class="dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
-                        <a class="dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
-                    </div>
                 </li>
+
+                {{-- <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="pengumumanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell me-1"></i> PENGUMUMAN
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pengumumanDropdown">
+                        <a class="dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
+                        <a class="dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
+                    </div>
+                </li> --}}
+{{--
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('detailberita.index') ? 'active' : '' }}" href="{{ route('detailberita.index') }}">
+                        <i class="fa-regular fa-image me-1"></i>BERITA
+                    </a>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link text-white  {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}">
@@ -228,25 +246,25 @@
                             <div class="p-4">
                                 <i class="fa fa-3x fa-users text-success mb-4"></i>
                                 <h5 class="mb-3">ASATID</h5>
-                                <p>Jumlah Asatid:{{ $jumlahAsatid }}</p>
+                                <p>Jumlah Asatid:{{ $jumlahAsatidlist }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-address-book text-success mb-4"></i>
-                                <h5 class="mb-3">SANTRI</h5>
-                                <p>Jumlah Santri:{{ $jumlahSantri }}</p>
+                                <i class="fa fa-3x fas fa-newspaper text-success mb-4"></i>
+                                <h5 class="mb-3">BERITA</h5>
+                                <p>Jumlah Berita:{{ $jumlahBerita }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-chalkboard-teacher text-success mb-4"></i>
-                                <h5 class="mb-3">KELAS</h5>
-                                <p>Jumlah Kelas:{{ $jumlahKelas }}</p>
+                                <i class="fa fa-3x fas fa-images text-success mb-4"></i>
+                                <h5 class="mb-3">GALLERY</h5>
+                                <p>Jumlah Gallery:{{ $jumlahGallery }}</p>
                             </div>
                         </div>
                     </div>
@@ -255,16 +273,127 @@
         </div>
         <!-- End -->
 
+    <!-- berita Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
+                <h1 class="mb-5">GALLERY</h1>
+              </div>
+            <div class="row g-4 justify-content-center">
+                @foreach ($galleris as $key => $gallery)
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item bg-light" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                            <div class="overflow-hidden" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                                <img class="img-fluid" src="{{ asset('storage/' . $gallery->sampul) }}" alt="" style="object-fit: cover; height: 100%;">
+                            </div>
+
+
+                                            {{-- <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                                <div class="bg-light d-flex justify-content-center pt-2 px-1"> --}}
+                                    <div class="mb-2 ">
+                                    <a class="position-relative d-flex btn btn-primary justify-content-center">{{$gallery->nama_gallery}}</a>
+                                    </div>
+                                        {{-- </div> --}}
+                                        {{-- <div class="text-center p-4">
+                                            <h5 class="mb-0"></h5>
+                                            <small>{{$gallery->slug}}</small>
+                                        </div> --}}
+                                        {{-- <div class="text-left p-1" style="padding: 20px 23px; font-family: Roboto Slab, Sans-serif; font-size: 12px; font-weight: 400;">
+                                            <p>{{$berita->tanggal}}</p>
+                                        </div> --}}
+                                        {{-- <div class="d-flex border-top">
+                                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ $gallery->tanggal }}</small>
+                                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ $gallery->user_posting }}</small>
+                                        </div> --}}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+                    {{-- @foreach ($beritas as $key => $berita)
+                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.1s">
+                            <a class="position-relative d-block overflow-hidden" href="">
+                                <img class="img-fluid" src="{{ asset('storage/' . $berita->foto) }}" alt="">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
+                                    <h5 class="m-0">{{$berita->judul_berita}}</h5>
+                                    <small class="text-primary">49 Courses</small>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach --}}
+    {{-- berita end --}}
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-success px-3">BERITA</h6>
+                <h1 class="mb-5">BERITA</h1>
+              </div>
+            <div class="row justify-content-center">
+
+                @foreach ($beritas as $key => $berita)
+                <div class="col-lg-3 mb-4">
+                    {{-- <a href="{{ route('detailberita.index', ['id' => $berita->id]) }}"> --}}
+                        <div class="wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+
+                                <div class="overflow-hidden" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                                <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt=""  style="object-fit: cover; height: 100%;">
+                                </div>
+                                <div class="team-item bg-l                                                                                                         ight border border-top-0 p-4">
+
+                                    {{-- <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                            <a class="btn btn-lg btn-primary btn-block">{{$berita->kategori->nama}}</a>
+                                        </div>
+                                    </div>--}}
+                                    <div class="mb-2">
+                                        <p class="position-relative d-flex btn btn-primary justify-content-center">{{ $berita->kategori->nama }}</p>
+                                        {{-- <a class="text-body" href=""><small>{{ $berita->tanggal }}</small></a> --}}
+                                    </div>
+                                    <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" >{{ $berita->judul_berita }}</p>
+                                    <p class="m-0">{{$berita->slug}}</p>
+                                </div>
+                                <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                                    <div class="d-flex align-items-center">
+                                        {{-- <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt=""> --}}
+                                        <small><i class="fa fa-user text-primary me-2"></i>{{ $berita->user_posting }}</small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="ml-3">{{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{-- </a> --}}
+                            </div>
+                            @endforeach
+            </div>
+                        {{-- </div>
+                    </div> --}}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Berita End -->
+
     <!-- STAF -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">STAF</h6>
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-success px-3">STAF</h6>
                 <h1 class="mb-5">STAF</h1>
-            </div>
+              </div>
             <div class="row g-4">
                 @foreach ($staf as $key => $staf)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+
                     <div class="team-item bg-light">
                         <div class="overflow-hidden">
                             <img class="img-fluid" src="{{ asset('storage/' . $staf->foto) }}" alt="">
@@ -279,11 +408,14 @@
                             <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $staf->tempat_lahir }} {{ \Carbon\Carbon::parse($staf->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
                         </div>
                     </div>
+                    </div>
                 </div>
                 @endforeach
             </div>
         </div>
     </div>
+    <!-- STAF End -->
+    <!-- Carousel End -->
 
 
     <!-- ASATID Start -->
@@ -359,6 +491,7 @@
                           </div>
                         </div>
                       </div>
+
                 </div>
             </div>
             <div class="container">
@@ -377,8 +510,12 @@
         <!-- Footer End -->
 
 
+
+
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-success btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

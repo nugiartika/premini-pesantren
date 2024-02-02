@@ -19,10 +19,10 @@ class TemplateController extends Controller
     public function index()
     {
         $jumlahStaf = staf::count();
-        $jumlahSantri = santri::count();
         $jumlahAsatidlist = Asatidlist::count();
-        $jumlahAsatid = Asatid::count();
-        $jumlahKelas = Klssantri::count();
+        $jumlahGallery = Gallerie::count();
+        $jumlahBerita = Berita::count();
+        // $jumlahAsatid = Asatid::count();
 
         $beritas = Berita::all();
         $galleris = Gallerie::all();
@@ -32,15 +32,13 @@ class TemplateController extends Controller
 
         return view('layouts.template', [
             'jumlahStaf' => $jumlahStaf,
-            'jumlahAsatid' => $jumlahAsatid ,
-            'jumlahSantri' => $jumlahSantri,
-            'jumlahKelas' => $jumlahKelas,
+            'jumlahGallery' => $jumlahGallery ,
             'jumlahAsatidlist' => $jumlahAsatidlist,
+            'jumlahBerita' => $jumlahBerita,
             'beritas' => $beritas,
             'staf' => $staf,
             'asatidlist' => $asatidlist,
             'galleris' => $galleris,
-            'staf' => $staf,
             'asatid' => $asatid,
         ]);
 

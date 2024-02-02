@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Gallerie extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nama_gallery',
-        'slug',
-        'tanggal',
-        'user_posting',
-        'sampul'
-    ];
+    protected $table = 'galleries';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public $incrementing = true;
+    public $timestamps = true;
+
 
 }

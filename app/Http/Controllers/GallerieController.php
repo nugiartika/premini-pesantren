@@ -28,16 +28,13 @@ class GallerieController extends Controller
     {
         $request->validate([
             'nama_gallery' => 'required',
-            'slug'  => 'required',
-            'tanggal' => 'required|date',
-            'user_posting' => 'required',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
-            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
+            // 'slug.required' => 'Kolom SLUG wajib diisi.',
+            // 'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+            // 'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
+            // 'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
             'sampul.required' => 'Kolom SAMPUL wajib diisi.',
             'sampul.image' => 'Kolom SAMPUL harus berupa file gambar.',
             'sampul.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -50,9 +47,9 @@ class GallerieController extends Controller
 
         Gallerie::create([
             'nama_gallery' => $request->input('nama_gallery'),
-            'slug' => $request->input('slug'),
-            'tanggal' => $request->input('tanggal'),
-            'user_posting' => $request->input('user_posting'),
+            // 'slug' => $request->input('slug'),
+            // 'tanggal' => $request->input('tanggal'),
+            // 'user_posting' => $request->input('user_posting'),
             'sampul' => $path,
         ]);
 
@@ -77,16 +74,16 @@ class GallerieController extends Controller
     {
         $request->validate([
             'nama_gallery' => 'required',
-            'slug'  => 'required',
-            'tanggal' => 'required|date',
-            'user_posting' => 'required',
+            // 'slug'  => 'required',
+            // 'tanggal' => 'required|date',
+            // 'user_posting' => 'required',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
-            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
+            // 'slug.required' => 'Kolom SLUG wajib diisi.',
+            // 'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+            // 'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
+            // 'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
             'sampul.required' => 'Kolom SAMPUL wajib diisi.',
             'sampul.image' => 'Kolom SAMPUL harus berupa file gambar.',
             'sampul.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -101,9 +98,9 @@ class GallerieController extends Controller
 
         $gallerie->update([
             'nama_gallery' => $request->input('nama_gallery'),
-            'slug' => $request->input('slug'),
-            'tanggal' => $request->input('tanggal'),
-            'user_posting' => $request->input('user_posting'),
+            // 'slug' => $request->input('slug'),
+            // 'tanggal' => $request->input('tanggal'),
+            // 'user_posting' => $request->input('user_posting'),
             'sampul' => $path,
         ]);
 
