@@ -19,62 +19,63 @@
 
 <style>
 
-    .bg {
-        background-color: #ffffff;
-        background-image: url('storage/img/bg01.jpg');
-    }
+        .bg {
+            background-color: #ffffff;
+            background-image: url('');
+        }
 
-    .navbar-toggler {
-        font-size: 14px;
-        padding: .25rem .75rem;
-        margin-right: .75rem;
-        border: 1px solid #ffffff;
-        border-radius: .25rem;
-    }
+        .navbar-toggler {
+            font-size: 14px;
+            padding: .25rem .75rem;
+            margin-right: .75rem;
+            border: 1px solid #ffffff;
+            border-radius: .25rem;
+        }
 
-    .navbar-toggler-icon {
-        width: 1.5em;
-        height: 1.5em;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 14px;
-        padding: .5rem 1rem;
-    }
-
-        .navbar {
-            background-color: #000;
-            border-bottom: 2px solid #000000;
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
         }
 
         .navbar-nav .nav-link {
-            color: #000000 !important;
+            font-size: 14px;
+            padding: .5rem 1rem;
+        }
+
+        .navbar {
+            background-color: #3a922d;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff ;
             padding: 0.5rem 1rem;
         }
 
         .navbar-nav .nav-link.active {
+            background-color: #ADBC9F;
+        }
+
+        /* .dropdown-menu {
+            background-color: #3a922d;
+        } */
+
+        .dropdown-menu a {
+            color: #ffffff;
             background-color: #3a922d;
         }
 
-        .dropdown-menu {
-            background-color: #000;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
-
-        .dropdown-menu a {
-            color: #fff !important;
-        }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
 
         th, td {
             padding: 8px;
             border: 1px solid #ddd;
             text-align: left;
-            font-size: 14px; /* Adjust the font size as needed */
+            font-size: 14px;
         }
 
         th {
@@ -100,22 +101,20 @@
 
         .navbar-brand h2 {
             margin-bottom: 0;
-            /* margin-right: auto; */
+
         }
 
         .logout-item {
-            color: black !important; /* Ganti dengan warna yang diinginkan */
+            color: rgb(255, 255, 255);
         }
         .nav-item.dropdown .nav-link {
-            color: black !important; /* Ganti dengan warna yang diinginkan */
+            color: rgb(255, 255, 255);
         }
 
         body {
-    background-image: url('/path/to/bg01.jpg');
-    background-size: cover; /* Atau properti lain sesuai kebutuhan */
-}
-
-
+        background-image: url('/path/to/bg01.jpg');
+        background-size: cover;
+        }
     </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
@@ -127,9 +126,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
 
-                <a class="navbar-brand" href="#">
-                    <h2>PONPES JATIM</h2>
-                </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -144,11 +141,11 @@
                         <li class="nav-item">
                             @if($role == 'admin')
                             <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
-                                <i class="fas fa-user-plus me-1"></i>DASHBOARD
+                                <i class="fa-solid fa-house me-1"></i>DASHBOARD
                             </a>
                             @else
                                 <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">
-                                    <i class="fa-regular fa-house me-1">DASHBOARD</i>
+                                    DASHBOARD
                                 </a>
                             @endif
 

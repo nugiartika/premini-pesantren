@@ -24,7 +24,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('', [TemplateController::class, 'index']);
 Auth::routes();
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
 Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
@@ -48,13 +48,11 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
 
             Route::resource('pendaftaran', PendaftaranController::class);
             Route::resource('gallerie', GallerieController::class);
-            // Route::resource('berita', BeritaController::class);
             Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
             Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
             Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
-
             Route::resource('umum', UmumController::class);
             Route::resource('kelulusan', KelulusanController::class);
 
-    // });
+    });

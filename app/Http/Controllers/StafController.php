@@ -149,9 +149,7 @@ class StafController extends Controller
         return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIUPDATE');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(staf $staf)
     {
         $staf->delete();
