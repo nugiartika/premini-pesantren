@@ -43,7 +43,7 @@
     }
 
         .navbar {
-            background-color: #000;
+            background-color: #ffffff; /*#000*/
             border-bottom: 2px solid #000000;
         }
 

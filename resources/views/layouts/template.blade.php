@@ -123,6 +123,11 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto p-4 p-lg-0">
 
+                {{-- <li class="nav-item">
+                    <a href="{{ route('template.index') }}" class="nav-link {{ request()->routeIs('template.index') ? 'active' : '' }}">
+                        <i class="fa-solid fa-user-plus me-1"></i>HOME
+                    </a>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('staf.index') }}" class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}">
                         <i class="fa-solid fa-user-plus me-1"></i>STAF
@@ -150,15 +155,15 @@
                     </div>
                 </li> --}}
 
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['berita.index', 'kategori.index']) ? 'active' : '' }}" id="beritaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{-- <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['detailberita.index', 'kategori.index']) ? 'active' : '' }}" id="beritaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-newspaper me-1"></i> BERITA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="beritaDropdown">
-                        <a class="dropdown-item {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">LIST BERITA</a>
+                        <a class="dropdown-item {{ request()->routeIs('detailberita.index') ? 'active' : '' }}" href="{{ route('detailberita.index') }}">LIST BERITA</a>
                         <a class="dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}" href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
                     </div>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="pengumumanDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,6 +173,12 @@
                         <a class="dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
                         <a class="dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
                     </div>
+                </li> --}}
+{{--
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('detailberita.index') ? 'active' : '' }}" href="{{ route('detailberita.index') }}">
+                        <i class="fa-regular fa-image me-1"></i>BERITA
+                    </a>
                 </li> --}}
 
                 <li class="nav-item">
@@ -280,7 +291,7 @@
 
 
     <!-- About Start -->
-    <div class="container-xxl py-5">
+    {{-- <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
@@ -317,41 +328,43 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- About End -->
 
 
     <!-- berita Start -->
-    <div class="container-xxl py-5 category">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
-                <h1 class="mb-5">Berita</h1>
+                <h6 class="section-title bg-white text-center text-primary px-3">Gallery</h6>
+                <h1 class="mb-5">Gallery</h1>
             </div>
             <div class="row g-4 justify-content-center">
                 @foreach ($galleris as $key => $gallery)
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item bg-light" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                            <div class="overflow-hidden" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                            <div class="overflow-hidden" style="height: 300px; display: flex; align-items: center; justify-content: center;">
                                 <img class="img-fluid" src="{{ asset('storage/' . $gallery->sampul) }}" alt="" style="object-fit: cover; height: 100%;">
                             </div>
-                            <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                                <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                    <a class="btn btn-lg btn-primary btn-block">{{$gallery->nama_gallery}}</a>
-                                </div>
-                            </div>
-                            <div class="text-center p-4">
-                                <h5 class="mb-0"></h5>
-                                <small>{{$gallery->slug}}</small>
-                            </div>
-                            {{-- <div class="text-left p-1" style="padding: 20px 23px; font-family: Roboto Slab, Sans-serif; font-size: 12px; font-weight: 400;">
-                                <p>{{$berita->tanggal}}</p>
-                            </div> --}}
-                            <div class="d-flex border-top">
-                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ $gallery->tanggal }}</small>
-                                {{-- <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small> --}}
-                                <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ $gallery->user_posting }}</small>
-                            </div>
+
+
+                                            {{-- <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                                <div class="bg-light d-flex justify-content-center pt-2 px-1"> --}}
+                                    <div class="mb-2 ">
+                                    <a class="position-relative d-flex btn btn-primary justify-content-center">{{$gallery->nama_gallery}}</a>
+                                    </div>
+                                        {{-- </div> --}}
+                                        {{-- <div class="text-center p-4">
+                                            <h5 class="mb-0"></h5>
+                                            <small>{{$gallery->slug}}</small>
+                                        </div> --}}
+                                        {{-- <div class="text-left p-1" style="padding: 20px 23px; font-family: Roboto Slab, Sans-serif; font-size: 12px; font-weight: 400;">
+                                            <p>{{$berita->tanggal}}</p>
+                                        </div> --}}
+                                        {{-- <div class="d-flex border-top">
+                                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ $gallery->tanggal }}</small>
+                                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ $gallery->user_posting }}</small>
+                                        </div> --}}
                         </div>
                     </div>
                 @endforeach
@@ -373,28 +386,41 @@
     {{-- berita end --}}
 
     <!-- Courses Start -->
-    <div class="container-fluid">
+    <div class="container-xxl py-5">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            @foreach ($beritas as $key => $berita)
-                            <div class="position-relative mb-3">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
+                <h1 class="mb-5">Berita</h1>
+            </div>
+            <div class="row justify-content-center">
+
+                @foreach ($beritas as $key => $berita)
+                <div class="col-lg-3 mb-4">
+                    {{-- <a href="{{ route('detailberita.index', ['id' => $berita->id]) }}"> --}}
+                        <div class="wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+
+                                <div class="overflow-hidden" style="height: 200px; display: flex; align-items: center; justify-content: center;">
                                 <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt=""  style="object-fit: cover; height: 100%;">
-                                <div class="bg-white border border-top-0 p-4">
+                                </div>
+                                <div class="team-item bg-l                                                                                                         ight border border-top-0 p-4">
+
+                                    {{-- <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                            <a class="btn btn-lg btn-primary btn-block">{{$berita->kategori->nama}}</a>
+                                        </div>
+                                    </div>--}}
                                     <div class="mb-2">
-                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                            href="">Business</a>
+                                        <p class="position-relative d-flex btn btn-primary justify-content-center">{{ $berita->kategori->nama }}</p>
                                         {{-- <a class="text-body" href=""><small>{{ $berita->tanggal }}</small></a> --}}
                                     </div>
-                                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="">{{ $berita->judul_berita }}</a>
+                                    <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" >{{ $berita->judul_berita }}</p>
                                     <p class="m-0">{{$berita->slug}}</p>
                                 </div>
                                 <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                                     <div class="d-flex align-items-center">
                                         {{-- <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt=""> --}}
-                                        <small>{{ $berita->user_posting }}</small>
+                                        <small><i class="fa fa-user text-primary me-2"></i>{{ $berita->user_posting }}</small>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <small class="ml-3">
@@ -403,11 +429,15 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-
                         </div>
-                    </div>
+                    {{-- </a> --}}
+                            </div>
+                            @endforeach
+            </div>
+                        {{-- </div>
+                    </div> --}}
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -454,11 +484,11 @@
         </div>
     </div>
 </div>
+{{-- staf --}}
 
 
 
-
-    <div class="container-xxl py-5">
+    {{-- <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4 justify-content-center">
                 @foreach ($beritas as $key => $berita)
@@ -486,7 +516,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div>--}}
 
 
 

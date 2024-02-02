@@ -2,46 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asatid;
 use App\Models\Berita;
-use App\Models\Gallerie;
-use App\Models\Kelulusan;
-use App\Models\Klssantri;
-use App\Models\santri;
-use App\Models\staf;
-use App\Models\Umum;
 use Illuminate\Http\Request;
 
-class TemplateController extends Controller
+class DetailberitaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $jumlahStaf = staf::count();
-        $jumlahSantri = santri::count();
-        $jumlahAsatid = Asatid::count();
-        $jumlahKelas = Klssantri::count();
-
         $beritas = Berita::all();
-        $galleris = Gallerie::all();
-        $staf = staf::all();
-        $asatid = asatid::all();
 
-        return view('layouts.template', [
-            'jumlahStaf' => $jumlahStaf,
-            'jumlahAsatid' => $jumlahAsatid ,
-            'jumlahSantri' => $jumlahSantri,
-            'jumlahKelas' => $jumlahKelas,
+        return view('layouts.detailberita', [
             'beritas' => $beritas,
-            'galleris' => $galleris,
-            'staf' => $staf,
-            'asatid' => $asatid,
         ]);
 
     }
-
 
     /**
      * Show the form for creating a new resource.

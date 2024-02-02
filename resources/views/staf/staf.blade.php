@@ -1,5 +1,5 @@
-<div class="bg">
-@extends('layouts.template')
+@extends('layouts.app')
+
 @section('content')
 @if(session('success'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -299,6 +299,12 @@
                                         @enderror
                                     </div>
 
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -312,4 +318,3 @@
         </div>
     </div>
 @endsection
-</div>

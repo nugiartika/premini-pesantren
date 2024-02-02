@@ -6,12 +6,14 @@ use App\Http\Controllers\AsatidlistController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailberitaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\KlssantriController;
 use App\Http\Controllers\GallerieController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\SyahriahController;
@@ -23,6 +25,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 Route::get('', [TemplateController::class, 'index']);
+Route::get('/detailberita', [DetailberitaController::class, 'index'])->name('layouts.detailberita');
+Route::get('/dgallery', [GalleryController::class, 'index'])->name('layouts.dgallery');
+// web.php
+// Route::get('/staf/{id}', [StafController::class, 'stafPage'])->name('staf.page');
 Auth::routes();
 // Route::middleware(['auth'])->group(function () {
 
