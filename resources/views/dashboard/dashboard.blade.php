@@ -34,17 +34,6 @@
 
 
     <style>
-        /* .body {
-        background-color: rgb(255, 255, 255);
-        background-image: url('');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        width: auto;
-        right: auto;
-        } */
-
         .img {
             position: relative;
             display: flex;
@@ -112,7 +101,7 @@
 <body>
         <section>
             <table class="tb no-bootstrap-table" >
-                {{-- <tr> --}}
+
                     <td>
                         <a href="{{ route('staf.index') }}" class="card-link">
                             <div class="card">
@@ -121,8 +110,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr> --}}
-                {{-- <tr> --}}
+
                     <td>
                         <a href="{{ route('asatid.index') }}" class="card-link">
                             <div class="card">
@@ -131,8 +119,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+
                     <td>
                         <a href="{{ route('santri.index') }}" class="card-link">
                             <div class="card">
@@ -141,8 +128,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+
                     <td>
                         <a href="{{ route('klssantri.index') }}" class="card-link">
                             <div class="card">
@@ -161,8 +147,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+
                     <td>
                         <a href="{{ route('berita.index') }}" class="card-link">
                             <div class="card">
@@ -171,8 +156,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+
                     <td>
                         <a href="{{ route('kelulusan.index') }}" class="card-link">
                             <div class="card">
@@ -181,8 +165,7 @@
                             </div>
                         </a>
                     </td>
-                {{-- </tr>
-                <tr> --}}
+
                     <td>
                         <a href="{{ route('umum.index') }}" class="card-link">
                             <div class="card">

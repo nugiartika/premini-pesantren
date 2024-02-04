@@ -1,60 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- sementara --}}
-    <!-- Right Side Of Navbar -->
-    {{-- <ul class="navbar-nav ms-auto">
-        <!-- Authentication Links -->
-        @guest
-            @if (Route::has('login'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-            @endif
-
-            @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-            @endif
-        @else
-            <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div> --}}
-            {{-- </li>
-        @endguest
-    </ul> --}}
-{{-- sementara --}}
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
-
-
 
     @if(session('success'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -86,9 +32,18 @@
         </div>
     @endif
 
-
-
     <style>
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-size: 14px;
+            padding: .5rem 1rem;
+        }
+
         section {
             display: flex;
             justify-content: space-around;
@@ -96,7 +51,8 @@
             margin: 20px;
             padding-left: 20%;
             padding-right: 20%;
-            }
+
+        }
 
         .card-link {
             text-decoration: none;
@@ -138,51 +94,55 @@
 
         .no-bootstrap-table tr {
         background-color: transparent;
-    }
+        }
+
     </style>
-        <section>
-            <table class="no-bootstrap-table" >
-                <tr>
-                    <td>
-                        <a href="{{ route('gallerie.index') }}" class="card-link">
-                            <div class="card">
-                                <h2><i class="fa-regular fa-image me-1"></i>Galery</h2>
-                                <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
-                            </div>
-                        </a>
-                    </td>
-                {{-- </tr>
-                <tr> --}}
-                    <td>
-                        <a href="{{ route('berita.index') }}" class="card-link">
-                            <div class="card">
-                                <h2><i class="fas fa-newspaper me-1"></i>Berita</h2>
-                                <p>Jumlah Berita: {{ $jumlahBerita }}</p>
-                            </div>
-                        </a>
-                    </td>
-                {{-- </tr>
-                <tr> --}}
-                    {{-- <td>
-                        <a href="{{ route('kelulusan.index') }}" class="card-link">
-                            <div class="card">
-                                <h2>Kelulusan</h2>
-                                <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
-                            </div>
-                        </a>
-                    </td> --}}
-                {{-- </tr>
-                <tr> --}}
-                    <td>
-                        <a href="{{ route('umum.index') }}" class="card-link">
-                            <div class="card">
-                                <h2><i class="fas fa-bell me-1"></i>Pengumuman</h2>
-                                <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-        </table>
-        </section>
-@endsection
+    <script>
+        // Memeriksa ukuran layar desktop saat ini
+var lebarLayar = window.innerWidth;
+var tinggiLayar = window.innerHeight;
+
+// Menampilkan ukuran layar desktop di konsol
+console.log("Lebar layar: " + lebarLayar + " piksel");
+console.log("Tinggi layar: " + tinggiLayar + " piksel");
+    </script>
+
+    <body>
+            <section>
+                <table class="no-bootstrap-table" >
+                    <tr>
+                        <td>
+                            <a href="{{ route('gallerie.index') }}" class="card-link">
+                                <div class="card">
+                                    <h2><i class="fa-regular fa-image me-1"></i>Galery</h2>
+                                    <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
+                                </div>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="{{ route('berita.index') }}" class="card-link">
+                                <div class="card">
+                                    <h2><i class="fas fa-newspaper me-1"></i>Berita</h2>
+                                    <p>Jumlah Berita: {{ $jumlahBerita }}</p>
+                                </div>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="{{ route('umum.index') }}" class="card-link">
+                                <div class="card">
+                                    <h2><i class="fas fa-bell me-1"></i>Pengumuman</h2>
+                                    <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+            </table>
+            </section>
+
+    @endsection
+
+    </body>
+
 

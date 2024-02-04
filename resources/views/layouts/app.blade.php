@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,68 +18,29 @@
 
 
 
-<style>
-
-        .bg {
-            background-color: #ffffff;
-            background-image: url('');
-        }
-
-        .navbar-toggler {
-            font-size: 14px;
-            padding: .25rem .75rem;
-            margin-right: .75rem;
-            border: 1px solid #ffffff;
-            border-radius: .25rem;
-        }
-
-<<<<<<< HEAD
-    .navbar-toggler-icon {
-        width: 1.5em;
-        height: 1.5em;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 14px;
-        padding: .5rem 1rem;
-    }
-
+    <style>
         .navbar {
-            background-color: #ffffff; /*#000*/
-            border-bottom: 2px solid #000000;
-=======
+            border-bottom: 10px solid #000000;
+        }
+
         .navbar-toggler-icon {
             width: 1.5em;
             height: 1.5em;
->>>>>>> fc259cd7d164e35a2bca017119a214f918f627f4
         }
 
         .navbar-nav .nav-link {
+            color: #ffffff;
             font-size: 14px;
             padding: .5rem 1rem;
         }
 
-        .navbar {
-            background-color: #3a922d;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        .navbar-nav .nav-link {
-            color: #ffffff ;
-            padding: 0.5rem 1rem;
+        .dropdown-menu a {
+            color: #ffffff;
+            background-color: #28a745;
         }
 
         .navbar-nav .nav-link.active {
             background-color: #ADBC9F;
-        }
-
-        /* .dropdown-menu {
-            background-color: #3a922d;
-        } */
-
-        .dropdown-menu a {
-            color: #ffffff;
-            background-color: #3a922d;
         }
 
         table {
@@ -87,7 +49,8 @@
             margin: 20px 0;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             border: 1px solid #ddd;
             text-align: left;
@@ -105,45 +68,30 @@
         .btn-success,
         .btn-warning,
         .btn-danger {
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            font-size: 30px;
-            color: #000000;
-        }
-
-        .navbar-brand h2 {
-            margin-bottom: 0;
-
-        }
-
-        .logout-item {
-            color: rgb(255, 255, 255);
-        }
         .nav-item.dropdown .nav-link {
             color: rgb(255, 255, 255);
         }
-
-        body {
-        background-image: url('/path/to/bg01.jpg');
-        background-size: cover;
-        }
     </style>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         @if (!request()->is('login') && !request()->is('register'))
-        <nav class="navbar navbar-expand-lg">
+    @php
+        $role = auth()->user()->role;
+    @endphp
+        @if ($role == 'admin')
+        <nav class="navbar navbar-expand-lg btn-success">
             <div class="container">
 
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -151,83 +99,102 @@
                     <ul class="navbar-nav me-auto">
 
                         @auth
-                        @php
-                            $role = auth()->user()->role;
-                        @endphp
-                        <li class="nav-item">
-                            @if($role == 'admin')
-                            <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
-                                <i class="fa-solid fa-house me-1"></i>DASHBOARD
-                            </a>
-                            @else
-                                <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">
-                                    DASHBOARD
+
+                            <li class="nav-item">
+                                @if ($role == 'admin')
+                                    <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                                        href="{{ route('dashboard.index') }}">
+                                        <i class="fa-solid fa-house me-1"></i>DASHBOARD
+                                    </a>
+                                @else
+                                    <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}"
+                                        href="{{ route('home.index') }}">
+                                        DASHBOARD
+                                    </a>
+                                @endif
+
+                            </li>
+
+                            @if ($role == 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}"
+                                        href="{{ route('staf.index') }}">
+                                        <i class="fa-solid fa-user-plus me-1"></i>STAF
+                                    </a>
+                                </li>
+                            @endauth
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}"
+                                    href="{{ route('asatid.index') }}" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-users me-1"></i>ASATID
                                 </a>
-                            @endif
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}"
+                                        href="{{ route('asatidlist.index') }}">LIST ASATID</a>
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}"
+                                        href="{{ route('mapel.index') }}">MAPEL</a>
+                                </div>
+                            </li>
 
-                        </li>
-
-                        @if($role == 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}" href="{{ route('staf.index') }}">
-                                <i class="fa-solid fa-user-plus me-1"></i>STAF
-                            </a>
-                        </li>
-
-                        {{-- Your authenticated user navigation here --}}
-                    @endauth
-
-                    {{-- Other navigation items that don't depend on user authentication --}}
-
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}" href="{{ route('asatid.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-users me-1"></i>ASATID
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}" href="{{ route('asatidlist.index') }}">LIST ASATID</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}" href="{{ route('mapel.index') }}">MAPEL</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['santri.index', 'klssantri.index', 'syahriah.index']) ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-regular fa-address-book me-1"></i>SANTRI
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}" href="{{ route('santri.index') }}">LIST SANTRI</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}" href="{{ route('klssantri.index') }}">LIST KELAS</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}" href="{{ route('syahriah.index') }}">SYAHRIAH</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle {{ request()->routeIs(['santri.index', 'klssantri.index', 'syahriah.index']) ? 'active' : '' }}"
+                                    href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-regular fa-address-book me-1"></i>SANTRI
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('santri.index') ? 'active' : '' }}"
+                                        href="{{ route('santri.index') }}">LIST SANTRI</a>
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}"
+                                        href="{{ route('klssantri.index') }}">LIST KELAS</a>
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}"
+                                        href="{{ route('syahriah.index') }}">SYAHRIAH</a>
+                                </div>
+                            </li>
                         @endif
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['berita.index', 'kategori.index']) ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['berita.index', 'kategori.index']) ? 'active' : '' }}"
+                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-newspaper me-1"></i> BERITA
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">LIST BERITA</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}" href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('berita.index') ? 'active' : '' }}"
+                                    href="{{ route('berita.index') }}">LIST BERITA</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}"
+                                    href="{{ route('kategori.index') }}">KATEGORI BERITA</a>
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}"
+                                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 <i class="fas fa-bell me-1"></i> PENGUMUMAN
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}" href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}"
+                                    href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
+                                    href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
                             </div>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
+                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}"
+                                href="{{ route('gallerie.index') }}"><i
+                                    class="fa-regular fa-image me-1"></i>GALLERIE</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
+                            <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}"
+                                href="{{ route('pendaftaran.index') }}"><i
+                                    class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
                         </li>
+
                     </ul>
 
 
@@ -247,18 +214,21 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item logout-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -268,6 +238,83 @@
                 </div>
             </div>
         </nav>
+        @else
+
+        <nav class="navbar navbar-expand-lg btn-success">
+            <div class="container">
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}"><i class="fa-solid fa-house me-1"></i>HOME</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}"><i class="fas fa-newspaper me-1"></i>BERITA</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}"><i class="fas fa-bell me-1"></i>PENGUMUMAN KELULUSAN</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item logout-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        @endif
         @endif
         <main class="py-4">
             @yield('content')
@@ -275,4 +322,5 @@
     </div>
 
 </body>
+
 </html>

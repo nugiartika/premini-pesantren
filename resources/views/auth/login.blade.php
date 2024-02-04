@@ -13,26 +13,6 @@
         padding: 0 2rem;
     }
 
-    .container:before {
-        content: '';
-        position: absolute;
-        width: 2000px;
-        height: 2000px;
-        border-radius: 50%;
-        background: linear-gradient(-45deg, #42be32, #2aae82, #33e6ab);
-        top: -10%;
-        left: 48%;
-        transform: translateY(-50%);
-    }
-
-    .img {
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        transform: translate(20%, 0);
-    }
-
     .img img {
         width: 100%;
     }
@@ -45,6 +25,7 @@
         grid-row: 1 / 2;
     }
 
+
     form {
         width: 360px;
     }
@@ -53,14 +34,14 @@
         font-size: 2.9rem;
         text-transform: uppercase;
         margin: 15px 0;
-        color: #333;
+        color: #28a745;
     }
 
     .row.mb-3 {
         max-width: 380px;
         width: 85%;
         height: 55px;
-        background-color: #f0f0f0;
+        background-color: #E3E1D9;
         margin: 10px 0;
         border-radius: 55px;
         display: grid;
@@ -71,7 +52,7 @@
     .row.mb-3 i {
         text-align: center;
         line-height: 55px;
-        color: #acacac;
+        color: #28a745;
         font-size: 1.1rem;
     }
 
@@ -86,7 +67,7 @@
     }
 
     .row.mb-3 input::placeholder {
-        color: #aaa;
+        color: #28a745;
         font-weight: 500;
     }
 
@@ -148,18 +129,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="login-container">
-            {{-- <div class="card"> --}}
-                {{-- <div class="card-header">{{ __('Login') }}</div> --}}
 
-                {{-- <div class="card-body"> --}}
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <h2>Welcome</h2>
+                        <h2>LOGIN</h2>
                         <div class="row mb-3">
-
-                            {{-- <div class="col-md-6 one"> --}}
-                                {{-- <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label> --}}
                                 <i class="fas fa-user"></i>
                                 <input class="input" id="email" type="email" placeholder="{{ __('Email Address') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
@@ -206,8 +181,8 @@
             </div>
         </div>
     </div>
-    {{-- <div class="img">
+     <div class="img">
         <img src="{{ asset('storage/img/Mobile_login-bro__5_-removebg-preview.png') }}" alt="Foto">
-    </div> --}}
+    </div>
 </div>
 @endsection
