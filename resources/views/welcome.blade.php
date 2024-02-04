@@ -310,7 +310,7 @@
                 <h1 class="mb-5">STAF</h1>
             </div>
             <div class="row g-4">
-                @foreach ($staf as $key => $staf)
+                @foreach ($staf as $key => $gallery)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                         <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
