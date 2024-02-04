@@ -28,6 +28,7 @@
 
     form {
         width: 360px;
+        
     }
 
     form h2 {
@@ -110,7 +111,7 @@
         font-size: 1.2rem;
         outline: none;
         border: none;
-        background-image: linear-gradient(to right, #32be8f, #38d39f, #39a983);
+        background-image: linear-gradient(to right, #28a745, #28a745, #28a745);
         cursor: pointer;
         color: #fff;
         font-display: 'Poppins', sans-serif;
@@ -123,13 +124,35 @@
         background-position: right;
     }
 
+
+
+       .container {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 7rem;
+        padding: 0 2rem;
+    }
+
+    .background-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
 </style>
 
 <div class="container">
+    <div class="background-img">
+        <img src="{{ asset('storage/img/LOGIN.png') }}" alt="">
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="login-container">
-
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -170,19 +193,42 @@
                                 <button type="submit" class="btn btn-primary mt-3">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
+                                <p>Belum Punya Akun?<a href="{{ route('register') }}"> Register</a></p>
+                                {{-- @if (Route::has('password.request'))
                                     <a class="btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
+                                @endif --}}
                         </div>
+                        <div class="text">
+                      </div>
                   </form>
             </div>
         </div>
     </div>
-     <div class="img">
-        <img src="{{ asset('storage/img/Mobile_login-bro__5_-removebg-preview.png') }}" alt="Foto">
-    </div>
+
 </div>
+<script>
+    // Mengatur ukuran gambar latar belakang sesuai ukuran jendela browser
+    window.addEventListener('resize', function() {
+        var backgroundImg = document.querySelector('.background-img img');
+        var container = document.querySelector('.container');
+        var containerWidth = container.offsetWidth;
+        var containerHeight = container.offsetHeight;
+
+        backgroundImg.style.width = containerWidth + 'px';
+        backgroundImg.style.height = containerHeight + 'px';
+    });
+
+    // Inisialisasi ukuran gambar latar belakang saat halaman dimuat
+    window.addEventListener('load', function() {
+        var backgroundImg = document.querySelector('.background-img img');
+        var container = document.querySelector('.container');
+        var containerWidth = container.offsetWidth;
+        var containerHeight = container.offsetHeight;
+
+        backgroundImg.style.width = containerWidth + 'px';
+        backgroundImg.style.height = containerHeight + 'px';
+    });
+</script>
 @endsection

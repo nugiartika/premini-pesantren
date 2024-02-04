@@ -122,6 +122,23 @@
     .search-button:hover {
         opacity: 0.8;
     }
+    .navbar-brand {
+        margin-top: -80px;
+    }
+
+    .navbar {
+        height: 97px;
+
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+    color: #FFFFFF;
+    font-size: 19px;
+    text-transform: uppercase;
+    outline: none;
+    }
+
+
      </style>
      <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
          <script>
@@ -132,7 +149,6 @@
       window.onload = function() {
         goToWelcomeSection();
       };
-    </script>
 </head>
 
 <body>
@@ -147,15 +163,25 @@
     <!-- Navbar Start -->
     @if (!request()->is('login') && !request()->is('register'))
     <nav class="navbar navbar-expand-lg bg-success navbar-light shadow sticky-top p-0">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('storage/img/LOGO.png') }}" alt="PondokJatim" style="height: 250px;
+    width: 280px;
+    margin-top: -27px;
+    margin-left: 73px;"
+    >
+            </a>
+
+
+
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto p-4 p-lg-0">
 
-                {{-- <a href="{{ route('welcome') }}" class="nav-link text-white">
+                <a href="{{ request()->routeIs('welcome.index') ? 'active' : '' }}" class="nav-link text-white">
                     <i class="fa-solid fa-house me-1"></i>HOME
-                </a> --}}
+                </a>
 
                 <a href="#staf-section" class="nav-link text-white {{ request()->routeIs('staf.index') ? 'active' : '' }}">
                     <i class="fa-solid fa-user-plus text-white me-1"></i>STAF
@@ -176,7 +202,7 @@
             </ul>
             @if (Route::has('register'))
             <li class="nav-item list-unstyled">
-                <a href="{{ route('register') }}" class="btn btn-warning text-white  py-4 px-lg-5 d-none d-lg-block">
+                <a href="{{ route('register') }}" class="btn btn-warning text-white  py-4 px-lg-5 d-none d-lg-block ">
                     BERGABUNG <i class="fa fa-arrow-right ms-3"></i>
                 </a>
             </li>
@@ -280,7 +306,7 @@
     </form>
             <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">STAF</h6>
+                <h6 class="section-title bg-white text-center text-success px-3">STAF</h6>
                 <h1 class="mb-5">STAF</h1>
             </div>
             <div class="row g-4">
@@ -346,7 +372,7 @@
         </form>
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
+                <h6 class="section-title bg-white text-center text-success px-3">Berita</h6>
                 <h1 class="mb-5">Berita</h1>
             </div>
             <div class="row justify-content-center">

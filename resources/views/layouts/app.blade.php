@@ -20,8 +20,13 @@
 
     <style>
         .navbar {
-            border-bottom: 10px solid #000000;
+            height: 83px;
         }
+
+        .img img {
+                width: 1232px;
+                height: 302px;
+            }
 
         .navbar-toggler-icon {
             width: 1.5em;
@@ -77,16 +82,30 @@
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    var lebar = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var tinggi = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        console.log("Ukuran desktop: " + lebar + " x " + tinggi);</script>
 </head>
 
 <body>
     <div id="app">
+
         @if (!request()->is('login') && !request()->is('register'))
     @php
         $role = auth()->user()->role;
     @endphp
         @if ($role == 'admin')
         <nav class="navbar navbar-expand-lg btn-success">
+
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('storage/img/LOGO.png') }}" alt="PondokJatim" style="height: 215px;
+                width: 215px;
+                margin-top: 48px;
+                margin-left: 26px;"
+    >
+            </a>
             <div class="container">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -242,8 +261,13 @@
 
         <nav class="navbar navbar-expand-lg btn-success">
             <div class="container">
-
-
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('storage/img/LOGO.png') }}" alt="PondokJatim" style="height: 215px;
+                    width: 215px;
+                    margin-top: 48px;
+                    margin-left: 26px;"
+        >
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

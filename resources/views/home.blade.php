@@ -108,6 +108,7 @@ console.log("Tinggi layar: " + tinggiLayar + " piksel");
     </script>
 
     <body>
+
             <section>
                 <table class="no-bootstrap-table" >
                     <tr>
