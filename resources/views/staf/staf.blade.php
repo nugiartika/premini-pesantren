@@ -40,9 +40,10 @@
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
-
                     <div class="card-body">
                         <table class="table table-bordered table-striped table-hover text-center">
+                            <thead>
+                                <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIP</th>
                                     <th scope="col" class="text-center">NAMA</th>
@@ -87,9 +88,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$staf->links()}}
                     </div>
-                </div>
-            </div>
+
 
             {{-- modal tambah --}}
             <div class="modal" tabindex="-1" id="tambahModal">

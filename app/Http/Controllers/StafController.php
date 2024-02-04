@@ -13,7 +13,7 @@ class StafController extends Controller
 
     public function index()
     {
-        $staf = Staf::all();
+        $staf = Staf::paginate(10);
         return view('staf.staf', compact('staf'));
 
     }
@@ -149,7 +149,7 @@ class StafController extends Controller
         return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIUPDATE');
     }
 
-   
+
     public function destroy(staf $staf)
     {
         $staf->delete();

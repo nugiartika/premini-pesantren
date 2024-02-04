@@ -86,6 +86,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$santri->links()}}
                     </div>
                 </div>
             </div>

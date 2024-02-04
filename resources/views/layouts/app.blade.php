@@ -16,8 +16,6 @@
 
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
-
-
     <style>
         .navbar {
             height: 83px;
@@ -79,6 +77,35 @@
         .nav-item.dropdown .nav-link {
             color: rgb(255, 255, 255);
         }
+
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    color: black;
+    background-color: #ADBC9F;
+}
+tr:hover {
+    background-color: white;
+    color: black;
+}
+
+        .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+
+    .pagination .page-item:not(.active) .page-link {
+        color: black;
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+        .pagination .page-item.active .page-link {
+        background-color: black;
+        border-color: black;
+        color: white;
+    }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
@@ -144,12 +171,14 @@
                             @endauth
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}"
-                                    href="{{ route('asatid.index') }}" id="navbarDropdown" role="button"
+                                <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatid.index','asatidlist.index', 'mapel.index']) ? 'active' : '' }}"
+                                    href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-users me-1"></i>ASATID
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link dropdown-item {{ request()->routeIs('asatid.index') ? 'active' : '' }}"
+                                        href="{{ route('asatid.index') }}">ASATID</a>
                                     <a class="nav-link dropdown-item {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}"
                                         href="{{ route('asatidlist.index') }}">LIST ASATID</a>
                                     <a class="nav-link dropdown-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}"

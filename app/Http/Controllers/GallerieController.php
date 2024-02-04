@@ -28,7 +28,7 @@ class GallerieController extends Controller
     {
         $request->validate([
             'nama_gallery' => 'required',
-            'slug'  => 'required',
+            // 'slug'  => 'required',
             'tanggal' => 'required|date',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -49,7 +49,7 @@ class GallerieController extends Controller
 
         Gallerie::create([
             'nama_gallery' => $request->input('nama_gallery'),
-            'slug' => $request->input('slug'),
+            // 'slug' => $request->input('slug'),
             'tanggal' => $request->input('tanggal'),
             'sampul' => $path,
         ]);
@@ -75,12 +75,12 @@ class GallerieController extends Controller
     {
         $request->validate([
             'nama_gallery' => 'required',
-            'slug'  => 'required',
+            // 'slug'  => 'required',
             'tanggal' => 'required|date',
             'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
+            // 'slug.required' => 'Kolom SLUG wajib diisi.',
             'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
             'sampul.required' => 'Kolom SAMPUL wajib diisi.',
@@ -97,7 +97,7 @@ class GallerieController extends Controller
 
         $gallerie->update([
             'nama_gallery' => $request->input('nama_gallery'),
-            'slug' => $request->input('slug'),
+            // 'slug' => $request->input('slug'),
             'tanggal' => $request->input('tanggal'),
             'sampul' => $path,
         ]);

@@ -285,9 +285,9 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-address-book text-success mb-4"></i>
-                                <h5 class="mb-3">GALLERIE</h5>
-                                <p>Jumlah Galerie:{{ $jumlahGallerie }}</p>
+                                <i class="fa fa-3x fa-regular fa-image text-success mb-4"></i>
+                                <h5 class="mb-3">GALLERY</h5>
+                                <p>Jumlah Gallery:{{ $jumlahGallerie }}</p>
                             </div>
                         </div>
                     </div>
@@ -306,24 +306,18 @@
     </form>
             <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-success px-3">STAF</h6>
+                <h6 class="section-title bg-white text-center text-primary px-3">STAF</h6>
                 <h1 class="mb-5">STAF</h1>
             </div>
             <div class="row g-4">
                 @foreach ($staf as $key => $staf)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item bg-light">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('storage/' . $staf->foto) }}" alt="">
+                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $gallery->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
                         </div>
-                         <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$staf->nama}}</a></h5>
-                            </div>
-                        </div>
-                       <div class="text-center p-4">
-                            <small><a class="btn btn-lg text-black btn-block">{{$staf->jabatan}}</a></small>
-                            <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $staf->tempat_lahir }} {{ \Carbon\Carbon::parse($staf->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
+                        <div class="mb-2 ">
+                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$gallery->nama_gallery}}</a>
                         </div>
                     </div>
                 </div>
@@ -372,7 +366,7 @@
         </form>
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-success px-3">Berita</h6>
+                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
                 <h1 class="mb-5">Berita</h1>
             </div>
             <div class="row justify-content-center">

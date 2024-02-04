@@ -47,7 +47,7 @@
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NAMA GALLERY</th>
-                                    <th scope="col" class="text-center">SLUG</th>
+                                    {{-- <th scope="col" class="text-center">SLUG</th> --}}
                                     <th scope="col" class="text-center">TANGGAL</th>
                                     <th scope="col" class="text-center">SAMPUL</th>
                                     <th scope="col" class="text-center">AKSI</th>
@@ -58,7 +58,7 @@
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nama_gallery }}</td>
-                                        <td class="text-center">{{ $item->slug }}</td>
+                                        {{-- <td class="text-center">{{ $item->slug }}</td> --}}
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">
                                             @if ($item->sampul)
@@ -109,7 +109,7 @@
                                         </span>
                                     @enderror
                                 </div>
-
+{{--
                                 <div class="mb-3">
                                     <label for="slug" class="form-label">SLUG</label>
                                     <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
@@ -118,7 +118,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">TANGGAL</label>
@@ -173,7 +173,7 @@
                                             </span>
                                         @enderror
                                     </div>
-
+{{--
                                     <div class="mb-3">
                                         <label for="edit_slug" class="form-label">SLUG</label>
                                         <input type="text" class="form-control @error('slug') is-invalid @enderror" id="edit_slug" name="slug" value="{{ old('slug', $item->slug) }}">
@@ -182,7 +182,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="edit_tanggal" class="form-label">TANGGAL</label>

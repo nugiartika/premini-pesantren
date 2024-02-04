@@ -90,8 +90,8 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                        </table>
                                     </tbody>
-                                </table>
                             </div>
 
             <div class="modal fade"  tabindex="-1" aria-labelledby="editdaftarLabel" aria-hidden="true" id="editdaftar{{ $data->id }}">
@@ -114,7 +114,7 @@
                                 </span>
                             @enderror
                             </div>
-                  
+
 
                     <div class="col-md-6">
                         <label for="jenis_kelamin" class="form-label">jenis kelamin</label>

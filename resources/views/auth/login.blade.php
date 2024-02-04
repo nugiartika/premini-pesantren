@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-    .container {
+     .container {
         position: fixed;
         width: 100vw;
         height: 100vh;
@@ -13,8 +13,15 @@
         padding: 0 2rem;
     }
 
-    .img img {
-        width: 100%;
+    .img {
+        background: url('{{ asset("storage/img/LOGIN.png") }}') no-repeat center center fixed;
+        background-size: 65% 65%;
+        background-position:63% 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
     }
 
     .login-container {
@@ -25,10 +32,9 @@
         grid-row: 1 / 2;
     }
 
-
     form {
         width: 360px;
-        
+
     }
 
     form h2 {
@@ -206,7 +212,7 @@
             </div>
         </div>
     </div>
-
+    
 </div>
 <script>
     // Mengatur ukuran gambar latar belakang sesuai ukuran jendela browser
