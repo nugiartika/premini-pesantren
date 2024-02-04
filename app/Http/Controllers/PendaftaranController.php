@@ -12,7 +12,7 @@ class PendaftaranController extends Controller
 
     public function index()
     {
-        $pendaftaran = Pendaftaran::all();
+        $pendaftaran = Pendaftaran::paginate(1);
         return view('pendaftaran.pendaftaran', compact('pendaftaran'));
     }
 
@@ -40,12 +40,12 @@ class PendaftaranController extends Controller
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah',
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
-            'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
+            'nama_lengkap.unique' => 'NAMA LENGKAP sudah digunakan.',
             'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.numeric' => 'NIK harus berupa angka',
             'nik.min' => 'NIK tidak boleh MIN-',
-            'nik.unique' => ' sudah NIK digunakan.',
+            'nik.unique' => 'NIK sudah  digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'tanggal_lahir.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'tanggal_lahir.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
@@ -58,7 +58,7 @@ class PendaftaranController extends Controller
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
             'telepon_rumah.min' => 'TELEPON RUMAH  tidak boleh MIN-',
-            'telepon_rumah.unique' => ' sudah TELEPON RUMAH  digunakan.',
+            'telepon_rumah.unique' => 'TELEPON RUMAH sudah   digunakan.',
         ]);
 
         Pendaftaran::create([
@@ -108,12 +108,12 @@ class PendaftaranController extends Controller
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah,' . $pendaftaran->id,
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
-            'nama_lengkap.unique' => ' sudah NAMA LENGKAPdigunakan.',
+            'nama_lengkap.unique' => 'NAMA LENGKAP sudah digunakan.',
             'jenis_kelamin.required' => 'Kolom JENIS KELAMIN wajib diisi.',
             'nik.required' => 'Kolom NIK wajib diisi.',
             'nik.numeric' => 'NIK harus berupa angka',
             'nik.min' => 'NIK tidak boleh MIN-',
-            'nik.unique' => ' sudah NIK digunakan.',
+            'nik.unique' => 'NIK sudah  digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'tanggal_lahir.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'tanggal_lahir.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
@@ -126,7 +126,7 @@ class PendaftaranController extends Controller
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
             'telepon_rumah.min' => 'TELEPON RUMAH  tidak boleh MIN-',
-            'telepon_rumah.unique' => ' sudah TELEPON RUMAH  digunakan.',
+            'telepon_rumah.unique' => ' TELEPON RUMAH sudah  digunakan.',
         ]);
 
 

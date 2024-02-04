@@ -14,7 +14,7 @@ class SantriController extends Controller
 
     public function index()
     {
-        $santri = santri::all();
+        $santri = santri::paginate(10);
         $klssantri = klssantri::all();
         $pendaftaran = pendaftaran::all();
         return view('santri.santri', compact('santri', 'klssantri', 'pendaftaran'));

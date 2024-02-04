@@ -88,7 +88,7 @@
         }
 
         p {
-            color: #2bff00;
+            color: #36b13a;
             font-size: 1em;
             line-height: 1.4;
         }
@@ -97,6 +97,10 @@
             border: none;
             color: #2bff00;
         }
+        .tb.no-bootstrap-table tr {
+        background-color: transparent;
+    }
+
     </style>
 <body>
         <section>

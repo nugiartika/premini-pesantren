@@ -124,7 +124,7 @@
 
                             <div class="mb-3">
                                 <label for="no_ujian" class="form-label">NO UJIAN</label>
-                                <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
+                                <input type="number" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
                                 @error('no_ujian')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -146,7 +146,7 @@
 
                                 <div class="mb-3">
                                     <label for="nilai" class="form-label">NILAI</label>
-                                    <input type="text" class="form-control @error('nilai') is-invalid @enderror" id="nilai" name="nilai" value="{{ old('nilai') }}">
+                                    <input type="number" class="form-control @error('nilai') is-invalid @enderror" id="nilai" name="nilai" value="{{ old('nilai') }}">
                                     @error('nilai')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -198,7 +198,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_no_ujian" class="form-label">NO UJIAN</label>
-                                        <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="edit_no_ujian" name="no_ujian" value="{{ old('no_ujian', $item->no_ujian) }}">
+                                        <input type="number" class="form-control @error('no_ujian') is-invalid @enderror" id="edit_no_ujian" name="no_ujian" value="{{ old('no_ujian', $item->no_ujian) }}">
                                         @error('no_ujian')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -225,7 +225,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_nilai" class="form-label">NILAI</label>
-                                        <input type="text" class="form-control @error('nilai') is-invalid @enderror" id="edit_nilai" name="nilai" value="{{ old('nilai', $item->nilai) }}">
+                                        <input type="number" class="form-control @error('nilai') is-invalid @enderror" id="edit_nilai" name="nilai" value="{{ old('nilai', $item->nilai) }}">
                                         @error('nilai')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

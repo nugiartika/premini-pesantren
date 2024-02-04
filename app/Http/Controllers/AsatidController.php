@@ -13,7 +13,7 @@ class AsatidController extends Controller
 
     public function index()
     {
-        $asatid = Asatid::all();
+        $asatid = Asatid::paginate(10);
         $asatidlist = Asatidlist::all();
         $mapel = Mapel::all();
         return view('asatid.asatid', compact('asatid', 'asatidlist', 'mapel'));
@@ -44,7 +44,7 @@ class AsatidController extends Controller
         Asatid::create([
             'asatidlist_id' => $request->input('asatidlist_id'),
             'mapel_id' => $request->input('mapel_id'),
-        ]);   
+        ]);
 
         return redirect()->route('asatid.index')->with('success', 'ASATID BERHASIL DITAMBAHKAN');
 

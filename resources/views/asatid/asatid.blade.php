@@ -85,6 +85,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$asatid->links()}}
                     </div>
                 </div>
             </div>
