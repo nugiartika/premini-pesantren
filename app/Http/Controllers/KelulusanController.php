@@ -39,7 +39,7 @@ class KelulusanController extends Controller
             'santri_id' => 'required|unique:kelulusans,santri_id',
             'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian',
             'mapel_id' => 'required',
-            'nilai' => 'required|numeric|min:0',
+            'nilai' => 'required|numeric|min:0|max:100',
         ], [
             'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
             'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
@@ -51,6 +51,7 @@ class KelulusanController extends Controller
             'nilai.required' => 'Kolom NILAI wajib diisi.',
             'nilai.numeric' => ' NILAI harus berupa angka',
             'nilai.min' => ' NILAI tidak boleh MIN-',
+            'nilai.max' => ' NILAI max 100',
         ]);
 
         $nilai = $request->input('nilai');
@@ -94,8 +95,7 @@ class KelulusanController extends Controller
             'santri_id' => 'required|unique:kelulusans,santri_id,' . $kelulusan->id,
             'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian,' . $kelulusan->id,
             'mapel_id' => 'required',
-            'nilai' => 'required|numeric|min:0',
-            // 'keterangan' => 'required',
+            'nilai' => 'required|numeric|min:0|max:100',
         ], [
             'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
             'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
@@ -107,7 +107,7 @@ class KelulusanController extends Controller
             'nilai.required' => 'Kolom NILAI wajib diisi.',
             'nilai.numeric' => ' NILAI harus berupa angka',
             'nilai.min' => ' NILAI tidak boleh MIN-',
-            // 'keterangan.required' => 'Kolom KETERANGAN wajib diisi.',
+            'nilai.max' => ' NILAI max 100',
         ]);
 
         $nilai = $request->input('nilai');
@@ -124,7 +124,7 @@ class KelulusanController extends Controller
 
     }
 
-    
+
     public function destroy(Kelulusan $kelulusan)
     {
         $kelulusan->delete();

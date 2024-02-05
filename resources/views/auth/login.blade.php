@@ -9,7 +9,7 @@
         height: 100vh;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 7rem;
+        grid-gap: 6rem;
         padding: 0 2rem;
     }
 
@@ -130,32 +130,21 @@
         background-position: right;
     }
 
-
-
-       .container {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 7rem;
-        padding: 0 2rem;
-    }
-
-    .background-img {
+    /* .background-img {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: -1;
-    }
+    } */
 </style>
 
 <div class="container">
-    <div class="background-img">
+    {{-- <div class="background-img">
         <img src="{{ asset('storage/img/LOGIN.png') }}" alt="">
-    </div>
+    </div> --}}
+    <div class="img"></div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="login-container">
@@ -212,7 +201,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 <script>
     // Mengatur ukuran gambar latar belakang sesuai ukuran jendela browser

@@ -26,6 +26,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
+        // $userRole = auth()->user()->role;
         return view('berita.berita', compact('berita','kategori'));
     }
 
@@ -41,6 +42,7 @@ class BeritaController extends Controller
             'tanggal' => 'required|date|after:yesterday',
             'user_posting' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
@@ -49,7 +51,6 @@ class BeritaController extends Controller
             'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
             'tanggal.after' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
-            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -64,8 +65,9 @@ class BeritaController extends Controller
             'slug' => $request->input('slug'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
-            'user_posting' => $request->input('user_posting'),
             'foto' => $path,
+            'user_posting'=> $request->input('user_posting'),
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
@@ -76,10 +78,15 @@ class BeritaController extends Controller
     public function show($id)
     {
         $berita = Berita::findOrFail($id);
-        return view('detailberita.index', compact('berita'));
+        $userRole = auth()->user()->role;
+        return view('berita.berita', compact('berita','userRole'));
     }
 
-
+//     public function showForm()
+// {
+//     $userRole = auth()->user()->role;
+//     return view('berita.index', compact('userRole'));
+// }
     /**
      * Show the form for editing the specified resource.
      */
@@ -87,6 +94,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
+        // $userRole = auth()->user()->role;
         return view('berita.berita', compact('berita','kategori'));
     }
 
@@ -101,7 +109,8 @@ class BeritaController extends Controller
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
             'user_posting' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'required',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
@@ -110,7 +119,7 @@ class BeritaController extends Controller
             'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
             'tanggal.after_or_equal' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
-            'user_posting.required' => 'Kolom USER POSTING wajib diisi.',
+            'user_posting.required' => 'user posting tidak boleh kosong',
             'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
@@ -118,10 +127,11 @@ class BeritaController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $path = $berita->foto;
+
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = $foto->store('images', 'public');
-            // $staf->update(['foto' => $path]);
         }
 
         $berita->update([
@@ -129,8 +139,9 @@ class BeritaController extends Controller
             'slug' => $request->input('slug'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
-            'user_posting' => $request->input('user_posting'),
             'foto' => $path,
+            'user_posting' => $request->input('user_posting'),
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');

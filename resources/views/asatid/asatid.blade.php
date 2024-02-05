@@ -158,13 +158,12 @@
                                 <form action="{{ route('asatid.update', ['asatid' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
                                     <div class="mb-3">
                                         <label for="edit_asatidlist_id" class="form-label">NAMA ASATID</label>
-                                        <select class="form-select @error('asatidlist_id') is-invalid @enderror" id="edit_asatidlist_id" name="asatidlist_id" value="{{ old('asatidlist_id', $item->asatidlist_id) }}">
-                                            <option value="" selected>PILIH NAMA ASATID</option>
+                                        <select class="form-select @error('asatidlist_id') is-invalid @enderror" id="edit_asatidlist_id" name="asatidlist_id">
+                                            <option value="" {{ old('asatidlist_id', $item->asatidlist_id) ? '' : 'selected' }}>PILIH NAMA ASATID</option>
                                             @foreach ($asatidlist as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->asatidlist_id == $kat->id ? 'selected' : '' }}>
+                                                <option value="{{ $kat->id }}" {{ old('asatidlist_id', $item->asatidlist_id) == $kat->id ? 'selected' : '' }}>
                                                     {{ $kat->nama }}
                                                 </option>
                                             @endforeach
@@ -178,10 +177,10 @@
 
                                     <div class="mb-3">
                                         <label for="edit_mapel_id" class="form-label">MAPEL</label>
-                                        <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id" value="{{ old('mapel_id', $item->mapel_id) }}">
-                                            <option value="" selected>PILIH MAPEL</option>
+                                        <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id">
+                                            <option value=""  {{ old('mapel_id', $item->mapel_id) ? '' : 'selected' }}>PILIH MAPEL</option>
                                             @foreach ($mapel as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->mapel_id == $kat->id ? 'selected' : '' }}>
+                                                <option value="{{ $kat->id }}" {{ old('mapel_id', $item->mapel_id) == $kat->id ? 'selected' : '' }}>
                                                     {{ $kat->nama }}
                                                 </option>
                                             @endforeach

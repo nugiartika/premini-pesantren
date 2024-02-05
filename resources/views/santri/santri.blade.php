@@ -114,7 +114,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <select class="form-select @error('pendaftaran_id') is-invalid @enderror" name="pendaftaran_id" aria-label="Default select example">
+                                    <label for="nama" class="form-label">NAMA</label>
+                                    <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="nama" name="pendaftaran_id" aria-label="Default select example">
                                         <option value="" selected>PILIH NAMA SANTRI</option>
                                         @foreach ($pendaftaran as $kat)
                                             <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
@@ -130,7 +131,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" name="klssantri_id" aria-label="Default select example">
+                                    <label for="kelas" class="form-label">KELAS</label>
+                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" id="kelas" name="klssantri_id" aria-label="Default select example">
                                         <option value="" selected>PILIH KELAS</option>
                                         @foreach ($klssantri as $kat)
                                             <option value="{{ $kat->id }}" {{ old('klssantri_id') == $kat->id ? 'selected' : '' }}>

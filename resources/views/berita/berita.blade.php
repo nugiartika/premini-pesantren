@@ -30,6 +30,11 @@
             {{ session('warning') }}
         </div>
     @endif
+
+    @php
+        $userRole = auth()->user()->role;
+    @endphp
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -51,8 +56,11 @@
                                     <th>KATEGORI</th>
                                     <th>TANGGAL</th>
                                     <th>USER POSTING</th>
-                                    <th>foto</th>
+                                    <th>FOTO</th>
+                                    <th>STATUS</th>
+                                    @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
+                                @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
@@ -66,11 +74,13 @@
                                         <td>{{ $item->user_posting }}</td>
                                         <td class="text-center">
                                             @if ($item->foto)
-                                                <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
+                                            <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
                                             @else
-                                                No Image
+                                            No Image
                                             @endif
                                         </td>
+                                        <td>{{ $item->status}}</td>
+                                        @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -83,6 +93,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -125,7 +136,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <select class="form-select @error('kategori_id') is-invalid @enderror" name="kategori_id" aria-label="Default select example">
+                                <label for="kategori_tambah" class="form-label">KATEGORI</label>
+                                <select class="form-select @error('kategori_id') is-invalid @enderror" id="kategori_tambah" name="kategori_id" aria-label="Default select example">
                                     <option value="" selected>PILIH KATEGORI</option>
                                     @foreach ($kategori as $kat)
                                         <option value="{{ $kat->id }}" {{ old('kategori_id') == $kat->id ? 'selected' : '' }}>
@@ -152,13 +164,14 @@
 
                             <div class="mb-3">
                                 <label for="user_posting" class="form-label">USER POSTING</label>
-                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting') }}">
+                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting', auth()->user()->role) }}" readonly>
                                 @error('user_posting')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="foto" class="form-label">FOTO</label>
@@ -169,6 +182,26 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="mb-3">
+                                <label for="status" class="form-label">STATUS</label>
+                                <label for="status" class="form-label">STATUS</label>
+                                @if(old('user_posting') == 'admin')
+                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                        <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>
+                                        <option value="publish" {{ old('status') == 'publish' ? 'selected' : '' }}>Publish</option>
+                                    </select>
+                                @else
+                                    <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
+                                @endif
+                                @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -244,7 +277,7 @@
 
                                 <div class="mb-3">
                                     <label for="edit_user_posting" class="form-label">USER POSTING</label>
-                                    <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}">
+                                    <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}" readonly>
                                     @error('user_posting')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -252,10 +285,31 @@
                                     @enderror
                                 </div>
 
+
                                 <div class="mb-3">
                                     <label for="edit_foto" class="form-label">FOTO</label>
-                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto', $item->foto) }}">
+                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto') }}">
+
+
+                                    @if ($item->foto)
+                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto" width="50" height="50">
+                                    @else
+                                        No Image
+                                    @endif
+
                                     @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">STATUS</label>
+                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                        <option value="private" {{ old('status', $item->status) == 'private' ? 'selected' : '' }}>Private</option>
+                                        <option value="publish" {{ old('status', $item->status) == 'publish' ? 'selected' : '' }}>Publish</option>
+                                    </select>
+                                    @error('status')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

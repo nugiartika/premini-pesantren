@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SyahriahRequest extends FormRequest
 {
@@ -22,7 +23,18 @@ class SyahriahRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+                'santri_id' => [
+                    'required',
+                    Rule::unique('syahriahs')->ignore($this->route('syahriah'), 'id'),
+                ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'santri_id.required' => 'nama santri tidak boleh kosong.',
+            'santri_id.unique' => 'santri sudah ada sebelumnya.',
         ];
     }
 }

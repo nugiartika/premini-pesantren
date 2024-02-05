@@ -29,8 +29,6 @@ class SyahriahController extends Controller
     {
         $request->validate([
             'santri_id' => 'required',
-        ],[
-            'santri_id.required' => 'Kolom NAMA wajib diisi.',
         ]);
 
         Syahriah::create([
@@ -58,8 +56,6 @@ class SyahriahController extends Controller
     {
         $request->validate([
             'santri_id' => 'required',
-        ],[
-            'santri_id.required' => 'Kolom NAMA wajib diisi.',
         ]);
 
         $syahriah->update([

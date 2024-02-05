@@ -247,7 +247,7 @@
 
                     <div class="mb-3">
                         <label for="nama_lengkap" class="form-label">NAMA LENGKAP</label>
-                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
+                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" >
                         @error('nama_lengkap')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -255,10 +255,10 @@
 
                     <div class="col-md-6">
                         <label for="jenis_kelamin" class="form-label">JENIS KELAMIN</label>
-                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-select" required>
+                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-select" >
                             <option value="">- Pilih jenis kelamin -</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                         @error('jenis_kelamin')
                             <span class="text-danger">{{ $message }}</span>
@@ -267,7 +267,7 @@
 
                     <div class="mb-3">
                         <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control" id="nik" name="nik" required>
+                        <input type="text" class="form-control" id="nik" name="nik" value="{{ old('nik') }}" >
                         @error('nik')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -275,7 +275,7 @@
 
                     <div class="mb-3">
                         <label for="tempat_lahir" class="form-label">TEMPAT LAHIR</label>
-                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" required>
+                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"  value="{{ old('tempat_lahir') }}" >
                         @error('tempat_lahir')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -283,7 +283,7 @@
 
                     <div class="mb-3">
                         <label for="tanggal_lahir" class="form-label">TANGGAL LAHIR</label>
-                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" max="{{ now()->toDateString() }}" required>
+                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" max="{{ now()->toDateString() }}" >
                         @error('tanggal_lahir')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -298,7 +298,7 @@
 
                     <div class="mb-3">
                         <label for="alamat" class="form-label">ALAMAT</label>
-                        <input type="text" class="form-control" id="alamat" name="alamat" required>
+                        <input type="text" class="form-control" id="alamat" name="alamat"  value="{{ old('alamat') }}" >
                         @error('alamat')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -306,7 +306,7 @@
 
                     <div class="mb-3">
                         <label for="nama_ortu" class="form-label">NAMA ORTU</label>
-                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" required>
+                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu"  value="{{ old('nama_ortu') }}">
                         @error('nama_ortu')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -314,7 +314,7 @@
 
                     <div class="mb-3">
                         <label for="pendidikan_ortu" class="form-label">PENDIDIKAN ORTU</label>
-                        <input type="text" class="form-control" id="pendidikan_ortu" name="pendidikan_ortu" required>
+                        <input type="text" class="form-control" id="pendidikan_ortu" name="pendidikan_ortu"  value="{{ old('pendidikan_ortu') }}">
                         @error('pendidikan_ortu')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -322,15 +322,15 @@
 
                     <div class="mb-3">
                         <label for="pekerjaan_ortu" class="form-label">PEKERJAAN ORTU</label>
-                        <input type="text" class="form-control" id="pekerjaan_ortu" name="pekerjaan_ortu" required>
+                        <input type="text" class="form-control" id="pekerjaan_ortu" name="pekerjaan_ortu"  value="{{ old('pekerjaan_ortu') }}">
                         @error('pekerjaan_ortu')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
 
+                    </div>
                     <div class="mb-3">
                         <label for="sekolah_asal" class="form-label">SEKOLAH ASAL</label>
-                        <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal" required>
+                        <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal"  value="{{ old('sekolah_asal') }}">
                         @error('sekolah_asal')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -338,7 +338,7 @@
 
                     <div class="mb-3">
                         <label for="telepon_rumah" class="form-label">TELEPON RUMAH</label>
-                        <input type="text" class="form-control" id="telepon_rumah" name="telepon_rumah" required>
+                        <input type="text" class="form-control" id="telepon_rumah" name="telepon_rumah"  value="{{ old('telepon_rumah') }}">
                         @error('telepon_rumah')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

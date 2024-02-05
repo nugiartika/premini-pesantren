@@ -9,11 +9,5 @@ class Gallerie extends Model
 {
     use HasFactory;
     protected $table = 'galleries';
-    protected $primaryKey = 'id';
-    protected $guarded = [];
-
-    public $incrementing = true;
-    public $timestamps = true;
-
-
+    protected $guarded = ['id'];
 }

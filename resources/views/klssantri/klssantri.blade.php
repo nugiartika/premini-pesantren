@@ -100,7 +100,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <select class="form-select @error('asatidlist_id') is-invalid @enderror" name="asatidlist_id" aria-label="Default select example">
+                                    <label for="wali_kelas" class="form-label">WALI KELAS</label>
+                                    <select class="form-select @error('asatidlist_id') is-invalid @enderror" id="wali_kelas" name="asatidlist_id" aria-label="Default select example">
                                         <option value="" selected>PILIH WALI KELAS</option>
                                         @foreach ($asatidlist as $kat)
                                             <option value="{{ $kat->id }}" {{ old('asatidlist_id') == $kat->id ? 'selected' : '' }}>

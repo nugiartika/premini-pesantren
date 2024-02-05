@@ -102,7 +102,7 @@ tr:hover {
         border-color: #dee2e6;
     }
         .pagination .page-item.active .page-link {
-        background-color: black;
+        background-color: rgb(0, 0, 0);
         border-color: black;
         color: white;
     }

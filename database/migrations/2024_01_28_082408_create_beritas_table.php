@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('user_posting');
             $table->string('foto')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

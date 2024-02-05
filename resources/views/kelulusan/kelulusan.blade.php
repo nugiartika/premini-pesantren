@@ -107,7 +107,8 @@
                         <form action="{{ route('kelulusan.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <select class="form-select @error('santri_id') is-invalid @enderror" name="santri_id" aria-label="Default select example">
+                                <label for="nama" class="form-label">NAMA</label>
+                                <select class="form-select @error('santri_id') is-invalid @enderror" id="nama" name="santri_id" aria-label="Default select example">
                                     <option value="" selected>PILIH NAMA</option>
                                     @foreach ($santri as $kat)
                                         <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
@@ -135,7 +136,7 @@
                             <div class="mb-3">
                                 <label for="mapel" class="form-label">MAPEL</label>
                                 <select class="form-select @error('mapel_id') is-invalid @enderror" name="mapel_id" aria-label="Default select example">
-                                    <option value="" selected>PILIH MAPEL</option>
+                                    <option value="" {{ old('mapel_id', ) }}>PILIH MAPEL</option>
                                     @foreach ($mapel as $kat)
                                         <option value="{{ $kat->id }}" {{ old('mapel_id') == $kat->id ? 'selected' : '' }}>
                                             {{ $kat->nama }}
@@ -181,10 +182,10 @@
 
                                     <div class="mb-3">
                                         <label for="edit_santri_id" class="form-label">NAMA SANTRI</label>
-                                        <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id" value="{{ old('santri_id', $item->santri_id) }}">
-                                            <option value="" selected>PILIH NAMA SANTRI</option>
+                                        <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id">
+                                            <option value="" {{ old('santri_id', $item->santri_id) ? '' : 'selected' }} selected>PILIH NAMA SANTRI</option>
                                             @foreach ($santri as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->santri_id == $kat->id ? 'selected' : '' }}>
+                                                <option value="{{ $kat->id }}" {{old('santri_id', $item->santri_id) == $kat->id ? 'selected' : '' }}>
                                                     {{ $kat->pendaftaran->nama_lengkap }}
                                                 </option>
                                             @endforeach
@@ -209,9 +210,9 @@
                                     <div class="mb-3">
                                         <label for="edit_mapel_id" class="form-label">MAPEL</label>
                                         <select class="form-select @error('mapel_id') is-invalid @enderror" id="edit_mapel_id" name="mapel_id">
-                                            <option value="" selected>PILIH MAPEL</option>
+                                            <option value="" {{old('mapel_id',  $item->mapel_id) ? '' : 'selected' }}>PILIH MAPEL</option>
                                             @foreach ($mapel as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->mapel_id == $kat->id ? 'selected' : '' }}>
+                                                <option value="{{ $kat->id }}" {{old('mapel_id', $item->mapel_id)  == $kat->id ? 'selected' : '' }}>
                                                     {{ $kat->nama }}
                                                 </option>
                                             @endforeach
