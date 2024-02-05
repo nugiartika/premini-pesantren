@@ -4,7 +4,6 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StafController;
-use App\Http\Controllers\AsatidController;
 use App\Http\Controllers\AsatidlistController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\BeritaController;
@@ -35,7 +34,6 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
         Route::middleware('admin')->group(function(){
             Route::resource('dashboard', DashboardController::class);
             Route::resource('staf', StafController::class);
-            Route::resource('asatid', AsatidController::class);
             Route::resource('asatidlist', AsatidlistController::class);
             Route::resource('mapel', MapelController::class);
             Route::resource('kategori', KategoriController::class);
@@ -44,13 +42,12 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::resource('umum', UmumController::class);
             Route::resource('kelulusan', KelulusanController::class);
             Route::resource('syahriah', SyahriahController::class);
-            Route::resource('pendaftaran', PendaftaranController::class);
         });
 
         Route::middleware('user')->group(function(){
             Route::resource('home', HomeController::class);
-            Route::resource('pendaftaran', PendaftaranController::class);
         });
+        Route::resource('pendaftaran', PendaftaranController::class);
         Route::resource('gallerie', GallerieController::class);
         Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
         Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
