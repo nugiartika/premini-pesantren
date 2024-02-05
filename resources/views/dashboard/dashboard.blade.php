@@ -36,7 +36,7 @@
     <style>
          body{
            background-color:#8FBC8F;
-           background-image: url({{ asset('storage/img/BGG2.png') }});
+           background-image: url({{ asset('storage/img/BGG.png') }});
            background-size: 100% 100%;
     }
         .img {
@@ -123,10 +123,10 @@
                     </td>
 
                     <td>
-                        <a href="{{ route('asatid.index') }}" class="card-link">
+                        <a href="{{ route('asatidlist.index') }}" class="card-link">
                             <div class="card">
                                 <h2><i class="fa-solid fa-users me-1"></i>ASATID</h2>
-                                <p>Jumlah Asatid: {{ $jumlahAsatid }}</p>
+                                <p>Jumlah Asatid: {{ $jumlahAsatidlist }}</p>
                             </div>
                         </a>
                     </td>

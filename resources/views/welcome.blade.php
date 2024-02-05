@@ -138,6 +138,8 @@
     }
 
 
+
+
      </style>
      <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
          <script>
@@ -151,6 +153,7 @@
 </head>
 
 <body>
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-sucsess" style="width: 3rem; height: 3rem;" role="status">
@@ -350,15 +353,12 @@
                                 </div>
                                 <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{{ $berita->judul_berita }}</p>
                                 <p class="m-0">{{ $berita->slug }}</p>
+                                <p class="m-2">{{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}</p>
                                 <div class="d-flex justify-content-between" style="position: absolute; bottom: 15px; width: 95%;">
                                     <div class="d-flex align-items-center">
                                         <small><i class="fa fa-user text-success me-2"></i>{{ $berita->user_posting }}</small>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <small class="ml-3">
-                                            {{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}
-                                        </small>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

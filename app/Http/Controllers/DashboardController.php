@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asatid;
+use App\Models\Asatidlist;
 use App\Models\Berita;
 use App\Models\Gallerie;
 use App\Models\Kelulusan;
@@ -19,7 +19,7 @@ class DashboardController extends Controller
     {
         $jumlahStaf = staf::count();
         $jumlahSantri = santri::count();
-        $jumlahAsatid = Asatid::count();
+        $jumlahAsatidlist = Asatidlist::count();
         $jumlahKelas = Klssantri::count();
         $jumlahGallery = Gallerie::count();
         $jumlahBerita = Berita::count();
@@ -29,7 +29,7 @@ class DashboardController extends Controller
         return view('dashboard.dashboard', [
             'jumlahStaf' => $jumlahStaf,
             'jumlahGallery' => $jumlahGallery,
-            'jumlahAsatid' => $jumlahAsatid ,
+            'jumlahAsatidlist' => $jumlahAsatidlist ,
             'jumlahSantri' => $jumlahSantri,
             'jumlahKelas' => $jumlahKelas,
             'jumlahBerita' => $jumlahBerita,
@@ -67,7 +67,7 @@ class DashboardController extends Controller
         //
     }
 
-    
+
     public function destroy(string $id)
     {
         //

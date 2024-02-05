@@ -130,15 +130,6 @@
                         </td>
 
                         <td>
-                            <a href="{{ route('umum.index') }}" class="card-link">
-                                <div class="card">
-                                    <h2><i class="fas fa-bell me-1"></i>PENGUMUMAN</h2>
-                                    <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
-                                </div>
-                            </a>
-                        </td>
-
-                        <td>
                             <a href="{{ route('kelulusan.index') }}" class="card-link">
                                 <div class="card">
                                     <h2><i class="fas fa-bell me-1"></i>KELULUSAN</h2>
