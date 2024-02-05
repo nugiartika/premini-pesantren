@@ -185,7 +185,6 @@
 
                             <div class="mb-3">
                                 <label for="status" class="form-label">STATUS</label>
-                                <label for="status" class="form-label">STATUS</label>
                                 @if(old('user_posting') == 'admin')
                                     <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
                                         <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>

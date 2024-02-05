@@ -117,18 +117,24 @@
                                     <label for="nama" class="form-label">NAMA</label>
                                     <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="nama" name="pendaftaran_id" aria-label="Default select example">
                                         <option value="" selected>PILIH NAMA SANTRI</option>
-                                        @foreach ($pendaftaran as $kat)
-                                            <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
-                                                {{ $kat->nama_lengkap }}
-                                            </option>
-                                        @endforeach
+
+                                        @if ($status == 'diterima')
+                                            @foreach ($pendaftaran as $kat)
+                                                <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
+                                                    {{ $kat->nama_lengkap }}
+                                                </option>
+                                            @endforeach
+                                        @endif
+
                                     </select>
+
                                     @error('pendaftaran_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+
 
                                 <div class="mb-3">
                                     <label for="kelas" class="form-label">KELAS</label>

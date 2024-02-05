@@ -30,6 +30,11 @@
         {{ session('warning') }}
     </div>
     @endif
+
+    @php
+        $userRole = auth()->user()->role;
+    @endphp
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -53,7 +58,10 @@
                                     <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">NAMA ORTU</th>
                                     <th scope="col" class="text-center">TELEPON RUMAH</th>
+                                    <th scope="col" class="text-center">STATUS</th>
+                                    @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
+                                @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
@@ -67,7 +75,8 @@
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->nama_ortu }}</td>
                                         <td class="text-center">{{ $item->telepon_rumah }}</td>
-
+                                        <td class="text-center">{{ $item->status }}</td>
+                                        @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -80,6 +89,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -199,6 +209,24 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3">
+                        <label for="status" class="form-label">STATUS</label>
+                        @if(old('user_posting') == 'admin')
+                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                <option value="daftar" {{ old('status') == 'daftar' ? 'selected' : '' }}>Daftar</option>
+                                <option value="diterima" {{ old('status') == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                            </select>
+                        @else
+                            <input type="text" class="form-control" id="status" name="status" value="Daftar" readonly>
+                        @endif
+                        @error('status')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -287,6 +315,19 @@
                                         <label for="edit_telepon_rumah" class="form-label">TELEPON RUMAH</label>
                                         <input type="text" class="form-control @error('telepon_rumah') is-invalid @enderror" id="edit_telepon_rumah" name="telepon_rumah" value="{{ old('telepon_rumah', $item->telepon_rumah) }}">
                                         @error('telepon_rumah')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_status" class="form-label">STATUS</label>
+                                        <select class="form-select @error('status') is-invalid @enderror" id="edit_status" name="status">
+                                            <option value="daftar" {{ old('status', $item->status) == 'daftar' ? 'selected' : '' }}>Daftar</option>
+                                            <option value="diterima" {{ old('status', $item->status) == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                        </select>
+                                        @error('status')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

@@ -35,6 +35,7 @@ class PendaftaranController extends Controller
             'alamat' => 'required',
             'nama_ortu' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah',
+            'status' => 'required'
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
             'nama_lengkap.unique' => 'NAMA LENGKAP sudah digunakan.',
@@ -64,6 +65,7 @@ class PendaftaranController extends Controller
             'alamat' => $request->input('alamat'),
             'nama_ortu' => $request->input('nama_ortu'),
             'telepon_rumah' => $request->input('telepon_rumah'),
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('pendaftaran.index')->with('success', 'PEDAFTARAN BERHASIL DITAMBAHKAN');
@@ -94,6 +96,7 @@ class PendaftaranController extends Controller
             'alamat' => 'required',
             'nama_ortu' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah,' . $pendaftaran->id,
+            'status' => 'required',
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
             'nama_lengkap.unique' => 'NAMA LENGKAP sudah digunakan.',
@@ -102,6 +105,7 @@ class PendaftaranController extends Controller
             'nik.numeric' => 'NIK harus berupa angka',
             'nik.min' => 'NIK tidak boleh MIN-',
             'nik.unique' => 'NIK sudah  digunakan.',
+            'status.required' => 'status tidak boleh kosong.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'tanggal_lahir.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'tanggal_lahir.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
@@ -124,6 +128,7 @@ class PendaftaranController extends Controller
             'alamat' => $request->input('alamat'),
             'nama_ortu' => $request->input('nama_ortu'),
             'telepon_rumah' => $request->input('telepon_rumah'),
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIUPDATE');

@@ -25,7 +25,8 @@ class WelcomeController extends Controller
         $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatid . '%')->get();
         $cberita = $request->input('cberita');
         $beritas = Berita::where('judul_berita', 'LIKE', '%' .$cberita . '%')->get();
-        $galleris = Gallerie::all();
+        $cgallerie = $request->input('cgallerie');
+        $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->get();
 
         return view('welcome', [
             'jumlahStaf' => $jumlahStaf,
@@ -38,8 +39,8 @@ class WelcomeController extends Controller
             'asatidlist' => $asatidlist,
             'cberita' => $cberita,
             'beritas' => $beritas,
-            // 'cgalery' => $cgalery,
-            'galleris' => $galleris,
+            'cgallerie' => $cgallerie,
+            'gallerie' => $gallerie,
         ]);
 
     }

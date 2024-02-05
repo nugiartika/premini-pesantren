@@ -41,15 +41,11 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::resource('kategori', KategoriController::class);
             Route::resource('santri', SantriController::class);
             Route::resource('klssantri', KlssantriController::class);
-            Route::resource('umum', UmumController::class);
-            Route::resource('kelulusan', KelulusanController::class);
             Route::resource('syahriah', SyahriahController::class);
-            Route::resource('pendaftaran', PendaftaranController::class);
         });
 
         Route::middleware('user')->group(function(){
             Route::resource('home', HomeController::class);
-            Route::resource('pendaftaran', PendaftaranController::class);
         });
         Route::resource('gallerie', GallerieController::class);
         Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
@@ -58,6 +54,7 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
         Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
         Route::resource('umum', UmumController::class);
         Route::resource('kelulusan', KelulusanController::class);
+        Route::resource('pendaftaran', PendaftaranController::class);
 
 
 });
