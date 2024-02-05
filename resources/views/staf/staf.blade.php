@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if(session('success'))
+    @if(session('success'))
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -38,11 +38,12 @@
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button>
+                            </button>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped table-hover text-center">
-                            <thead>
+
+                    <div class="card-body ">
+                        <table class="table table-dark table-striped">
+                            <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIP</th>
@@ -72,6 +73,7 @@
                                                 No Image
                                             @endif
                                         </td>
+
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -88,9 +90,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{$staf->links()}}
                     </div>
-
+                </div>
+            </div>
 
             {{-- modal tambah --}}
             <div class="modal" tabindex="-1" id="tambahModal">
@@ -299,9 +301,13 @@
                                             </span>
                                         @enderror
                                     </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
                                 </div>
                                 </form>
                             </div>

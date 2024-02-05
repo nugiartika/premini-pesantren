@@ -18,7 +18,6 @@ class AdminMiddleware
         if(auth()->user()->role == 'admin'){
             return $next($request);
         }else{
-            // return to_route('home');
             return redirect()->route('home.index');
         }
     }

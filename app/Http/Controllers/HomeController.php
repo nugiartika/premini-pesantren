@@ -29,14 +29,15 @@ class HomeController extends Controller
     {
         $jumlahGallery = Gallerie::count();
         $jumlahBerita = Berita::count();
-        $jumlahKelulusan = Kelulusan::count();
         $jumlahPengumuman = Umum::count();
+        $jumlahKelulusan = Kelulusan::count();
 
         return view('home', [
             'jumlahGallery' => $jumlahGallery,
             'jumlahBerita' => $jumlahBerita,
             'jumlahKelulusan' => $jumlahKelulusan,
             'jumlahPengumuman' => $jumlahPengumuman,
+            'jumlahKelulusan' => $jumlahKelulusan,
         ]);
     }
 }

@@ -16,9 +16,6 @@ class pendaftaran extends Model
         'tanggal_lahir',
         'alamat',
         'nama_ortu',
-        'pendidikan_ortu',
-        'pekerjaan_ortu',
-        'sekolah_asal',
         'telepon_rumah'
     ];
     public function santri()

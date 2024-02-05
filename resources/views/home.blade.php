@@ -33,6 +33,11 @@
     @endif
 
     <style>
+        body{
+           background-color:#8FBC8F;
+           background-image: url({{ asset('storage/img/BGG2.png') }});
+           background-size: 100% 100%;
+    }
         .navbar-toggler-icon {
             width: 1.5em;
             height: 1.5em;
@@ -60,15 +65,15 @@
         }
 
         .card {
-            background-color: #ffffff;
+            background-color: #272829;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(217, 26, 26, 0.1);
             overflow: hidden;
             transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-            width: 300px;
-            height: 150px;
+            width: 265px;
+            height: 165px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,13 +86,13 @@
         }
 
         h2 {
-            color: #333;
+            color: #ffffff;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
 
         p {
-            color: #666;
+            color: #ffffff;
             font-size: 1em;
             line-height: 1.4;
         }
@@ -96,26 +101,20 @@
         background-color: transparent;
         }
 
+
+
     </style>
-    <script>
-        // Memeriksa ukuran layar desktop saat ini
-var lebarLayar = window.innerWidth;
-var tinggiLayar = window.innerHeight;
-
-// Menampilkan ukuran layar desktop di konsol
-console.log("Lebar layar: " + lebarLayar + " piksel");
-console.log("Tinggi layar: " + tinggiLayar + " piksel");
-    </script>
-
     <body>
 
+
             <section>
+
                 <table class="no-bootstrap-table" >
                     <tr>
                         <td>
                             <a href="{{ route('gallerie.index') }}" class="card-link">
                                 <div class="card">
-                                    <h2><i class="fa-regular fa-image me-1"></i>Galery</h2>
+                                    <h2><i class="fa-regular fa-image me-1"></i>GALERY</h2>
                                     <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
                                 </div>
                             </a>
@@ -124,7 +123,7 @@ console.log("Tinggi layar: " + tinggiLayar + " piksel");
                         <td>
                             <a href="{{ route('berita.index') }}" class="card-link">
                                 <div class="card">
-                                    <h2><i class="fas fa-newspaper me-1"></i>Berita</h2>
+                                    <h2><i class="fas fa-newspaper me-1"></i>BERITA</h2>
                                     <p>Jumlah Berita: {{ $jumlahBerita }}</p>
                                 </div>
                             </a>
@@ -133,8 +132,17 @@ console.log("Tinggi layar: " + tinggiLayar + " piksel");
                         <td>
                             <a href="{{ route('umum.index') }}" class="card-link">
                                 <div class="card">
-                                    <h2><i class="fas fa-bell me-1"></i>Pengumuman</h2>
+                                    <h2><i class="fas fa-bell me-1"></i>PENGUMUMAN</h2>
                                     <p>Jumlah Pengumuman: {{ $jumlahPengumuman }}</p>
+                                </div>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="{{ route('kelulusan.index') }}" class="card-link">
+                                <div class="card">
+                                    <h2><i class="fas fa-bell me-1"></i>KELULUSAN</h2>
+                                    <p>Jumlah Kelulusan: {{ $jumlahKelulusan }}</p>
                                 </div>
                             </a>
                         </td>

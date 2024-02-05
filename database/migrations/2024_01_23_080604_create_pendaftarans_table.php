@@ -22,12 +22,9 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('alamat');
             $table->string('nama_ortu');
-            $table->string('pendidikan_ortu');
-            $table->string('pekerjaan_ortu');
-            $table->string('sekolah_asal');
             $table->string('telepon_rumah');
             $table->timestamps();
-        });
+         });
     }
 
 

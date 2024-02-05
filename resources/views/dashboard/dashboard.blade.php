@@ -34,6 +34,11 @@
 
 
     <style>
+         body{
+           background-color:#8FBC8F;
+           background-image: url({{ asset('storage/img/BGG2.png') }});
+           background-size: 100% 100%;
+    }
         .img {
             position: relative;
             display: flex;
@@ -61,7 +66,7 @@
         }
 
         .card {
-            background-color: #ffffff;
+            background-color: #272829;
             padding: 20px;
             margin: 10px;
             border-radius: 10px;
@@ -82,13 +87,13 @@
         }
 
         h2 {
-            color: #294B29;
+            color: #ffffff;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
 
         p {
-            color: #36b13a;
+            color: #ffffff;
             font-size: 1em;
             line-height: 1.4;
         }
@@ -100,6 +105,8 @@
         .tb.no-bootstrap-table tr {
         background-color: transparent;
     }
+
+
 
     </style>
 <body>

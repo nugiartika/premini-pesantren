@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped border-primary">
+                        <table class="table table-dark table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>

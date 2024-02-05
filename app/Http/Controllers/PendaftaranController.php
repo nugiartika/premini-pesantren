@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pendaftaran;
+use App\Models\Pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StorependaftaranRequest;
 use App\Http\Requests\UpdatependaftaranRequest;
@@ -12,7 +12,7 @@ class PendaftaranController extends Controller
 
     public function index()
     {
-        $pendaftaran = Pendaftaran::paginate(1);
+        $pendaftaran = Pendaftaran::all();
         return view('pendaftaran.pendaftaran', compact('pendaftaran'));
     }
 
@@ -34,9 +34,6 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'nama_ortu' => 'required',
-            'pendidikan_ortu' => 'required',
-            'pekerjaan_ortu' => 'required',
-            'sekolah_asal' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah',
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
@@ -52,9 +49,6 @@ class PendaftaranController extends Controller
             'tanggal_lahir.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'nama_ortu.required' => 'Kolom NAMA ORTU wajib diisi.',
-            'pendidikan_ortu.required' => 'Kolom PENDIDIKAN ORTU wajib diisi.',
-            'pekerjaan_ortu.required' => 'Kolom PEKERJAAN ORTU wajib diisi.',
-            'sekolah_asal.required' => 'Kolom SEKOLAH ASAL wajib diisi.',
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
             'telepon_rumah.min' => 'TELEPON RUMAH  tidak boleh MIN-',
@@ -69,9 +63,6 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
             'nama_ortu' => $request->input('nama_ortu'),
-            'pendidikan_ortu' => $request->input('pendidikan_ortu'),
-            'pekerjaan_ortu' => $request->input('pekerjaan_ortu'),
-            'sekolah_asal' => $request->input('sekolah_asal'),
             'telepon_rumah' => $request->input('telepon_rumah'),
         ]);
 
@@ -102,9 +93,6 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => 'required|date|before:tomorrow',
             'alamat' => 'required',
             'nama_ortu' => 'required',
-            'pendidikan_ortu' => 'required',
-            'pekerjaan_ortu' => 'required',
-            'sekolah_asal' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah,' . $pendaftaran->id,
         ], [
             'nama_lengkap.required' => 'Kolom NAMA LENGKAP wajib diisi.',
@@ -120,13 +108,10 @@ class PendaftaranController extends Controller
             'tanggal_lahir.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'nama_ortu.required' => 'Kolom NAMA ORTU wajib diisi.',
-            'pendidikan_ortu.required' => 'Kolom PENDIDIKAN ORTU wajib diisi.',
-            'pekerjaan_ortu.required' => 'Kolom PEKERJAAN ORTU wajib diisi.',
-            'sekolah_asal.required' => 'Kolom SEKOLAH ASAL wajib diisi.',
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
             'telepon_rumah.min' => 'TELEPON RUMAH  tidak boleh MIN-',
-            'telepon_rumah.unique' => ' TELEPON RUMAH sudah  digunakan.',
+            'telepon_rumah.unique' => ' TELEPON RUMAH sudah digunakan.',
         ]);
 
 
@@ -138,9 +123,6 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
             'nama_ortu' => $request->input('nama_ortu'),
-            'pendidikan_ortu' => $request->input('pendidikan_ortu'),
-            'pekerjaan_ortu' => $request->input('pekerjaan_ortu'),
-            'sekolah_asal' => $request->input('sekolah_asal'),
             'telepon_rumah' => $request->input('telepon_rumah'),
         ]);
 

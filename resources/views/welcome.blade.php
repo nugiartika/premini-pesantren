@@ -298,9 +298,6 @@
             <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
             <h1 class="mb-5">GALLERY</h1>
           </div>
-          {{-- <div class="col-lg-3 mb-4">
-            <div class="wow fadeInUp" data-wow-delay="0.1s">
-                <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> --}}
         <div class="row g-4 justify-content-center">
             @foreach ($galleris as $key => $gallery)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -350,7 +347,7 @@
                                     <div class="mb-2">
                                         <p class="position-relative d-flex btn btn-success justify-content-center">{{ $berita->kategori->nama }}</p>
                                     </div>
-                                    <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" >{{ $berita->judul_berita }}</p>
+                                    <p class="h4 d-block mb-3 text-success text-uppercase font-weight-bold" >{{ $berita->judul_berita }}</p>
                                     <p class="m-0">{{$berita->slug}}</p>
                                 </div>
                                 <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
@@ -390,14 +387,9 @@
             <div class="row g-4 justify-content-center">
                 @foreach ($staf as $key => $staf)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item bg-light">
-                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $staf->foto) }}" alt="" style="object-fit: cover; width: 100%;">
-                        </div>
-                         <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$staf->nama}}</a></h5>
-                            </div>
+                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $staf->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
                         </div>
                        <div class="text-center p-4">
                             <small><a class="btn btn-lg text-black btn-block">{{$staf->jabatan}}</a></small>
@@ -409,36 +401,8 @@
             </div>
         </div>
     </div>
-{{-- staf end --}}
 
-   {{-- <!-- ASATID Start -->
-  <div id="asatidlist-section" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <form method="GET" class="search-form">
-            <input type="text" value="{{ $asatid }}" name="asatid" class="search-input">
-            <button type="submit" class="search-button button-model-1">
-                Cari
-            </button>
-        </form>
-        <div class="container">
-          <div class="text-center">
-            <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
-            <h1 class="mb-5">ASATID</h1>
-          </div>
-          <div class="owl-carousel testimonial-carousel position-relative">
-            @foreach($asatidlist as $asatidlist)
-            <div class="testimonial-item text-center">
-              <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ asset('storage/'.$asatidlist->foto) }}" style="width: 50%;">
-              <h5 class="mb-0">{{ $asatidlist->nama }}</h5>
-              <p>{{ $asatidlist->pendidikan }}</p>
-              <div class="text-white bg-success text-center p-4">
-                <p class="mb-0">{{ $asatidlist->tempat_lahir }}, {{ \Carbon\Carbon::parse($asatidlist->ttl)->isoFormat('D-MMMM-YYYY') }}</p>
-              </div>
-            </div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-    <!-- ASATID End --> --}}
+
 
 
   <!-- ASATID Start -->
@@ -450,19 +414,37 @@
                 Cari
             </button>
         </form>
-        <div class="text-center">
-            <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
-            <h1 class="mb-5">ASATID</h1>
-        </div>
-        <div class="row justify-content-center">
-            @foreach($asatidlist as $asatiditem)
-            <div class="col-md-4 mb-4">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ asset('storage/'.$asatiditem->foto) }}" style="width: 180px; height: 180px;">
-                    <h4 class="mb-0">{{ $asatiditem->nama }}</h4>
-                    <h5>{{ $asatiditem->pendidikan }}</h5>
-                    <div class="text-white bg-success text-center p-4">
-                        <p class="mb-0">{{ $asatiditem->tempat_lahir }}, {{ \Carbon\Carbon::parse($asatiditem->ttl)->isoFormat('D-MMMM-YYYY') }}</p>
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Berita</h6>
+                <h1 class="mb-5">Berita</h1>
+            </div>
+            <div class="row justify-content-center">
+                @foreach ($beritas as $key => $berita)
+                <div class="col-lg-10 mb-4">
+                    <div class="wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex;">
+                            <div class="overflow-hidden" style="height: 300px; display: flex; max-width: 100%; align-items: center; justify-content: center;">
+                                <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt="" style="object-fit: cover; height: 100%; align-item: center;">
+                            </div>
+                            <div class="team-item bg-light border border-top-0 p-4" style="flex: 1; padding-right: 10px;">
+                                <div class="mb-2">
+                                    <p class="position-relative d-flex btn btn-lg btn-primary btn-block">{{ $berita->kategori->nama }}</p>
+                                </div>
+                                <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{{ $berita->judul_berita }}</p>
+                                <p class="m-0">{{ $berita->slug }}</p>
+                                <div class="d-flex justify-content-between" style="position: absolute; bottom: 15px; width: 95%;">
+                                    <div class="d-flex align-items-center">
+                                        <small><i class="fa fa-user text-primary me-2"></i>{{ $berita->user_posting }}</small>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="ml-3">
+                                            {{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

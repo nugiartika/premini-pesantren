@@ -46,11 +46,11 @@
             background-color: #ADBC9F;
         }
 
-        table {
+        /* table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-        }
+        } */
 
         th,
         td {
@@ -79,22 +79,33 @@
         }
 
 
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link:hover {
-    color: black;
-    background-color: #ADBC9F;
-}
-tr:hover {
-    background-color: white;
-    color: black;
-}
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: black;
+            background-color: #ADBC9F;
+        }
+        tr:hover {
+            background-color: white;
+            color: black;
+        }
 
         .pagination {
         display: flex;
         list-style: none;
         padding: 0;
         margin: 20px 0;
-    }
+        }
+
+           .pagination .page-item:not(.active) .page-link {
+                color: black;
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+            }
+                .pagination .page-item.active .page-link {
+                background-color: black;
+                border-color: black;
+                color: white;
+            }
 
     .pagination .page-item:not(.active) .page-link {
         color: black;
@@ -109,14 +120,10 @@ tr:hover {
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    var lebar = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        var tinggi = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-        console.log("Ukuran desktop: " + lebar + " x " + tinggi);</script>
 </head>
 
 <body>
+
     <div id="app">
 
         @if (!request()->is('login') && !request()->is('register'))
@@ -197,8 +204,6 @@ tr:hover {
                                         href="{{ route('santri.index') }}">LIST SANTRI</a>
                                     <a class="nav-link dropdown-item {{ request()->routeIs('klssantri.index') ? 'active' : '' }}"
                                         href="{{ route('klssantri.index') }}">LIST KELAS</a>
-                                    <a class="nav-link dropdown-item {{ request()->routeIs('syahriah.index') ? 'active' : '' }}"
-                                        href="{{ route('syahriah.index') }}">SYAHRIAH</a>
                                 </div>
                             </li>
                         @endif
@@ -309,8 +314,18 @@ tr:hover {
                             <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}" href="{{ route('kelulusan.index') }}"><i class="fas fa-bell me-1"></i>PENGUMUMAN KELULUSAN</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}"
+                                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="fas fa-bell me-1"></i> PENGUMUMAN
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}"
+                                    href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
+                                <a class="nav-link dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
+                                    href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
+                            </div>
                         </li>
 
                         <li class="nav-item">

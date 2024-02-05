@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped border-primary">
+                        <table class="table table-dark table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
@@ -125,7 +125,7 @@
 
                             <div class="mb-3">
                                 <label for="no_ujian" class="form-label">NO UJIAN</label>
-                                <input type="number" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
+                                <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
                                 @error('no_ujian')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -199,7 +199,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_no_ujian" class="form-label">NO UJIAN</label>
-                                        <input type="number" class="form-control @error('no_ujian') is-invalid @enderror" id="edit_no_ujian" name="no_ujian" value="{{ old('no_ujian', $item->no_ujian) }}">
+                                        <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="edit_no_ujian" name="no_ujian" value="{{ old('no_ujian', $item->no_ujian) }}">
                                         @error('no_ujian')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

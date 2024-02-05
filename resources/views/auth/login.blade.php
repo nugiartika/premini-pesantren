@@ -48,7 +48,7 @@
         max-width: 380px;
         width: 85%;
         height: 55px;
-        background-color: #E3E1D9;
+        background-color: #d1cdbe;
         margin: 10px 0;
         border-radius: 55px;
         display: grid;
@@ -89,7 +89,7 @@
     }
 
     .btn-link:hover {
-        color: #38d39f;
+        color: #000000;
     }
 
     .row.mb-4 {
