@@ -247,7 +247,7 @@
     <!-- Carousel End -->
 
         <!-- Start -->
-        <div class="container-xxl py-5">
+        <div  class="container-xxl py-5">
             <div class="container">
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -292,18 +292,24 @@
         <!-- End -->
 
    {{-- gallery start--}}
-<div class="container-xxl py-5">
+<div id="gallerie-section" class="container-xxl py-5">
+    <form method="GET" class="search-form">
+            <input type="text" value="{{ $cgallerie }}" name="cgallerie" class="search-input">
+            <button type="submit" class="search-button button-model-1">
+                Cari
+            </button>
+        </form>
      <div class="container">
         <div class="text-center">
             <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
             <h1 class="mb-5">GALLERY</h1>
           </div>
         <div class="row g-4 justify-content-center">
-            @foreach ($galleris as $key => $gallery)
+            @foreach ($gallerie as $key => $gallerie)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                         <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $gallery->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $gallerie->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
                         </div>
                         <div class="mb-2 ">
                         <a class="position-relative d-flex btn btn-success justify-content-center">{{$gallery->nama_gallery}}</a>
