@@ -36,7 +36,7 @@
     <style>
          body{
            background-color:#8FBC8F;
-           background-image: url({{ asset('storage/img/BGG2.png') }});
+           background-image: url({{ asset('storage/img/BGG.png') }});
            background-size: 100% 100%;
     }
         .img {
