@@ -47,6 +47,14 @@
                     </div>
 
                     <div class="card-body">
+
+                        <form method="GET" class="search-form">
+                            <input type="text" value="{{ $beritas }}" name="beritas" class="search-input">
+                            <button type="submit" class="search-button button-model-1">
+                                Cari
+                            </button>
+                        </form>
+..
                         <table class="table table-bordered table-striped border-primary">
                             <thead class="table-dark">
                                 <tr>
@@ -98,6 +106,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
