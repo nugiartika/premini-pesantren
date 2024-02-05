@@ -8,14 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Berita extends Model
 {
     use HasFactory;
-    // protected $fillable = [
-    //     'judul_berita',
-    //     'slug',
-    //     'kategori_id',
-    //     'tanggal',
-    //     'user_posting',
-    //     'foto'
-    // ];
     protected $table = 'beritas';
     protected $primaryKey = 'id';
     protected $guarded = [];
@@ -27,6 +19,7 @@ class Berita extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
+    
     public static function getJumlahKelulusan()
     {
         return Kelulusan::count();

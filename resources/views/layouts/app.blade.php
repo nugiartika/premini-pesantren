@@ -225,7 +225,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
                                 href="{{ route('kelulusan.index') }}">
-                                <i class="fas fa-bell me-1"></i>PENGUMUMAN  KULULUSAN
+                                <i class="fas fa-bell me-1"></i>KELULUSAN
                             </a>
                         </li>
 
@@ -314,18 +314,11 @@
                             <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs(['umum.index', 'kelulusan.index']) ? 'active' : '' }}"
-                                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-bell me-1"></i> PENGUMUMAN
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
+                                href="{{ route('kelulusan.index') }}">
+                                <i class="fas fa-bell me-1"></i>KELULUSAN
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item {{ request()->routeIs('umum.index') ? 'active' : '' }}"
-                                    href="{{ route('umum.index') }}">PENGUMUMAN UMUM</a>
-                                <a class="nav-link dropdown-item {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
-                                    href="{{ route('kelulusan.index') }}">PENGUMUMAN KELULUSAN</a>
-                            </div>
                         </li>
 
                         <li class="nav-item">

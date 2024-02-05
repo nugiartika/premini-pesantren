@@ -26,9 +26,9 @@
         </script>
     @endif
     @if(session('warning'))
-    <div class="alert alert-warning">
-        {{ session('warning') }}
-    </div>
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
     @endif
 
     @php
@@ -42,24 +42,12 @@
                     <div class="card-header">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
-                                <i class="fas fa-plus me-1"></i>TAMBAH
+                            <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
                     </div>
 
                     <div class="card-body">
-<<<<<<< Updated upstream
-
-                        <form method="GET" class="search-form">
-                            <input type="text" value="{{ $beritas }}" name="beritas" class="search-input">
-                            <button type="submit" class="search-button button-model-1">
-                                Cari
-                            </button>
-                        </form>
-..
                         <table class="table table-bordered table-striped border-primary">
-=======
-                        <table class="table table-dark table-striped">
->>>>>>> Stashed changes
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
@@ -68,26 +56,31 @@
                                     <th>KATEGORI</th>
                                     <th>TANGGAL</th>
                                     <th>USER POSTING</th>
-                                    <th>foto</th>
+                                    <th>FOTO</th>
+                                    <th>STATUS</th>
+                                    @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
+                                @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
                                 @foreach ($berita as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ $item->judul_berita }}</td>
-                                        <td class="text-center">{{ $item->slug }}</td>
-                                        <td class="text-center">{{ optional($item->kategori)->nama }}</td>
-                                        <td class="text-center">{{ $item->tanggal }}</td>
-                                        <td class="text-center">{{ $item->user_posting }}</td>
+                                        <td>{{ $item->judul_berita }}</td>
+                                        <td>{{ $item->slug }}</td>
+                                        <td>{{ ($item->kategori) ? $item->kategori->nama : '' }}</td>
+                                        <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->user_posting }}</td>
                                         <td class="text-center">
                                             @if ($item->foto)
-                                            <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
+                                                <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
                                             @else
-                                            No Image
+                                                No Image
                                             @endif
                                         </td>
+                                        <td>{{ $item->status}}</td>
+                                        @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -100,49 +93,51 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
 
-            {{-- modal tambah --}}
-            <div class="modal" tabindex="-1" id="tambahModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">TAMBAH</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
 
-                                <div class="mb-3">
-                                    <label for="judul_berita" class="form-label">JUDUL BERITA</label>
-                                    <input type="text" class="form-control @error('judul_berita') is-invalid @enderror" id="judul_berita" name="judul_berita" value="{{ old('judul_berita') }}">
-                                    @error('judul_berita')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="slug" class="form-label">SLUG</label>
-                                    <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
-                                    @error('slug')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+        {{-- modal tambah --}}
+        <div class="modal" tabindex="-1" id="tambahModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">TAMBAH</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
 
                             <div class="mb-3">
-                                <select class="form-select @error('kategori_id') is-invalid @enderror" name="kategori_id" aria-label="Default select example">
+                                <label for="judul_berita" class="form-label">JUDUL BERITA</label>
+                                <input type="text" class="form-control @error('judul_berita') is-invalid @enderror" id="judul_berita" name="judul_berita" value="{{ old('judul_berita') }}">
+                                @error('judul_berita')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="slug" class="form-label">SLUG</label>
+                                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
+                                @error('slug')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="kategori_tambah" class="form-label">KATEGORI</label>
+                                <select class="form-select @error('kategori_id') is-invalid @enderror" id="kategori_tambah" name="kategori_id" aria-label="Default select example">
                                     <option value="" selected>PILIH KATEGORI</option>
                                     @foreach ($kategori as $kat)
                                         <option value="{{ $kat->id }}" {{ old('kategori_id') == $kat->id ? 'selected' : '' }}>
@@ -157,25 +152,26 @@
                                 @enderror
                             </div>
 
-                                <div class="mb-3">
-                                    <label for="tanggal" class="form-label">TANGGAL</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
-                                    @error('tanggal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                            <div class="mb-3">
+                                <label for="tanggal" class="form-label">TANGGAL</label>
+                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                @error('tanggal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
                                 <label for="user_posting" class="form-label">USER POSTING</label>
-                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting') }}">
+                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting', auth()->user()->role) }}" readonly>
                                 @error('user_posting')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="foto" class="form-label">FOTO</label>
@@ -187,80 +183,101 @@
                                 @enderror
                             </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">STATUS</label>
+                                <label for="status" class="form-label">STATUS</label>
+                                @if(old('user_posting') == 'admin')
+                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                        <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>
+                                        <option value="publish" {{ old('status') == 'publish' ? 'selected' : '' }}>Publish</option>
+                                    </select>
+                                @else
+                                    <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
+                                @endif
+                                @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Modal Edit di sini -->
-            @foreach ($berita as $item)
-                <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">EDIT</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('berita.update', ['berita' => $item->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
 
-                                    <div class="mb-3">
-                                        <label for="edit_judul_berita" class="form-label">JUDUL BERITA</label>
-                                        <input type="text" class="form-control @error('judul_berita') is-invalid @enderror" id="edit_judul_berita" name="judul_berita" value="{{ old('judul_berita', $item->judul_berita) }}">
-                                        @error('judul_berita')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+        <!-- Modal Edit di sini -->
+        @foreach ($berita as $item)
+            <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">EDIT</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('berita.update', ['berita' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                                    <div class="mb-3">
-                                        <label for="edit_slug" class="form-label">SLUG</label>
-                                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="edit_slug" name="slug" value="{{ old('slug', $item->slug) }}">
-                                        @error('slug')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="edit_judul_berita" class="form-label">JUDUL BERITA</label>
+                                    <input type="text" class="form-control @error('judul_berita') is-invalid @enderror" id="edit_judul_berita" name="judul_berita" value="{{ old('judul_berita', $item->judul_berita) }}">
+                                    @error('judul_berita')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                                    <div class="mb-3">
-                                        <label for="edit_kategori_id" class="form-label">NAMA KATEGORI</label>
-                                        <select class="form-select @error('kategori_id') is-invalid @enderror" id="edit_kategori_id" name="kategori_id" value="{{ old('kategori_id', $item->kategori_id) }}">
-                                            <option value="" selected>PILIH KATEGORI</option>
-                                            @foreach ($kategori as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->kategori_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('kategori_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="edit_slug" class="form-label">SLUG</label>
+                                    <input type="text" class="form-control @error('slug') is-invalid @enderror" id="edit_slug" name="slug" value="{{ old('slug', $item->slug) }}">
+                                    @error('slug')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                                    <div class="mb-3">
-                                        <label for="edit_tanggal" class="form-label">TANGGAL</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}">
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="edit_kategori_id" class="form-label">NAMA KATEGORI</label>
+                                    <select class="form-select @error('kategori_id') is-invalid @enderror" id="edit_kategori_id" name="kategori_id" value="{{ old('kategori_id', $item->kategori_id) }}">
+                                        <option value="" selected>PILIH KATEGORI</option>
+                                        @foreach ($kategori as $kat)
+                                            <option value="{{ $kat->id }}" {{ $item->kategori_id == $kat->id ? 'selected' : '' }}>
+                                                {{ $kat->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('kategori_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="edit_tanggal" class="form-label">TANGGAL</label>
+                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}">
+                                    @error('tanggal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="edit_user_posting" class="form-label">USER POSTING</label>
-                                    <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}">
+                                    <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}" readonly>
                                     @error('user_posting')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -268,9 +285,17 @@
                                     @enderror
                                 </div>
 
+
                                 <div class="mb-3">
                                     <label for="edit_foto" class="form-label">FOTO</label>
-                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto', $item->foto) }}">
+                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto') }}">
+
+                                    @if ($item->foto)
+                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto" width="50" height="50">
+                                    @else
+                                        No Image
+                                    @endif
+
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -278,16 +303,30 @@
                                     @enderror
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">STATUS</label>
+                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                        <option value="private" {{ old('status', $item->status) == 'private' ? 'selected' : '' }}>Private</option>
+                                        <option value="publish" {{ old('status', $item->status) == 'publish' ? 'selected' : '' }}>Publish</option>
+                                    </select>
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                        </form>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
+</div>
 @endsection

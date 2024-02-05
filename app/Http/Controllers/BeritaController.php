@@ -18,7 +18,6 @@ class BeritaController extends Controller
         $kategori = Kategori::all();
         return view('berita.berita', compact('berita','kategori'));
     }
-..
 
     public function create()
     {
