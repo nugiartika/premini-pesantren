@@ -9,17 +9,14 @@ class Berita extends Model
 {
     use HasFactory;
     protected $table = 'beritas';
-    protected $primaryKey = 'id';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
-    public $incrementing = true;
-    public $timestamps = true;
 
     public function Kategori()
     {
         return $this->belongsTo(Kategori::class);
     }
-    
+
     public static function getJumlahKelulusan()
     {
         return Kelulusan::count();

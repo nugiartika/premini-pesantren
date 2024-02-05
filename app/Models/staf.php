@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class staf extends Model
 {
     use HasFactory;
-    
-    protected $table = 'stafs';
-    protected $primaryKey = 'id';
-    protected $guarded = [];
 
-    public $incrementing = true;
-    public $timestamps = true;
+    protected $table = 'stafs';
+    protected $guarded = ['id'];
 }

@@ -13,7 +13,7 @@ class StafController extends Controller
 
     public function index()
     {
-        $staf = Staf::paginate(5);
+        $staf = Staf::paginate(10);
         return view('staf.staf', compact('staf'));
 
     }

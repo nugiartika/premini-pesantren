@@ -12,13 +12,13 @@ class mapel extends Model
         'nama'
     ];
 
-    public function asatid()
+    public function asatidlist()
     {
-        return $this->hasMany(Asatid::class);
+        return $this->hasMany(Asatidlist::class);
     }
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);
     }
-   
+
 }

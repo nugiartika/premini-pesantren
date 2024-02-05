@@ -30,6 +30,7 @@
         {{ session('warning') }}
     </div>
     @endif
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -114,18 +115,25 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="nama" class="form-label">NAMA</label>
+                                    <label for="nama" class="form-label">NAMA SANTRI</label>
                                     <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="nama" name="pendaftaran_id" aria-label="Default select example">
                                         <option value="" selected>PILIH NAMA SANTRI</option>
 
-                                        @if ($status == 'diterima')
-                                            @foreach ($pendaftaran as $kat)
+                                        @php
+                                            $status = 'diterima'; // Default status, bisa disesuaikan
+                                        @endphp
+
+                                        @foreach ($pendaftaran as $kat)
+                                            @php
+                                                $status = $kat->status; // Sesuaikan dengan nama kolom status yang sesuai di model Pendaftaran
+                                            @endphp
+
+                                            @if ($status == 'diterima')
                                                 <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
                                                     {{ $kat->nama_lengkap }}
                                                 </option>
-                                            @endforeach
-                                        @endif
-
+                                            @endif
+                                        @endforeach
                                     </select>
 
                                     @error('pendaftaran_id')
@@ -135,7 +143,7 @@
                                     @enderror
                                 </div>
 
-
+                                
                                 <div class="mb-3">
                                     <label for="kelas" class="form-label">KELAS</label>
                                     <select class="form-select @error('klssantri_id') is-invalid @enderror" id="kelas" name="klssantri_id" aria-label="Default select example">

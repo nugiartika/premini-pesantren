@@ -33,6 +33,7 @@ class PendaftaranController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date|before:tomorrow',
             'alamat' => 'required',
+            'sekolah_asal' => 'required',
             'nama_ortu' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah',
             'status' => 'required'
@@ -49,6 +50,7 @@ class PendaftaranController extends Controller
             'tanggal_lahir.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
             'tanggal_lahir.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
+            'sekolah_asal.required' => 'Kolom sekolah asal wajib diisi.',
             'nama_ortu.required' => 'Kolom NAMA ORTU wajib diisi.',
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
@@ -63,6 +65,7 @@ class PendaftaranController extends Controller
             'tempat_lahir' => $request->input('tempat_lahir'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
+            'sekolah_asal' => $request->input('sekolah_asal'),
             'nama_ortu' => $request->input('nama_ortu'),
             'telepon_rumah' => $request->input('telepon_rumah'),
             'status' => $request->input('status'),
@@ -94,6 +97,7 @@ class PendaftaranController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date|before:tomorrow',
             'alamat' => 'required',
+            'sekolah_asal' => 'required',
             'nama_ortu' => 'required',
             'telepon_rumah' => 'required|numeric|min:0|unique:pendaftarans,telepon_rumah,' . $pendaftaran->id,
             'status' => 'required',
@@ -111,13 +115,13 @@ class PendaftaranController extends Controller
             'tanggal_lahir.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
             'tanggal_lahir.before' => 'Kolom TANGGAL LAHIR tidak boleh lebih dari hari ini.',
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
+            'sekolah_asal.required' => 'Kolom sekolah asal wajib diisi.',
             'nama_ortu.required' => 'Kolom NAMA ORTU wajib diisi.',
             'telepon_rumah.required' => 'Kolom TELEPON RUMAH wajib diisi.',
             'telepon_rumah.numeric' => 'TELEPON RUMAH  harus berupa angka',
             'telepon_rumah.min' => 'TELEPON RUMAH  tidak boleh MIN-',
             'telepon_rumah.unique' => ' TELEPON RUMAH sudah digunakan.',
         ]);
-
 
         $pendaftaran->update([
             'nama_lengkap' => $request->input('nama_lengkap'),
@@ -126,6 +130,7 @@ class PendaftaranController extends Controller
             'tempat_lahir' => $request->input('tempat_lahir'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
+            'sekolah_asal' => $request->input('sekolah_asal'),
             'nama_ortu' => $request->input('nama_ortu'),
             'telepon_rumah' => $request->input('telepon_rumah'),
             'status' => $request->input('status'),

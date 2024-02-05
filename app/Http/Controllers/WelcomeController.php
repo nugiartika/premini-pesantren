@@ -14,19 +14,27 @@ class WelcomeController extends Controller
 {
     public function index(Request $request)
     {
+        $perPage = 8;
+
         $jumlahStaf = staf::count();
         $jumlahAsatidlist = Asatidlist::count();
         $jumlahBerita = Berita::count();
         $jumlahGallerie = Gallerie::count();
 
+
+        $staf = staf::paginate($perPage);
+        $asatidlist = Asatidlist::paginate($perPage);
+        $beritas = Berita::paginate($perPage);
+        $gallerie = Gallerie::paginate($perPage);
+
         $cstaf = $request->input('cstaf');
-        $staf = staf::where('nama', 'LIKE', '%' . $cstaf . '%')->get();
+        $staf = staf::where('nama', 'LIKE', '%' . $cstaf . '%')->paginate($perPage);
         $asatid = $request->input('asatid');
-        $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatid . '%')->get();
+        $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatid . '%')->paginate($perPage);
         $cberita = $request->input('cberita');
-        $beritas = Berita::where('judul_berita', 'LIKE', '%' .$cberita . '%')->get();
+        $beritas = Berita::where('judul_berita', 'LIKE', '%' .$cberita . '%')->paginate($perPage);
         $cgallerie = $request->input('cgallerie');
-        $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->get();
+        $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->paginate($perPage);
 
         return view('welcome', [
             'jumlahStaf' => $jumlahStaf,

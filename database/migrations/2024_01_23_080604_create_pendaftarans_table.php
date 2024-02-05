@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('alamat');
+            $table->string('sekolah_asal');
             $table->string('nama_ortu');
             $table->string('telepon_rumah');
             $table->string('status');

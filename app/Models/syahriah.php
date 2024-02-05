@@ -9,11 +9,7 @@ class syahriah extends Model
 {
     use HasFactory;
     protected $table = 'syahriahs';
-    protected $primaryKey = 'id';
-    protected $guarded = [];
-
-    public $incrementing = true;
-    public $timestamps = true;
+    protected $guarded = ['id'];
 
     public function santri()
     {

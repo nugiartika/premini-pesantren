@@ -40,10 +40,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+                        @if($userRole == 'santri')
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -56,6 +58,7 @@
                                     <th scope="col" class="text-center">NIK</th>
                                     <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
+                                    <th scope="col" class="text-center">SEKOLAH ASAL</th>
                                     <th scope="col" class="text-center">NAMA ORTU</th>
                                     <th scope="col" class="text-center">TELEPON RUMAH</th>
                                     <th scope="col" class="text-center">STATUS</th>
@@ -73,6 +76,7 @@
                                         <td class="text-center">{{ $item->nik }}</td>
                                         <td class="text-center">{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->tanggal_lahir)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
+                                        <td class="text-center">{{ $item->sekolah_asal }}</td>
                                         <td class="text-center">{{ $item->nama_ortu }}</td>
                                         <td class="text-center">{{ $item->telepon_rumah }}</td>
                                         <td class="text-center">{{ $item->status }}</td>
@@ -170,33 +174,17 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nama_ortu" class="form-label">NAMA ORTU</label>
-                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" required>
-                        @error('nama_ortu')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="pendidikan_ortu" class="form-label">PENDIDIKAN ORTU</label>
-                        <input type="text" class="form-control" id="pendidikan_ortu" name="pendidikan_ortu" required>
-                        @error('pendidikan_ortu')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="pekerjaan_ortu" class="form-label">PEKERJAAN ORTU</label>
-                        <input type="text" class="form-control" id="pekerjaan_ortu" name="pekerjaan_ortu" required>
-                        @error('pekerjaan_ortu')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
                         <label for="sekolah_asal" class="form-label">SEKOLAH ASAL</label>
                         <input type="text" class="form-control" id="sekolah_asal" name="sekolah_asal" required>
                         @error('sekolah_asal')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nama_ortu" class="form-label">NAMA ORTU</label>
+                        <input type="text" class="form-control" id="nama_ortu" name="nama_ortu" required>
+                        @error('nama_ortu')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -211,7 +199,7 @@
 
                     <div class="mb-3">
                         <label for="status" class="form-label">STATUS</label>
-                        @if(old('user_posting') == 'admin')
+                        @if($userRole == 'admin')
                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
                                 <option value="daftar" {{ old('status') == 'daftar' ? 'selected' : '' }}>Daftar</option>
                                 <option value="diterima" {{ old('status') == 'diterima' ? 'selected' : '' }}>Diterima</option>
@@ -225,7 +213,6 @@
                             </span>
                         @enderror
                     </div>
-
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -271,6 +258,19 @@
                                         @enderror
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <label for="jenis_kelamin" class="form-label">JENIS KELAMIN</label>
+                                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-select" required>
+                                            <option value="">- Pilih jenis kelamin -</option>
+                                            <option value="Laki-laki" {{ old('jenis_kelamin', $item->jenis_kelamin) === 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                            <option value="Perempuan" {{ old('jenis_kelamin', $item->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        </select>
+                                        @error('jenis_kelamin')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
                                     <div class="mb-3">
                                         <label for="edit_tempat_lahir" class="form-label">TEMPAT LAHIR</label>
                                         <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="edit_tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $item->tempat_lahir) }}">
@@ -295,6 +295,16 @@
                                         <label for="edit_alamat" class="form-label">ALAMAT</label>
                                         <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $item->alamat) }}">
                                         @error('alamat')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_nama_sekolah" class="form-label">SEKOLAH ASAL</label>
+                                        <input type="text" class="form-control @error('sekolah_asal') is-invalid @enderror" id="edit_nama_sekolah" name="sekolah_asal" value="{{ old('sekolah_asal', $item->sekolah_asal) }}">
+                                        @error('sekolah_asal')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -340,7 +350,7 @@
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </form>
-                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
