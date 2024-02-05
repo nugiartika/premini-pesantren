@@ -19,20 +19,15 @@ class BeritaController extends Controller
         return view('berita.berita', compact('berita','kategori'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
     public function create()
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
-        // $userRole = auth()->user()->role;
         return view('berita.berita', compact('berita','kategori'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreBeritaRequest $request)
     {
         $request->validate([
@@ -72,9 +67,7 @@ class BeritaController extends Controller
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
         $berita = Berita::findOrFail($id);
@@ -82,25 +75,15 @@ class BeritaController extends Controller
         return view('berita.berita', compact('berita','userRole'));
     }
 
-//     public function showForm()
-// {
-//     $userRole = auth()->user()->role;
-//     return view('berita.index', compact('userRole'));
-// }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Berita $berita)
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
-        // $userRole = auth()->user()->role;
         return view('berita.berita', compact('berita','kategori'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateBeritaRequest $request, Berita $berita)
     {
         $request->validate([
