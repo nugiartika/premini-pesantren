@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('asatidlists', function (Blueprint $table) {
             $table->id();
-            $table->string('nip');
+            $table->string('nip')->default('')->unique();
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->date('ttl');

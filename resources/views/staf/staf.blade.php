@@ -181,15 +181,34 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="foto" class="form-label">FOTO</label>
                                     <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" value="{{ old('foto') }}">
+
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div> --}}
+
+                                <div class="mb-3">
+                                    <label for="foto" class="form-label">FOTO</label>
+                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
+
+                                    @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @if(old('foto'))
+                                        <p>File sebelumnya:</p>
+                                        <img src="{{ asset('storage/') }}" alt="Previous Photo" width="100">
+                                    @endif
                                 </div>
+
+
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

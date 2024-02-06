@@ -30,8 +30,8 @@ return new class extends Migration
         }
         Schema::dropIfExists('mapels');
     }
-    private function checkRelationships($mapelId)
+    private function checkRelationships()
     {
-        return DB::table('asatids')->where('mapel_id', $mapelId)->exists() || DB::table('kelulusan')->where('mapel_id', $mapelId)->exists();
+         DB::table('kelulusan')->where('mapel_id')->exists();
     }
 };

@@ -42,9 +42,28 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::resource('syahriah', SyahriahController::class);
         });
 
+<<<<<<< Updated upstream
         // Route::middleware('user')->group(function(){
         // });
 
+=======
+        // Contoh rute di web.php
+        Route::middleware(['auth', 'asatidlist'])->group(function () {
+         Route::get('/asatidlist/dashboard', 'AsatidlistController@dashboard');
+});
+
+
+        Route::middleware('asatid')->group(function(){
+            Route::resource('home', HomeController::class);
+        });
+
+        Route::resource('pendaftaran', PendaftaranController::class);
+        Route::resource('gallerie', GallerieController::class);
+        Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+        Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+        Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
+        Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+>>>>>>> Stashed changes
         Route::resource('umum', UmumController::class);
         Route::resource('kelulusan', KelulusanController::class);
 

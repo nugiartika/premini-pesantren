@@ -27,7 +27,7 @@ class RolePermissionSeeder extends Seeder
             $roleAdmin->givePermissionTo('edit-users');
             $roleAdmin->givePermissionTo('hapus-users');
 
-            $rolePenulis = Role::findByName('penulis'); // Ganti 'penulisan' menjadi 'penulis'
+            $rolePenulis = Role::findByName('penulis'); 
             $rolePenulis->givePermissionTo('tambah-tulisan');
             $rolePenulis->givePermissionTo('edit-tulisan');
             $rolePenulis->givePermissionTo('hapus-tulisan');

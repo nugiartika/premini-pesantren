@@ -13,9 +13,15 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+<<<<<<< Updated upstream
         Berita::class => BeritaPolicy::class,
         Gallery::class => GalleryPolicy::class,
         Kelulusan::class => KelulusanPolicy::class,
+=======
+
+        'App\Models\Asatidlist' => 'App\Policies\AsatidlistPolicy',
+
+>>>>>>> Stashed changes
     ];
 
     /**
