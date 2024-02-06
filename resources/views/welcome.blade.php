@@ -136,7 +136,34 @@
     text-transform: uppercase;
     outline: none;
     }
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        }
 
+.pagination .page-item:not(.active) .page-link {
+                color: black;
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+            }
+                .pagination .page-item.active .page-link {
+                background-color: black;
+                border-color: black;
+                color: white;
+            }
+
+    .pagination .page-item:not(.active) .page-link {
+        color: black;
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+        .pagination .page-item.active .page-link {
+        background-color: rgb(0, 0, 0);
+        border-color: black;
+        color: white;
+    }
 
 
 
@@ -293,12 +320,12 @@
         <!-- End -->
    {{-- gallery start--}}
 <div id="gallerie-section" class="container-xxl py-5">
-    <form method="GET" class="search-form">
+    {{-- <form method="GET" class="search-form">
             <input type="text" value="{{ $cgallerie }}" name="cgallerie" class="search-input">
             <button type="submit" class="search-button button-model-1">
                 Cari
             </button>
-        </form>
+        </form> --}}
      <div class="container">
         <div class="text-center">
             <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
@@ -308,19 +335,20 @@
             <div class="wow fadeInUp" data-wow-delay="0.1s">
                 <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> --}}
         <div class="row g-4 justify-content-center">
-            @foreach ($gallerie as $key => $gallerie)
+            @foreach ($gallerie as $key => $galleris)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                         <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $gallerie->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $galleris->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
                         </div>
                         <div class="mb-2 ">
-                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$gallerie->nama_gallery}}</a>
+                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$galleris->nama_gallery}}</a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+        {{$gallerie->links()}}
     </div>
 </div>
 {{-- gallery end --}}
@@ -328,12 +356,12 @@
 
 <!-- BERITA -->
      <div id="berita-section" class="container-xxl py-5">
-        <form method="GET" class="search-form">
+       {{-- <form method="GET" class="search-form">
             <input type="text" value="{{ $cberita }}" name="cberita" class="search-input">
             <button type="submit" class="search-button button-model-1">
                 Cari
             </button>
-        </form>
+        </form> --}}
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-success px-3">Berita</h6>
@@ -354,11 +382,9 @@
                                 <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{{ $berita->judul_berita }}</p>
                                 <p class="m-0">{{ $berita->slug }}</p>
                                 <p class="m-2">{{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}</p>
-                                <div class="d-flex justify-content-between" style="position: absolute; bottom: 15px; width: 95%;">
                                     <div class="d-flex align-items-center">
                                         <small><i class="fa fa-user text-success me-2"></i>{{ $berita->user_posting }}</small>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -366,58 +392,59 @@
                 </div>
                 @endforeach
             </div>
+            {{$beritas->links()}}
+
         </div>
     </div>
     <!-- END -->
 
       {{-- staf --}}
       <div id="staf-section" class="container-xxl py-5">
-    <form method="GET" class="search-form">
+    {{-- <form method="GET" class="search-form">
         <input type="text" value="{{ $cstaf }}" name="cstaf" class="search-input">
         <button type="submit" class="search-button button-model-1">
             Cari
         </button>
-    </form>
+    </form> --}}
             <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-success px-3">STAF</h6>
                 <h1 class="mb-5">STAF</h1>
             </div>
             <div class="row g-4 justify-content-center">
-                @foreach ($staf as $key => $staf)
+                @foreach ($staf as $key => $item)
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item bg-light">
                         <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $staf->foto) }}" alt="" style="object-fit: cover; width: 100%;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $item->foto) }}" alt="" style="object-fit: cover; width: 100%;">
                         </div>
                                     <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                             <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$staf->nama}}</a></h5>
+                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$item->nama}}</a></h5>
                             </div>
                         </div>
                        <div class="text-center p-4">
-                            <small><a class="btn btn-lg text-black btn-block">{{$staf->jabatan}}</a></small>
-                            <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $staf->tempat_lahir }} {{ \Carbon\Carbon::parse($staf->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
+                            <small><a class="btn btn-lg text-black btn-block">{{$item->jabatan}}</a></small>
+                            <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+            {{$staf->links()}}
         </div>
     </div>
 {{-- staf end --}}
 
-
-
   <!-- ASATID Start -->
 <div id="asatidlist-section" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
-        <form method="GET" class="search-form">
+       {{--  <form method="GET" class="search-form">
             <input type="text" value="{{ $asatid }}" name="asatid" class="search-input">
             <button type="submit" class="search-button button-model-1">
                 Cari
             </button>
-        </form>
+        </form> --}}
         <div class="text-center">
             <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
             <h1 class="mb-5">ASATID</h1>
@@ -436,6 +463,7 @@
             </div>
             @endforeach
         </div>
+        {{ $asatidlist->links() }}
     </div>
 </div>
 <!-- ASATID End -->
