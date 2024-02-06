@@ -18,15 +18,11 @@ class Asatidlist extends Model
         'foto'
     ];
 
-<<<<<<< Updated upstream
     public function asatidlist()
     {
         return $this->hasMany(Asatidlist::class);
     }
 
-=======
-    
->>>>>>> Stashed changes
     public function klssantri()
     {
         return $this->hasMany(Klssantri::class);

@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
-            $table->string('nis');
-            $table->foreignId('pendaftaran_id')->constrained()->onDelete('restrict');
+            $table->foreignId('user_id')->constrained();
+            $table->string('nisn')->unique();
             $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
+            $table->string('telepon');
+            $table->string('alamat');
+            $table->enum('jenis_kelamin', ['Laki-laki','Perempuan']);
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->enum('status', ['Belum dikonfirmasi','Diterima','Ditolak']);
             $table->timestamps();
         });
     }

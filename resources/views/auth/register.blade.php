@@ -131,7 +131,97 @@
             <div class="col-md-8">
 
                 <div class="card-body z-20">
-                    <form method="POST" action="{{ route('register') }}">
+
+<!-- resources/views/register.blade.php -->
+
+<form method="POST" action="/register">
+    @csrf
+
+    <div class="mb-3">
+        <i class="fas fa-user"></i>
+        <input class="input" id="name" type="text"
+            class="form-control @error('name') is-invalid @enderror" name="name"
+            placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autocomplete="name"
+            autofocus>
+
+        @error('name')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <label for="nisn">NISN:</label>
+    <input type="text" name="nisn" required>
+
+    <label for="telepon">Telepon:</label>
+    <input type="text" name="telepon" required>
+
+    <label for="alamat">Alamat:</label>
+    <input type="text" name="alamat" required>
+
+    <label for="jenis_kelamin">Jenis Kelamin:</label>
+    <select name="jenis_kelamin" required>
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+    </select>
+
+
+    <label for="tempat_lahir">Tempat Lahir:</label>
+    <input type="text" name="tempat_lahir" required>
+
+    <label for="tanggal_lahir">Tanggal Lahir:</label>
+    <input type="date" name="tanggal_lahir" required>
+
+
+    <div class="mb-3">
+        <i class="fas fa-envelope"></i>
+        <input class="input" id="email" type="email"
+            class="form-control @error('email') is-invalid @enderror" name="email"
+            placeholder="{{ __('Email Address') }}" value="{{ old('email') }}" required
+            autocomplete="email">
+
+        @error('email')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="mb-3">
+        <i class="fas fa-lock"></i>
+        <input class="input" id="password" type="password"
+            class="form-control @error('password') is-invalid @enderror" name="password"
+            placeholder="{{ __('Password') }}" required autocomplete="new-password">
+
+        @error('password')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="mb-3">
+        <i class="fas fa-lock"></i>
+        <input class="input" id="password-confirm" type="password" class="form-control"
+            name="password_confirmation" placeholder="{{ __('Confirm Password') }}" required
+            autocomplete="new-password">
+    </div>
+
+    <div class="input-box button">
+        <button type="submit" class="btn btn-primary">
+            {{ __('Register') }}
+        </button>
+      </div>
+
+      <div class="text">
+        <p>Sudah Punya Akun?<a href="{{ route('login') }}"> Login</a></p>
+      </div>
+
+    </form>
+
+
+                    {{-- <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <h2>Register</h2>
@@ -196,7 +286,7 @@
 
 
 
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

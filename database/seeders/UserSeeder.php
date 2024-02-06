@@ -18,11 +18,8 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole('admin');
 
-<<<<<<< Updated upstream
-       
 
-=======
->>>>>>> Stashed changes
+
 
 
     }

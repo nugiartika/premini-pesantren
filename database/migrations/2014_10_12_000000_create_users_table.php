@@ -17,11 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-<<<<<<< Updated upstream
             $table->enum('role', ['admin','user','staf','santri','asatid']);
-=======
-            $table->enum('role', ['admin','users','staf','santri','asatid']);
->>>>>>> Stashed changes
             $table->rememberToken();
             $table->timestamps();
         });
