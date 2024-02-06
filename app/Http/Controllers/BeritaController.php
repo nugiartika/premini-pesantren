@@ -102,7 +102,7 @@ class BeritaController extends Controller
             'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
             'tanggal.after_or_equal' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
             'user_posting.required' => 'user posting tidak boleh kosong',
-            'foto.required' => 'Kolom FOTO  wajib diisi.',
+            // 'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',

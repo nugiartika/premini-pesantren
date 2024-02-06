@@ -77,30 +77,32 @@ class GallerieController extends Controller
             'nama_gallery' => 'required',
             // 'slug'  => 'required',
             'tanggal' => 'required|date',
-            'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'sampul' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
             // 'slug.required' => 'Kolom SLUG wajib diisi.',
             'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'sampul.required' => 'Kolom SAMPUL wajib diisi.',
+            // 'sampul.required' => 'Kolom SAMPUL wajib diisi.',
             'sampul.image' => 'Kolom SAMPUL harus berupa file gambar.',
             'sampul.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'sampul.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
 
-        if($request->hasFile('sampul')){
-            $gambar = $request->file('sampul');
-            $path = $gambar->store('images','public');
-            $gallerie->update(['sampul' => $path]);
-        }
 
-        $gallerie->update([
+        $data = [
             'nama_gallery' => $request->input('nama_gallery'),
             // 'slug' => $request->input('slug'),
             'tanggal' => $request->input('tanggal'),
-            'sampul' => $path,
-        ]);
+        ];
+
+        if($request->hasFile('sampul')){
+            $gambar = $request->file('sampul');
+            $path = $gambar->store('images','public');
+            $data['sampul'] = $path;
+        }
+
+        $gallerie->update($data);
 
         return redirect()->route('gallerie.index')->with('success', 'GALLERY BERHASIL DIUPDATE');
     }
