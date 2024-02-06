@@ -287,7 +287,7 @@
 
                                     <div class="mb-3">
                                         <label for="edit_foto" class="form-label">FOTO</label>
-                                        <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto') }}">
+                                        <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto">
 
                                         @if ($item->foto)
                                             <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto" width="50" height="50">
@@ -301,6 +301,7 @@
                                             </span>
                                         @enderror
                                     </div>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>

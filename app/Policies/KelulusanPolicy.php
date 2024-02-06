@@ -13,7 +13,7 @@ class KelulusanPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return in_array($user->role, ['asatid', 'admin']);
     }
 
     /**

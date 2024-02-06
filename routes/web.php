@@ -25,7 +25,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('', [WelcomeController::class, 'index']);
 
 Auth::routes();
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 
 Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
@@ -42,18 +42,28 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::resource('syahriah', SyahriahController::class);
         });
 
-        Route::middleware('user')->group(function(){
-            Route::resource('home', HomeController::class);
-        });
-        Route::resource('pendaftaran', PendaftaranController::class);
-        Route::resource('gallerie', GallerieController::class);
-        Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-        Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
-        Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
-        Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+        // Route::middleware('user')->group(function(){
+        // });
+
         Route::resource('umum', UmumController::class);
         Route::resource('kelulusan', KelulusanController::class);
-        Route::resource('pendaftaran', PendaftaranController::class);
 
 
-});
+
+        Route::middleware(['staf'])->group(function () {
+            Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+            Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+            Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+            Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+            Route::resource('pendaftaran', PendaftaranController::class);
+            Route::resource('home', HomeController::class);
+
+
+            Route::resource('gallerie', GallerieController::class);
+        });
+
+
+
+
+
+// });

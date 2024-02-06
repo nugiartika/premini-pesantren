@@ -285,6 +285,7 @@
         </nav>
         @else
 
+
         <nav class="navbar navbar-expand-lg btn-success">
             <div class="container">
                 <a class="navbar-brand" href="#">
@@ -306,7 +307,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}"><i class="fas fa-newspaper me-1"></i>BERITA</a>
+                            <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">
+                                <i class="fas fa-newspaper me-1"></i>BERITA
+                            </a>
                         </li>
 
                         <li class="nav-item">

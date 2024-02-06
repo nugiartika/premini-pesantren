@@ -91,7 +91,7 @@ class BeritaController extends Controller
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
             'user_posting' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
@@ -109,22 +109,24 @@ class BeritaController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $path = $berita->foto;
-
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $path = $foto->store('images', 'public');
-        }
-
-        $berita->update([
+        $data = [
             'judul_berita' => $request->input('judul_berita'),
             'slug' => $request->input('slug'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
-            'foto' => $path,
             'user_posting' => $request->input('user_posting'),
             'status' => $request->input('status'),
-        ]);
+        ];
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $path = $foto->store('images', 'public');
+            $data['foto'] = $path;
+
+        }
+
+        
+        $berita->update($data);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');
     }

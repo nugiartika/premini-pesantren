@@ -221,7 +221,6 @@
                                 {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025.</h5>
                                 <h1 class="display-3 text-white animated slideInDown style=";>PENDAFTARAN</h1>
                                 <h1 class="display-3 text-white animated slideInDown">SANTRI BARU</h1> --}}
-                                <a href="{{ route('pendaftaran.index') }}" class="btn btn-warning py-md-3 px-md-5 text-white  animated slideInRight {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}">DAFTAR</a>
                             </div>
                         </div>
                     </div>
@@ -236,7 +235,6 @@
                             <div class="col-sm-10 col-lg-8">
                                 {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025</h5>
                                 <h1 class="display-3 text-black animated slideInDown">DARI SANTRI UNTUK SANTRI</h1> --}}
-                                <a href="{{ route('pendaftaran.index') }}" class="btn btn-warning py-md-3 px-md-5 text-white  animated slideInRight {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}">DAFTAR</a>
                             </div>
                         </div>
                     </div>

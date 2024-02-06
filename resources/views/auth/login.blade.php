@@ -184,7 +184,15 @@
                                 </div>
                         </div>
 
-                        <div class="row mb-5">
+                        <label for="role">Role:</label>
+                        <select name="role" id="role">
+                            <option value="admin">Admin</option>
+                            <option value="asatid">Asatid</option>
+                            <option value="santri">Santri</option>
+                            <option value="staf">Staf</option>
+                        </select>
+
+                         <div class="row mb-5">
                                 <button type="submit" class="btn btn-primary mt-3">
                                     {{ __('Login') }}
                                 </button>
