@@ -16,9 +16,4 @@ class Berita extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
-
-    public static function getJumlahKelulusan()
-    {
-        return Kelulusan::count();
-    }
 }

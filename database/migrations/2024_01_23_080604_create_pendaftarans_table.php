@@ -15,16 +15,14 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap');
+            $table->foreignId('user_id')->constrained();
+            $table->string('nisn')->unique();
+            $table->string('telepon');
+            $table->string('alamat');
             $table->enum('jenis_kelamin', ['Laki-laki','Perempuan']);
-            $table->string('nik')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('alamat');
-            $table->string('sekolah_asal');
-            $table->string('nama_ortu');
-            $table->string('telepon_rumah');
-            $table->string('status');
+            $table->enum('status', ['Belum dikonfirmasi','Diterima','Ditolak']);
             $table->timestamps();
          });
     }

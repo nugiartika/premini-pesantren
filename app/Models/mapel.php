@@ -16,7 +16,9 @@ class mapel extends Model
     {
         return $this->hasMany(Asatidlist::class);
     }
+=======
 
+>>>>>>> Stashed changes
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);
