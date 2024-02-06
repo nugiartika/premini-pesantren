@@ -12,14 +12,11 @@ class mapel extends Model
         'nama'
     ];
 
-<<<<<<< Updated upstream
     public function asatidlist()
     {
         return $this->hasMany(Asatidlist::class);
     }
-=======
-   
->>>>>>> Stashed changes
+
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);

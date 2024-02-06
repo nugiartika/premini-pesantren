@@ -16,12 +16,9 @@ class Berita extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
-<<<<<<< Updated upstream
 
     public static function getJumlahKelulusan()
     {
         return Kelulusan::count();
     }
-=======
->>>>>>> Stashed changes
 }

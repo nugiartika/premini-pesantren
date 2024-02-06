@@ -15,6 +15,11 @@ class SantriMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(auth()->user()->role == 'santri'){
+            return $next($request);
+        }else{
+            return redirect()->route('home.index');
+        }
         return $next($request);
     }
 }

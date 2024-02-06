@@ -4,6 +4,9 @@ namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\StafMiddleware;
+use App\Http\Middleware\AsatidlistMiddleware;
+use App\Http\Middleware\SantriMiddleware;
 // use \App\Http\Middleware\CheckRole;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -62,7 +65,9 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'admin' => AdminMiddleware::class,
         'user' => UserMiddleware::class,
-        'staf' => \App\Http\Middleware\StafMiddleware::class,
+        'staf' => StafMiddleware::class,
+        'asatidlist' => AsatidlistMiddleware::class,
+        'santri' => SantriMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

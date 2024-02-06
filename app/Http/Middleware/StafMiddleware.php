@@ -15,6 +15,10 @@ class StafMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
-    }
+        if(auth()->user()->role == 'staf'){
+            return $next($request);
+        }else{
+            return redirect()->route('home.index');
+        }
+        return $next($request);    }
 }

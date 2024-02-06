@@ -15,6 +15,11 @@ class AsatidlistMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(auth()->user()->role == 'asatidlist'){
+            return $next($request);
+        }else{
+            return redirect()->route('home.index');
+        }
         return $next($request);
     }
 }

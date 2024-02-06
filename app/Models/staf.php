@@ -9,6 +9,23 @@ class staf extends Model
 {
     use HasFactory;
 
-    protected $table = 'stafs';
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'nip',
+        'nama',
+        'email',
+        'tempat_lahir',
+        'ttl',
+        'alamat',
+        'pendidikan',
+        'jabatan',
+        'foto',
+    ];
+    public function user()
+    {
+        return $this->hasOne(user::class);
+    }
+    public function updateUsers(array $data)
+    {
+        $this->user->update($data);
+    }
 }

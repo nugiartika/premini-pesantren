@@ -19,6 +19,8 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_ASATID = 'asatid';
     const ROLE_SANTRI = 'santri';
     const ROLE_STAF = 'staf';
+
+
 /**
      * The attributes that are mass assignable.
      *
@@ -26,11 +28,21 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'asatidlist_id',
+        'staf_id',
         'email',
         'role',
-        'password',
+        'password'
     ];
-
+    public function asatidlist()
+    {
+        return $this->belongsTo(asatidlist::class);
+    }
+    
+    public function staf()
+    {
+        return $this->belongsTo(staf::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

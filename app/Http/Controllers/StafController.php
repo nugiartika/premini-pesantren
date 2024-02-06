@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StafRequest;
-use App\Models\staf;
+use App\Models\Staf;
+use App\Models\User;
 use Carbon\Carbon;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,6 +36,7 @@ class StafController extends Controller
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip',
             'nama' => 'required|unique:stafs,nama',
+            'email' => 'required|unique:stafs,email',
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
@@ -47,6 +50,8 @@ class StafController extends Controller
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
+            'email.required' => 'Kolom EMAIL wajib diisi.',
+            'email.unique' => 'EMAIL sudah digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
@@ -62,9 +67,10 @@ class StafController extends Controller
         $foto = $request->file('foto');
         $path = Storage::disk('public')->put('images', $foto);
 
-        Staf::create([
+        $staf = Staf::create([
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
+            'email' => $request->input('email'),
             'tempat_lahir' => $request->input('tempat_lahir'),
             'ttl' => $request->input('ttl'),
             'alamat' => $request->input('alamat'),
@@ -72,6 +78,14 @@ class StafController extends Controller
             'jabatan' => $request->input('jabatan'),
             'foto' => $path,
         ]);
+        User::create([
+            'staf_id' => $staf->id,
+            'name' => $request->input('nama'),
+            'email' => $request->input('email'),
+            'password' => Hash::make('password'),
+            'role' => 'staf'
+        ]);
+
 
         return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DITAMBAHKAN');
 
@@ -102,6 +116,7 @@ class StafController extends Controller
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip,' . $staf->id,
             'nama' => 'required|unique:stafs,nama,' . $staf->id,
+            'email' => 'required|unique:stafs,email,' . $staf->id,
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
@@ -115,6 +130,8 @@ class StafController extends Controller
             'nip.unique' => 'NIP sudah digunakan.',
             'nama.required' => 'Kolom NAMA wajib diisi.',
             'nama.unique' => 'NAMA sudah digunakan.',
+            'email.required' => 'Kolom EMAIL wajib diisi.',
+            'email.unique' => 'EMAIL sudah digunakan.',
             'tempat_lahir.required' => 'Kolom TEMPAT LAHIR wajib diisi.',
             'ttl.required' => 'Kolom TANGGAL LAHIR wajib diisi.',
             'ttl.date' => 'Kolom TANGGAL LAHIR  harus berupa tanggal.',
@@ -130,6 +147,7 @@ class StafController extends Controller
         $data = [
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
+            'email' => $request->input('email'),
             'tempat_lahir' => $request->input('tempat_lahir'),
             'ttl' => $request->input('ttl'),
             'alamat' => $request->input('alamat'),
@@ -145,6 +163,11 @@ class StafController extends Controller
         }
 
         $staf->update($data);
+        
+        $staf->updateUsers([
+            'name' => $request->input('nama'),
+            'email' => $request->input('email'),
+        ]);
 
         return redirect()->route('staf.index')->with('success', 'STAF BERHASIL DIUPDATE');
     }

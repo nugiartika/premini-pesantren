@@ -125,7 +125,7 @@ class BeritaController extends Controller
 
         }
 
-        
+
         $berita->update($data);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');

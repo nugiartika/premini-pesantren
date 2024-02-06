@@ -4,24 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+     function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('asatidlist_id')->nullable()->constrained('asatidlists')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('staf_id')->nullable()->constrained('stafs')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-<<<<<<< Updated upstream
-            $table->enum('role', ['admin','user','staf','santri','asatid']);
-=======
-            $table->enum('role', ['admin','users','staf','santri','asatid']);
->>>>>>> Stashed changes
+            $table->string('password')->default();
+            $table->enum('role', ['admin', 'user', 'staf', 'santri', 'asatidlist']);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -32,4 +27,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-};
+}
+

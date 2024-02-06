@@ -8,15 +8,13 @@ use App\Http\Controllers\AsatidlistController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\KlssantriController;
 use App\Http\Controllers\GallerieController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\SyahriahController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\staf;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -25,11 +23,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('', [WelcomeController::class, 'index']);
 
 Auth::routes();
-// Route::middleware(['auth'])->group(function () {
-
-Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
-Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+    Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
 
         Route::middleware('admin')->group(function(){
             Route::resource('dashboard', DashboardController::class);
@@ -39,50 +36,26 @@ Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@r
             Route::resource('kategori', KategoriController::class);
             Route::resource('santri', SantriController::class);
             Route::resource('klssantri', KlssantriController::class);
-            Route::resource('syahriah', SyahriahController::class);
+            Route::resource('pendaftaran', PendaftaranController::class);
+            Route::resource('kelulusan', KelulusanController::class);
         });
 
-<<<<<<< Updated upstream
-        // Route::middleware('user')->group(function(){
-        // });
+            Route::middleware('staf')->group(function(){
+            });
 
-=======
-        // Contoh rute di web.php
-        Route::middleware(['auth', 'asatidlist'])->group(function () {
-         Route::get('/asatidlist/dashboard', 'AsatidlistController@dashboard');
-});
+            Route::middleware('asatidlist')->group(function(){
+            Route::resource('kelulusan', KelulusanController::class);
+            });
 
+            Route::middleware('santri')->group(function(){
+            Route::resource('kelulusan', KelulusanController::class);
+            });
 
-        Route::middleware('asatid')->group(function(){
-            Route::resource('home', HomeController::class);
-        });
-
-        Route::resource('pendaftaran', PendaftaranController::class);
-        Route::resource('gallerie', GallerieController::class);
-        Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-        Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
-        Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
-        Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
->>>>>>> Stashed changes
-        Route::resource('umum', UmumController::class);
-        Route::resource('kelulusan', KelulusanController::class);
-
-
-
-        Route::middleware(['staf'])->group(function () {
             Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
             Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
-            Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+            Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
-            Route::resource('pendaftaran', PendaftaranController::class);
+            Route::resource('gallerie', GallerieController::class);
             Route::resource('home', HomeController::class);
 
-
-            Route::resource('gallerie', GallerieController::class);
-        });
-
-
-
-
-
-// });
+});

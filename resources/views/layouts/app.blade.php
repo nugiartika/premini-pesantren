@@ -306,26 +306,32 @@
                             <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}"><i class="fa-solid fa-house me-1"></i>HOME</a>
                         </li>
 
+                        @if ($role == 'staf')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">
                                 <i class="fas fa-newspaper me-1"></i>BERITA
                             </a>
                         </li>
+                        @endif
 
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('gallerie.index') ? 'active' : '' }}" href="{{ route('gallerie.index') }}"><i class="fa-regular fa-image me-1"></i>GALLERIE</a>
                         </li>
 
+                        @if ($role == 'asatidlist')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('kelulusan.index') ? 'active' : '' }}"
                                 href="{{ route('kelulusan.index') }}">
                                 <i class="fas fa-bell me-1"></i>KELULUSAN
                             </a>
                         </li>
+                        @endif
 
+                        @if ($role == 'santri')
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
                         </li>
+                        @endif
 
                     </ul>
 

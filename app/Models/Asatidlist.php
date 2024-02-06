@@ -11,22 +11,21 @@ class Asatidlist extends Model
     protected $fillable = [
         'nip',
         'nama',
+        'email',
         'tempat_lahir',
         'ttl',
         'alamat',
         'pendidikan',
         'foto'
     ];
-
-<<<<<<< Updated upstream
-    public function asatidlist()
+    public function user()
     {
-        return $this->hasMany(Asatidlist::class);
+        return $this->hasOne(user::class);
     }
-
-=======
-    
->>>>>>> Stashed changes
+    public function updateUsers(array $data)
+    {
+        $this->user->update($data);
+    }
     public function klssantri()
     {
         return $this->hasMany(Klssantri::class);

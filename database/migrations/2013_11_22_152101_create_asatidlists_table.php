@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nip')->default('')->unique();
             $table->string('nama');
+            $table->string('email');
             $table->string('tempat_lahir');
             $table->date('ttl');
             $table->string('alamat');

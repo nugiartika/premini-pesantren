@@ -34,6 +34,7 @@
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NIP</th>
                                     <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">EMAIL</th>
                                     <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">PENDIDIKAN</th>
@@ -47,6 +48,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nip }}</td>
                                         <td class="text-center">{{ $item->nama }}</td>
+                                        <td class="text-center">{{ $item->email }}</td>
                                         <td>{{ $item->tempat_lahir }}, {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->pendidikan }}</td>
@@ -103,6 +105,16 @@
                                     <label for="nama" class="form-label">NAMA</label>
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
                                     @error('nama')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">EMAIL</label>
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
+                                    @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -203,6 +215,16 @@
                                         <label for="edit_nama" class="form-label">NAMA</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
                                         @error('nama')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="edit_email" class="form-label">EMAIL</label>
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="edit_email" name="email" value="{{ old('email', $item->email) }}">
+                                        @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
