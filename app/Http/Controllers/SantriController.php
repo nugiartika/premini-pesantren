@@ -33,19 +33,13 @@ class SantriController extends Controller
     public function store(StoresantriRequest $request)
     {
         $request->validate([
-            'nis' => 'required|numeric|min:0|unique:santris,nis',
             'pendaftaran_id' => 'required',
             'klssantri_id' => 'required',
         ], [
-            'nis.required' => 'Kolom NIS wajib diisi.',
-            'nis.numeric' => 'NIS harus berupa angka',
-            'nis.min' => 'NIS tidak boleh MIN-',
-            'nis.unique' => ' sudah NIS digunakan.',
             'pendaftaran_id.required' => 'Kolom NAMA SANTRI wajib diisi',
             'klssantri_id.required' => 'Kolom KELAS wajib diisi',
         ]);
         Santri::create([
-            'nis' => $request->input('nis'),
             'pendaftaran_id' => $request->input('pendaftaran_id'),
             'klssantri_id' => $request->input('klssantri_id'),
         ]);
@@ -73,20 +67,13 @@ class SantriController extends Controller
     public function update(UpdatesantriRequest $request, santri $santri)
     {
         $request->validate([
-            'nis' => 'required|numeric|min:0|unique:santris,nis,' . $santri->id,
             'pendaftaran_id' => 'required',
             'klssantri_id' => 'required',
-        ], [
-            'nis.required' => 'Kolom NIS wajib diisi.',
-            'nis.numeric' => 'NIS harus berupa angka',
-            'nis.min' => 'NIS tidak boleh MIN-',
-            'nis.unique' => ' sudah NIS digunakan.',
-            'pendaftaran_id.required' => 'Kolom NAMA SANTRI wajib diisi',
+        ], [            'pendaftaran_id.required' => 'Kolom NAMA SANTRI wajib diisi',
             'klssantri_id.required' => 'Kolom KELAS wajib diisi',
 
         ]);
         $santri->update([
-            'nis' => $request->input('nis'),
             'pendaftaran_id' => $request->input('pendaftaran_id'),
             'klssantri_id' => $request->input('klssantri_id'),
         ]);

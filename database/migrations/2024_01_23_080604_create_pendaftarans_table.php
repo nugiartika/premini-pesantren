@@ -15,30 +15,32 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('nisn')->unique();
-            $table->string('telepon');
+            $table->string('telepon')->unique();
             $table->string('alamat');
             $table->enum('jenis_kelamin', ['Laki-laki','Perempuan']);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->enum('status', ['Belum dikonfirmasi','Diterima','Ditolak']);
+            $table->enum('status', ['menunggu konfirmasi','Diterima','Ditolak'])->default('menunggu konfirmasi');
             $table->timestamps();
          });
     }
 
 
-    public function down(): void
-    {
-        if ($this->checkRelationships()) {
-            Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
+    // public function down(): void
+    // {
+    //     if ($this->checkRelationships()) {
+    //         Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
 
-            return;
-        }
-        Schema::dropIfExists('pendaftarans');
-    }
-    private function checkRelationships()
-    {
-        return DB::table('santri')->where('pendaftaran_id', '=', $someValue)->exists();
-    }
+    //         return;
+    //     }
+    //     Schema::dropIfExists('pendaftarans');
+    // }
+    // private function checkRelationships()
+    // {
+    //     return DB::table('santri')->where('pendaftaran_id', '=', $someValue)->exists();
+    // }
 };

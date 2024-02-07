@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class pendaftaran extends Model
 {
     use HasFactory;
-    
+
 
 
     protected $table = 'pendaftarans';
@@ -18,5 +18,10 @@ class pendaftaran extends Model
     public function santri()
     {
         return $this->hasMany(Santri::class);
+    }
+    
+    public function user()
+    {
+        return $this->hasOne(user::class);
     }
 }

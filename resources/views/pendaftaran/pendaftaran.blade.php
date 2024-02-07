@@ -40,12 +40,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        @if($userRole == 'santri')
+                        {{-- @if($userRole == 'santri')
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
-                        @endif
+                        @endif --}}
                     </div>
 
                     <div class="card-body">
@@ -53,14 +53,14 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
-                                    <th scope="col" class="text-center">NAMA LENGKAP</th>
+                                    <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">EMAIL</th>
+                                    <th scope="col" class="text-center">PASSWORD</th>
                                     <th scope="col" class="text-center">JENIS KELAMIN</th>
-                                    <th scope="col" class="text-center">NIK</th>
+                                    <th scope="col" class="text-center">TELEPON</th>
+                                    <th scope="col" class="text-center">NISN</th>
                                     <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">ALAMAT</th>
-                                    <th scope="col" class="text-center">SEKOLAH ASAL</th>
-                                    <th scope="col" class="text-center">NAMA ORTU</th>
-                                    <th scope="col" class="text-center">TELEPON RUMAH</th>
                                     <th scope="col" class="text-center">STATUS</th>
                                     @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
@@ -71,27 +71,27 @@
                                 @foreach ($pendaftaran as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ $item->nama_lengkap }}</td>
+                                        <td class="text-center">{{ $item->nama }}</td>
+                                        <td class="text-center">{{ $item->email }}</td>
+                                        <td class="text-center">{{ $item->password }}</td>
                                         <td class="text-center">{{ $item->jenis_kelamin }}</td>
-                                        <td class="text-center">{{ $item->nik }}</td>
+                                        <td class="text-center">{{ $item->telepon }}</td>
+                                        <td class="text-center">{{ $item->nisn }}</td>
                                         <td class="text-center">{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->tanggal_lahir)->isoFormat('D-MMMM-YYYY') }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
-                                        <td class="text-center">{{ $item->sekolah_asal }}</td>
-                                        <td class="text-center">{{ $item->nama_ortu }}</td>
-                                        <td class="text-center">{{ $item->telepon_rumah }}</td>
                                         <td class="text-center">{{ $item->status }}</td>
                                         @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <form action="{{ route('pendaftaran.destroy', ['pendaftaran' => $item->id]) }}" method="POST" style="display:inline">
+                                            {{-- <form action="{{ route('pendaftaran.destroy', ['pendaftaran' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                         @endif
                                     </tr>
@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            {{-- modal tambah --}}
+            {{-- modal tambah
             <div class="modal" tabindex="-1" id="tambahModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Modal Edit di sini -->
             @foreach ($pendaftaran as $item)
@@ -238,7 +238,7 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <label for="edit_nama_lengkap" class="form-label">NAMA LENGKAP</label>
                                         <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="edit_nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap', $item->nama_lengkap) }}">
                                         @error('nama_lengkap')
@@ -329,13 +329,19 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="edit_status" class="form-label">STATUS</label>
                                         <select class="form-select @error('status') is-invalid @enderror" id="edit_status" name="status">
-                                            <option value="daftar" {{ old('status', $item->status) == 'daftar' ? 'selected' : '' }}>Daftar</option>
-                                            <option value="diterima" {{ old('status', $item->status) == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                            @if($item->status === 'Diterima')
+                                                <option value="Diterima" selected>Diterima</option>
+                                                <option value="Ditolak">Ditolak</option>
+                                            @else
+                                                <option value="menunggu konfirmasi" {{ old('status', $item->status) == 'menunggu konfirmasi' ? 'selected' : '' }}>Menunggu konfirmasi</option>
+                                                <option value="Diterima" {{ old('status', $item->status) == 'Diterima' ? 'selected' : '' }}>Diterima</option>
+                                                <option value="Ditolak" {{ old('status', $item->status) == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                            @endif
                                         </select>
                                         @error('status')
                                             <span class="invalid-feedback" role="alert">
