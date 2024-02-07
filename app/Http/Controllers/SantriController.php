@@ -41,14 +41,9 @@ class SantriController extends Controller
     public function store(StoresantriRequest $request)
     {
         $request->validate([
-            'pendaftaran_id' => 'required',
-            'klssantri_id' => 'required',
-        ], [
-            'pendaftaran_id.required' => 'Kolom NAMA SANTRI wajib diisi',
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi',
+            'klssantri_id' => 'nullable',
         ]);
         Santri::create([
-            'pendaftaran_id' => $request->input('pendaftaran_id'),
             'klssantri_id' => $request->input('klssantri_id'),
         ]);
 

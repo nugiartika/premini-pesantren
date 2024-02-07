@@ -6,6 +6,7 @@ use App\Models\Pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StorependaftaranRequest;
 use App\Http\Requests\UpdatependaftaranRequest;
+use App\Models\santri;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -78,6 +79,16 @@ class PendaftaranController extends Controller
         $status = $request->input('status');
 
         if ($status === 'Diterima') {
+            $santri = Santri::create([
+                'nama' => $pendaftaran->nama,
+                'email' => $pendaftaran->email,
+                'nisn' => $pendaftaran->nisn,
+                'telepon' => $pendaftaran->telepon,
+                'alamat' => $pendaftaran->alamat,
+                'jenis_kelamin' => $pendaftaran->jenis_kelamin,
+                'tempat_lahir' => $pendaftaran->tempat_lahir,
+                'tanggal_lahir' => $pendaftaran->tanggal_lahir,
+            ]);
             User::create([
                 'name' => $pendaftaran->nama,
                 'email' => $pendaftaran->email,
@@ -89,14 +100,17 @@ class PendaftaranController extends Controller
             if ($user = User::where('email', $pendaftaran->email)->first()) {
                 $user->delete();
             }
+
+
+            if ($santri = Santri::where('email', $pendaftaran->email)->first()) {
+                $santri->delete();
+            }
+
+            // Hapus entri pendaftaran
             $pendaftaran->delete();
+
             return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIHAPUS');
         }
-
-        $pendaftaran->update([
-            'status' => $status,
-        ]);
-
-        return redirect()->route('pendaftaran.index')->with('success', 'STATUS BERHASIL DIUPDATE');
     }
+
 }

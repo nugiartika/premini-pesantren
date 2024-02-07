@@ -15,7 +15,6 @@ use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\PendaftaranController;
 use App\Models\pendaftaran;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\staf;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -45,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::middleware('asatidlist')->group(function(){
             });
-            
+
             Route::middleware('santri')->group(function(){
             });
 

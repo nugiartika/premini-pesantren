@@ -11,9 +11,10 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('klssantris', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama_kelas');
+            $table->foreignId('asatidlist_id')->constrained('asatidlists')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -26,10 +27,10 @@ return new class extends Migration
 
             return;
         }
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('klssantris');
     }
     private function checkRelationships()
     {
-        return DB::table('berita')->where('kategori_id')->exists();
+        return DB::table('santri')->where('klssantri_id')->exists();
     }
 };

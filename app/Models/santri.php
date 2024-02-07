@@ -21,8 +21,5 @@ class santri extends Model
     {
         return $this->hasMany(Kelulusan::class);
     }
-    public function pendaftaran()
-    {
-        return $this->belongsTo(Pendaftaran::class);
-    }
+
 }

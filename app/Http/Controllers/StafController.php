@@ -7,12 +7,12 @@ use App\Models\Staf;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
-use Hash;
+// use Hash;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
-
+use Illuminate\Validation\ValidationException;
 
 class StafController extends Controller
 {
@@ -40,16 +40,12 @@ class StafController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StafRequest $request)
+    public function store(StafRequest $request, Staf $staf)
     {
         try {
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip',
-            'nama' => 'required|unique:stafs,nama',
             'nama' => 'required|unique:users,nama',
-            'nama' => 'required|unique:asatidlists,nama',
-            'email' => 'required|unique:asatidlists,email',
-            'email' => 'required|unique:stafs,email',
             'email' => 'required|unique:users,email',
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
@@ -77,20 +73,23 @@ class StafController extends Controller
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
-        $foto = $request->file('foto');
-        $path = Storage::disk('public')->put('images', $foto);
 
-        $staf = Staf::create([
-            'nip' => $request->input('nip'),
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'tempat_lahir' => $request->input('tempat_lahir'),
-            'ttl' => $request->input('ttl'),
-            'alamat' => $request->input('alamat'),
-            'pendidikan' => $request->input('pendidikan'),
-            'jabatan' => $request->input('jabatan'),
-            'foto' => $path,
-        ]);
+        // $foto = $request->file('foto');
+        // $path = Storage::disk('public')->put('images', $foto);
+        $data = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $filename = Str::random(20) . '.' . $foto->getClientOriginalExtension();
+            $data['foto'] = $foto->storeAs($filename, 'public');
+
+            if ($staf->foto) {
+                Storage::disk('public')->delete($staf->foto);
+            }
+        }
+
+        $staf = Staf::create($data);
+
         User::create([
             'staf_id' => $staf->id,
             'email_verified_at' => now(),
@@ -100,13 +99,10 @@ class StafController extends Controller
             'role' => 'staf'
         ]);
 
-
-        return redirect()->route('staf.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
-        } catch (ValidationException $e) {
-            return back()->withErrors($e->errors())->withInput();
-        } catch (Exception $th) {
-        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
-    }
+            return redirect()->route('staf.index')->with('success', 'Data berhasil ditambahkan');
+        } catch (Exception $e) {
+            return back()->with('failed', 'Gagal menambah data.');
+        }
     }
 
 
@@ -132,11 +128,7 @@ class StafController extends Controller
         try {
             $request->validate([
                 'nip' => 'required|numeric|min:0|unique:stafs,nip,' . $staf->id,
-                'nama' => 'required|unique:stafs,nama,' . $staf->id,
                 'nama' => 'required|unique:users,nama,' . $staf->id,
-                'nama' => 'required|unique:asatidlists,nama,' . $staf->id,
-                'email' => 'required|unique:asatidlists,email,' . $staf->id,
-                'email' => 'required|unique:stafs,email,' . $staf->id,
                 'email' => 'required|unique:users,email,' . $staf->id,
                 'tempat_lahir' => 'required',
                 'ttl' => 'required|date|before:tomorrow',
@@ -178,9 +170,14 @@ class StafController extends Controller
 
             if ($request->hasFile('foto')) {
                 $foto = $request->file('foto');
-                $path = $foto->store('images', 'public');
-                $data['foto'] = $path;
+                $data['foto'] = Str::random(20) . '.' . $foto->getClientOriginalExtension();
+                Storage::disk('public')->put($data['foto'], file_get_contents($foto));
+                Storage::disk('public')->delete($staf->foto);
+            } else {
+                $data['foto'] = $staf->foto;
             }
+
+
 
         $staf->update($data);
 
@@ -195,14 +192,11 @@ class StafController extends Controller
             $staf->email = $request->input('email');
             $staf->save();
 
-    return redirect()->route('staf.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
-    } catch (ValidationException $e) {
-        return back()->withErrors($e->errors())->withInput();
-    } catch (Exception $th) {
-        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
+            return redirect()->route('staf.index')->with('success', 'Data berhasil diperbarui');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('failed', 'Gagal memperbarui data.');
+        }
     }
-    }
-
 
     public function destroy(staf $staf)
     {

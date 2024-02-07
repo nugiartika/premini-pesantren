@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallerie;
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreGallerieRequest;
 use App\Http\Requests\UpdateGallerieRequest;
 use Illuminate\Support\Facades\Storage;
@@ -32,37 +33,41 @@ class GallerieController extends Controller
     }
 
 
-    public function store(StoreGallerieRequest $request)
-    {
-        $request->validate([
-            'nama_gallery' => 'required',
-            'tanggal' => 'required|date|after_or_equal:today',
-            'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ], [
-            'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
-            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'tanggal.after_or_equal' => 'TANGGAL harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'sampul.required' => 'Kolom SAMPUL wajib diisi.',
-            'sampul.image' => 'Kolom SAMPUL harus berupa file gambar.',
-            'sampul.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
-            'sampul.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
+        public function store(StoreGallerieRequest $request, Gallerie $gallerie)
+        {
+            $request->validate([
+                'nama_gallery' => 'required',
+                'tanggal' => 'required|date|after_or_equal:today',
+                'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ], [
+                'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',
+                'slug.required' => 'Kolom SLUG wajib diisi.',
+                'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
+                'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
+                'tanggal.after_or_equal' => 'TANGGAL harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
+                'sampul.required' => 'Kolom SAMPUL wajib diisi.',
+                'sampul.image' => 'Kolom SAMPUL harus berupa file gambar.',
+                'sampul.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
+                'sampul.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
 
-        ]);
+            ]);
+
+            $data = $request->all();
+
+            if ($request->hasFile('sampul')) {
+                $foto = $request->file('sampul');
+                $filename = Str::random(20) . '.' . $foto->getClientOriginalExtension();
+                $data['foto'] = $foto->storeAs('public', $filename);
+            }
+
+            Gallerie::create($data);
 
 
-        $gambar = $request->file('sampul');
-        $path = Storage::disk('public')->put('images', $gambar);
+            // $gambar = $request->file('sampul');
+            // $path = Storage::disk('public')->put('images', $gambar);
 
-        Gallerie::create([
-            'nama_gallery' => $request->input('nama_gallery'),
-            'tanggal' => $request->input('tanggal'),
-            'sampul' => $path,
-        ]);
-
-        return redirect()->route('gallerie.index')->with('success', 'GALLERY BERHASIL DITAMBAHKAN');
-    }
+            return redirect()->route('gallerie.index')->with('success', 'GALLERY BERHASIL DITAMBAHKAN');
+        }
 
 
     public function show(Gallerie $gallerie)
@@ -94,17 +99,19 @@ class GallerieController extends Controller
             'sampul.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
 
+        $data = $request->all();
 
-        $data = [
-            'nama_gallery' => $request->input('nama_gallery'),
-            'tanggal' => $request->input('tanggal'),
-        ];
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $filename = Str::random(20) . '.' . $foto->getClientOriginalExtension();
+            $path = $foto->storeAs('public', $filename); // Menyimpan gambar ke penyimpanan disk publik
+            $data['foto'] = $path;
 
-        if($request->hasFile('sampul')){
-            $gambar = $request->file('sampul');
-            $path = $gambar->store('images','public');
-            $data['sampul'] = $path;
+            if ($gallerie->foto) {
+                Storage::disk('public')->delete($gallerie->foto);
+            }
         }
+
 
         $gallerie->update($data);
 

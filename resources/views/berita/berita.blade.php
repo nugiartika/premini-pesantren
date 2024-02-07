@@ -312,7 +312,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="status" class="form-label">STATUS</label>
                                     <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
@@ -325,7 +324,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
 
                         </div>
                         <div class="modal-footer">

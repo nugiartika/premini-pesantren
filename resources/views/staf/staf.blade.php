@@ -206,7 +206,7 @@
 
                                 <div class="mb-3">
                                     <label for="foto" class="form-label">FOTO</label>
-                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
+                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" >
 
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">

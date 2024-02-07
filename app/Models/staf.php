@@ -20,9 +20,10 @@ class staf extends Model
         'jabatan',
         'foto',
     ];
+    
     public function user()
     {
         return $this->hasOne(user::class);
     }
-   
+
 }

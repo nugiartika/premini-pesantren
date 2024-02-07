@@ -36,10 +36,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
+                        {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button>
+                        </button> --}}
                         <div class="row g-3 align-items-center mt-2">
                             <div class="col-auto">
                                 <form action="{{ route('santri.index') }}" method="get">
@@ -50,19 +50,19 @@
                          </div>
                          </div>
                     </div>
-
-
-
                     <div class="card-body">
                         <table class="table table-dark table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NAMA</th>
+                                    <th scope="col" class="text-center">EMAIL</th>
                                     <th scope="col" class="text-center">KELAS</th>
+                                    <th scope="col" class="text-center">TELEPON</th>
                                     <th scope="col" class="text-center">NISN</th>
                                     <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">JENIS KELAMIN</th>
+                                    <th scope="col" class="text-center">ALAMAT</th>
                                     <th scope="col" class="text-center">AKSI</th>
                                 </tr>
                             </thead>
@@ -70,27 +70,30 @@
                                 @foreach ($santri as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ optional($item->pendaftaran->users)->name }}</td>
+                                        <td class="text-center">{{ $item->nama }}</td>
+                                        <td class="text-center">{{ $item->email }}</td>
                                         <td class="text-center">{{ optional($item->klssantri)->nama_kelas }}</td>
-                                        <td class="text-center">{{ optional($item->pendaftaran)->nisn }}</td>
+                                        <td class="text-center">{{ $item->telepon }}</td>
+                                        <td class="text-center">{{ $item->nisn }}</td>
                                         <td class="text-center">
                                             @if ($item->pendaftaran)
-                                                {{ optional($item->pendaftaran)->tempat_lahir }}
-                                                {{ optional(\Carbon\Carbon::parse($item->pendaftaran->tanggal_lahir))->isoFormat('D-MMMM-YYYY') }}
+                                            {{ optional($item->pendaftaran)->tempat_lahir }}
+                                            {{ optional(\Carbon\Carbon::parse($item->pendaftaran->tanggal_lahir))->isoFormat('D-MMMM-YYYY') }}
                                             @endif
                                         </td>
-                                        <td class="text-center">{{ optional($item->pendaftaran)->jenis_kelamin }}</td>
+                                        <td class="text-center">{{ $item->jenis_kelamin }}</td>
+                                        <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <form action="{{ route('santri.destroy', ['santri' => $item->id]) }}" method="POST" style="display:inline">
+                                            {{-- <form action="{{ route('santri.destroy', ['santri' => $item->id]) }}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,7 +104,7 @@
                 </div>
             </div>
 
-            {{-- modal tambah --}}
+            {{-- modal tambah
             <div class="modal" tabindex="-1" id="tambahModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -167,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Modal Edit di sini -->
             @foreach ($santri as $item)
@@ -183,7 +186,7 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <label for="edit_pendaftaran_id" class="form-label">NAMA SANTRI</label>
                                         <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="edit_pendaftaran_id" name="pendaftaran_id" value="{{ old('pendaftaran_id', $item->pendaftaran_id) }}">
                                             <option value="" selected>PILIH NAMA SANTRI</option>
@@ -198,7 +201,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="edit_klssantri_id" class="form-label">KELAS</label>

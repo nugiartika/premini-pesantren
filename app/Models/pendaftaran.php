@@ -17,9 +17,9 @@ class pendaftaran extends Model
 
     public function santri()
     {
-        return $this->hasMany(Santri::class);
+        return $this->hasOne(santri::class);
     }
-    
+
     public function user()
     {
         return $this->hasOne(user::class);
