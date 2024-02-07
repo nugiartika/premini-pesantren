@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kelas');
             $table->foreignId('asatidlist_id')->constrained('asatidlists')->onDelete('restrict');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

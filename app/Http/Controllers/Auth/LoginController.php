@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\pendaftaran;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -42,32 +40,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required',
-    //     ]);
-
-    //     $credentials = $request->only('email', 'password');
-
-    //     $user = User::where('email', $credentials['email'])->first();
-
-    //     if ($user) {
-    //         if (Hash::check($credentials['password'], $user->password)) {
-    //             Auth::login($user);
-    //             if ($user->role && $user->role->admin()) {
-    //                 return redirect()->route('admin.dashboard')->with('success', 'Login berhasil sebagai admin');
-    //             } else {
-    //                 return redirect()->route('home')->with('success', 'Login berhasil');
-    //             }
-    //         } else {
-    //             return redirect()->route('login')->with('error', 'Password salah');
-    //         }
-    //     } else {
-    //         return redirect()->route('login')->with('error', 'Email tidak terdaftar');
-    //     }
-    // }
 
 }

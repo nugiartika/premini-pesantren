@@ -71,17 +71,5 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // $pendaftaran = pendaftaran::create([
-        //     'user_id' => $user->id,
-        //     'nisn' => $data['nisn'],
-        //     'telepon' => $data['telepon'],
-        //     'alamat' => $data['alamat'],
-        //     'jenis_kelamin' => strtolower($data['jenis_kelamin']),
-        //     'tempat_lahir' => $data['tempat_lahir'],
-        //     'tanggal_lahir' => $data['tanggal_lahir'],
-        // ]);
-
-        // return $user;
-        // return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan menunggu konfirmasi dari admin!.');
     }
 }

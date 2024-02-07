@@ -32,17 +32,17 @@ return new class extends Migration
     }
 
 
-    public function down(): void
-    {
-        if ($this->checkRelationships()) {
-            Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
-            return;
-        }
-        Schema::dropIfExists('pendaftarans');
-    }
+    // public function down(): void
+    // {
+    //     if ($this->checkRelationships()) {
+    //         Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
 
-    private function checkRelationships()
-    {
-        return DB::table('santris')->whereNotNull('pendaftaran_id')->exists();
-    }
+    //         return;
+    //     }
+    //     Schema::dropIfExists('pendaftarans');
+    // }
+    // private function checkRelationships()
+    // {
+    //     return DB::table('santri')->where('pendaftaran_id', '=', $someValue)->exists();
+    // }
 };

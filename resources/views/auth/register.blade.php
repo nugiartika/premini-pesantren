@@ -205,27 +205,15 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label class="form-label">{{ __('Jenis kelamin') }}</label>
-                                <div class="row">
-                                    <div class="col-auto">
-                                    <div class="form-check">
-                                        <input class="form-check-input @error('jenis_kelamin') is-invalid @enderror" type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }}>
-                                        <label style="color: #000;" class="form-check-label" for="jenis_kelamin_laki">Laki-laki</label>
-                                    </div>
-                                    </div>
-                                <div class="col-auto">
-                                    <div class="form-check" style="margin-left: 10px;">
-                                        <input class="form-check-input @error('jenis_kelamin') is-invalid @enderror" type="radio" name="jenis_kelamin" id="jenis_kelamin_perempuan" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }}>
-                                        <label style="color: #000;" class="form-check-label" for="jenis_kelamin_perempuan">Perempuan</label>
-                                    </div>
+                            <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
+                            <textarea class="input form-control @error('alamat') is-invalid @enderror" id="alamat" type="text"
+                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus></textarea>
+                            @error('alamat')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                                </div>
-                                @error('jenis_kelamin')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                            @enderror
+                        </div>
                         </div>
                             <div class="row g-3">
                                 <div class="col">
@@ -239,6 +227,7 @@
                                     @enderror
                                 </div>
 
+
                                 <div class="col">
                                     <label for="tanggal_lahir" class="form-label">{{ __('Tanggal Lahir') }}</label>
                                     <input class="input form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" type="date"
@@ -251,17 +240,32 @@
                                     </div>
                                 </div>
 
-
-
-
-                                <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
-                                <textarea class="input form-control @error('alamat') is-invalid @enderror" id="alamat" type="text"
-                                    name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus></textarea>
-                                @error('alamat')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                <div class="col">
+                                    <label class="form-label">{{ __('Jenis kelamin') }}</label>
+                                    <div class="row">
+                                        <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input @error('jenis_kelamin') is-invalid @enderror" type="radio" name="jenis_kelamin" id="jenis_kelamin_laki" value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }}>
+                                            <label style="color: #000;" class="form-check-label" for="jenis_kelamin_laki">Laki-laki</label>
+                                        </div>
+                                        </div>
+                                    <div class="col">
+                                        <div class="form-check" style="margin-left: 10px;">
+                                            <input class="form-check-input @error('jenis_kelamin') is-invalid @enderror" type="radio" name="jenis_kelamin" id="jenis_kelamin_perempuan" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }}>
+                                            <label style="color: #000;" class="form-check-label" for="jenis_kelamin_perempuan">Perempuan</label>
+                                        </div>
                                     </div>
-                                @enderror
+                                    </div>
+                                    @error('jenis_kelamin')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+
+
 
                             <div class="row g-3">
                                 <div class="col"></div>

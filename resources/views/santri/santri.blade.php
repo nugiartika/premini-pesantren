@@ -131,7 +131,7 @@
 
                                             @if ($status == 'Diterima')
                                                 <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->users->name }}
+                                                    {{ $kat->user->name }}
                                                 </option>
                                             @endif
                                         @endforeach

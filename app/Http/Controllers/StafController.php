@@ -10,7 +10,6 @@ use Exception;
 // use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -52,7 +51,7 @@ class StafController extends Controller
             'alamat' => 'required',
             'pendidikan' => 'required',
             'jabatan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'Kolom NIP wajib diisi.',
             'nip.numeric' => 'NIP harus berupa angka',
@@ -69,6 +68,7 @@ class StafController extends Controller
             'alamat.required' => 'Kolom ALAMAT wajib diisi.',
             'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
             'jabatan.required' => 'Kolom JABATAN wajib diisi.',
+            'foto.required' => 'Kolom FOTO wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
@@ -99,10 +99,13 @@ class StafController extends Controller
             'role' => 'staf'
         ]);
 
-            return redirect()->route('staf.index')->with('success', 'Data berhasil ditambahkan');
-        } catch (Exception $e) {
-            return back()->with('failed', 'Gagal menambah data.');
-        }
+
+        return redirect()->route('staf.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (Exception $th) {
+        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
+    }
     }
 
 
@@ -111,18 +114,14 @@ class StafController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(staf $staf)
     {
         $staf = Staf::all();
         return view('staf.staf', compact('staf'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(StafRequest $request, Staf $staf, User $user)
     {
         try {
@@ -135,7 +134,7 @@ class StafController extends Controller
                 'alamat' => 'required',
                 'pendidikan' => 'required',
                 'jabatan' => 'required',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ], [
                 'nip.required' => 'Kolom NIP wajib diisi.',
                 'nip.numeric' => 'NIP harus berupa angka',
@@ -152,6 +151,7 @@ class StafController extends Controller
                 'alamat.required' => 'Kolom ALAMAT wajib diisi.',
                 'pendidikan.required' => 'Kolom PENDIDIKAN wajib diisi.',
                 'jabatan.required' => 'Kolom JABATAN wajib diisi.',
+                'foto.required' => 'Kolom FOTO wajib diisi.',
                 'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
                 'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
                 'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
@@ -179,12 +179,7 @@ class StafController extends Controller
 
 
 
-        $staf->update($data);
 
-        $staf->updateUsers([
-            'name' => $request->input('nama'),
-            'email' => $request->input('email'),
-        ]);
             $staf->update($data);
             $staf = User::where('staf_id', $staf->id)->first();
             $staf->name = $request->input('nama');
@@ -192,10 +187,12 @@ class StafController extends Controller
             $staf->email = $request->input('email');
             $staf->save();
 
-            return redirect()->route('staf.index')->with('success', 'Data berhasil diperbarui');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('failed', 'Gagal memperbarui data.');
-        }
+    return redirect()->route('staf.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
+    } catch (ValidationException $e) {
+        return back()->withErrors($e->errors())->withInput();
+    } catch (Exception $th) {
+        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
+    }
     }
 
     public function destroy(staf $staf)

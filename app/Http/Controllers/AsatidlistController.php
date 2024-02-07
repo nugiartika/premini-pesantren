@@ -40,15 +40,11 @@ class AsatidlistController extends Controller
 
     public function store(StoreAsatidlistRequest $request)
     {
-        try {
+        // try {
 
         $request->validate([
-            'nip' => 'required|numeric|min:0|unique:stafs,nip',
+            'nip' => 'required|numeric|min:0|unique:asatidlists,nip',
             'nama' => 'required|unique:asatidlists,nama',
-            'nama' => 'required|unique:users,nama',
-            'nama' => 'required|unique:stafs,nama',
-            'email' => 'required|unique:asatidlists,email',
-            'email' => 'required|unique:stafs,email',
             'email' => 'required|unique:users,email',
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
@@ -99,12 +95,12 @@ class AsatidlistController extends Controller
 
 
 
-   return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
-    } catch (ValidationException $e) {
-        return back()->withErrors($e->errors())->withInput();
-    } catch (Exception $th) {
-        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
-    }
+//    return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
+//     } catch (ValidationException $e) {
+//         return back()->withErrors($e->errors())->withInput();
+//     } catch (Exception $th) {
+//         return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
+//     }
 }
 
 
@@ -126,12 +122,8 @@ class AsatidlistController extends Controller
         try {
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:asatidlists,nip,' . $asatidlist->id,
-            'nama' => 'required|unique:asatidlists,nama,' . $asatidlist->id,
             'nama' => 'required|unique:users,nama,' . $asatidlist->id,
-            'nama' => 'required|unique:stafs,nama,' . $asatidlist->id,
-            'email' => 'required|unique:asatidlists,email,' . $asatidlist->id,
             'email' => 'required|unique:users,email,' . $asatidlist->id,
-            'email' => 'required|unique:stafs,email,' . $asatidlist->id,
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',

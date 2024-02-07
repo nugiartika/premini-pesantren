@@ -97,7 +97,7 @@
         margin: 20px 0;
         }
 
-.pagination .page-item:not(.active) .page-link {
+                .pagination .page-item:not(.active) .page-link {
                 color: black;
                 background-color: #f8f9fa;
                 border-color: #dee2e6;
@@ -108,16 +108,16 @@
                 color: white;
             }
 
-    .pagination .page-item:not(.active) .page-link {
-        color: black;
-        background-color: #f8f9fa;
-        border-color: #dee2e6;
-    }
-        .pagination .page-item.active .page-link {
-        background-color: rgb(0, 0, 0);
-        border-color: black;
-        color: white;
-    }
+            .pagination .page-item:not(.active) .page-link {
+                color: black;
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+            }
+                .pagination .page-item.active .page-link {
+                background-color: rgb(0, 0, 0);
+                border-color: black;
+                color: white;
+            }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
@@ -169,14 +169,7 @@
 
                             </li>
 
-                            @if ($role == 'admin')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('staf.index') ? 'active' : '' }}"
-                                        href="{{ route('staf.index') }}">
-                                        <i class="fa-solid fa-user-plus me-1"></i>STAF
-                                    </a>
-                                </li>
-                            @endauth
+
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle {{ request()->routeIs(['asatidlist.index', 'mapel.index']) ? 'active' : '' }}"

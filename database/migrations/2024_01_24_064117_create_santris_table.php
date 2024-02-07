@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('nisn')->unique();
+            $table->string('telepon')->unique();
+            $table->string('alamat');
+            $table->enum('jenis_kelamin', ['Laki-laki','Perempuan']);
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
             $table->foreignId('klssantri_id')->constrained()->onDelete('restrict');
             $table->foreignId('pendaftaran_id')->constrained()->onDelete('restrict');
             $table->timestamps();
