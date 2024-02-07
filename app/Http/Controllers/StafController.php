@@ -9,7 +9,10 @@ use Carbon\Carbon;
 use Exception;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
+
 
 class StafController extends Controller
 {
@@ -179,6 +182,12 @@ class StafController extends Controller
                 $data['foto'] = $path;
             }
 
+        $staf->update($data);
+
+        $staf->updateUsers([
+            'name' => $request->input('nama'),
+            'email' => $request->input('email'),
+        ]);
             $staf->update($data);
             $staf = User::where('staf_id', $staf->id)->first();
             $staf->name = $request->input('nama');

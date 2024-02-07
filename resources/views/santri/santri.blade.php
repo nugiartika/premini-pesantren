@@ -58,10 +58,9 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
-                                    <th scope="col" class="text-center">NIS</th>
                                     <th scope="col" class="text-center">NAMA</th>
                                     <th scope="col" class="text-center">KELAS</th>
-                                    <th scope="col" class="text-center">ALAMAT</th>
+                                    <th scope="col" class="text-center">NISN</th>
                                     <th scope="col" class="text-center">TEMPAT & TANGGAL LAHIR</th>
                                     <th scope="col" class="text-center">JENIS KELAMIN</th>
                                     <th scope="col" class="text-center">AKSI</th>
@@ -71,10 +70,9 @@
                                 @foreach ($santri as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ $item->nis }}</td>
-                                        <td class="text-center">{{ optional($item->pendaftaran)->nama_lengkap }}</td>
+                                        <td class="text-center">{{ optional($item->pendaftaran->users)->name }}</td>
                                         <td class="text-center">{{ optional($item->klssantri)->nama_kelas }}</td>
-                                        <td class="text-center">{{ optional($item->pendaftaran)->alamat }}</td>
+                                        <td class="text-center">{{ optional($item->pendaftaran)->nisn }}</td>
                                         <td class="text-center">
                                             @if ($item->pendaftaran)
                                                 {{ optional($item->pendaftaran)->tempat_lahir }}
@@ -114,34 +112,23 @@
                         <div class="modal-body">
                             <form action="{{ route('santri.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-
-                                <div class="mb-3">
-                                    <label for="nis" class="form-label">NIS</label>
-                                    <input type="text" class="form-control @error('nis') is-invalid @enderror" id="nis" name="nis" value="{{ old('nis') }}">
-                                    @error('nis')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">NAMA SANTRI</label>
                                     <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="nama" name="pendaftaran_id" aria-label="Default select example">
                                         <option value="" selected>PILIH NAMA SANTRI</option>
 
                                         @php
-                                            $status = 'diterima'; // Default status, bisa disesuaikan
+                                            $status = 'Diterima';
                                         @endphp
 
                                         @foreach ($pendaftaran as $kat)
                                             @php
-                                                $status = $kat->status; // Sesuaikan dengan nama kolom status yang sesuai di model Pendaftaran
+                                                $status = $kat->status;
                                             @endphp
 
-                                            @if ($status == 'diterima')
+                                            @if ($status == 'Diterima')
                                                 <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama_lengkap }}
+                                                    {{ $kat->users->name }}
                                                 </option>
                                             @endif
                                         @endforeach
@@ -195,16 +182,6 @@
                                 <form action="{{ route('santri.update', ['santri' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
-                                    <div class="mb-3">
-                                        <label for="edit_nis" class="form-label">NIS</label>
-                                        <input type="text" class="form-control @error('nis') is-invalid @enderror" id="edit_nis" name="nis" value="{{ old('nis', $item->nis) }}">
-                                        @error('nis')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
 
                                     <div class="mb-3">
                                         <label for="edit_pendaftaran_id" class="form-label">NAMA SANTRI</label>

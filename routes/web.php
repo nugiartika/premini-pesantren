@@ -13,6 +13,7 @@ use App\Http\Controllers\SantriController;
 use App\Http\Controllers\KlssantriController;
 use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\PendaftaranController;
+use App\Models\pendaftaran;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\staf;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 Route::get('', [WelcomeController::class, 'index']);
+Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 
 Auth::routes(['verify'=>true]);
 Route::middleware(['auth'])->group(function () {
@@ -32,8 +34,10 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('kategori', KategoriController::class);
             Route::resource('santri', SantriController::class);
             Route::resource('klssantri', KlssantriController::class);
-            Route::resource('pendaftaran', PendaftaranController::class);
             Route::resource('kelulusan', KelulusanController::class);
+            Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+            Route::put('/pendaftaran{pendaftaran}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
+            Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
         });
 
             Route::middleware('staf')->group(function(){

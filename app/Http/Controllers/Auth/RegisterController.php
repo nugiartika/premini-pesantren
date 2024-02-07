@@ -64,25 +64,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role' => 'user',
             'role' => 'santri',
             'password' => Hash::make($data['password']),
         ]);
 
-        $pendaftaran = pendaftaran::create([
-            'user_id' => $user->id,
-            'nisn' => $data['nisn'],
-            'telepon' => $data['telepon'],
-            'alamat' => $data['alamat'],
-            'jenis_kelamin' => strtolower($data['jenis_kelamin']),
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-        ]);
+        // $pendaftaran = pendaftaran::create([
+        //     'user_id' => $user->id,
+        //     'nisn' => $data['nisn'],
+        //     'telepon' => $data['telepon'],
+        //     'alamat' => $data['alamat'],
+        //     'jenis_kelamin' => strtolower($data['jenis_kelamin']),
+        //     'tempat_lahir' => $data['tempat_lahir'],
+        //     'tanggal_lahir' => $data['tanggal_lahir'],
+        // ]);
 
-        return $user;
-        return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan menunggu konfirmasi dari admin!.');
+        // return $user;
+        // return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan menunggu konfirmasi dari admin!.');
     }
 }
