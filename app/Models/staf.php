@@ -24,8 +24,5 @@ class staf extends Model
     {
         return $this->hasOne(user::class);
     }
-    public function updateUsers(array $data)
-    {
-        $this->user->update($data);
-    }
+   
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
 
     const ROLE_ADMIN = 'admin';
-    const ROLE_ASATID = 'asatid';
+    const ROLE_ASATID = 'asatidlist';
     const ROLE_SANTRI = 'santri';
     const ROLE_STAF = 'staf';
 
@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'email_verified_at',
         'asatidlist_id',
         'staf_id',
         'email',
@@ -38,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(asatidlist::class);
     }
-    
+
     public function staf()
     {
         return $this->belongsTo(staf::class);

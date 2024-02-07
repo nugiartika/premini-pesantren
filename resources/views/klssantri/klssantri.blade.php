@@ -39,7 +39,17 @@
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        <div class="row g-3 align-items-center mt-2">
+                            <div class="col-auto">
+                                <form action="{{ route('klssantri.index') }}" method="get">
+                                    @csrf
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
+                                </form>
+                         </div>
+                         </div>
                     </div>
+
 
                     <div class="card-body">
                         <table class="table table-dark table-striped">
@@ -73,6 +83,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$klssantri->links()}}
                     </div>
                 </div>
             </div>

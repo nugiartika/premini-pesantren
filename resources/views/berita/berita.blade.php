@@ -44,6 +44,15 @@
                                 style="width: 150px">
                             <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        <div class="row g-3 align-items-center mt-2">
+                            <div class="col-auto">
+                                <form action="{{ route('berita.index') }}" method="get">
+                                    @csrf
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
+                                </form>
+                         </div>
+                         </div>
                     </div>
 
                     <div class="card-body">
@@ -98,6 +107,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$berita->links()}}
                     </div>
                 </div>
             </div>
@@ -154,7 +164,7 @@
 
                             <div class="mb-3">
                                 <label for="tanggal" class="form-label">TANGGAL</label>
-                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
                                 @error('tanggal')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -267,13 +277,14 @@
 
                                 <div class="mb-3">
                                     <label for="edit_tanggal" class="form-label">TANGGAL</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}">
+                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}" min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
                                     @error('tanggal')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+
 
                                 <div class="mb-3">
                                     <label for="edit_user_posting" class="form-label">USER POSTING</label>

@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\mapel;
 use App\Http\Requests\StoremapelRequest;
 use App\Http\Requests\UpdatemapelRequest;
+use Illuminate\Http\Request;
+
 
 class MapelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mapel = Mapel::all();
+        if ($request->has('search')) {
+            $cmapel = $request->input('search');
+            $mapel = Mapel::where('nama', 'LIKE', "%$cmapel%")->paginate(5);
+        } else {
+            $mapel = Mapel::paginate(5);
+        }
         return view('mapel.mapel', compact('mapel'));
 
     }

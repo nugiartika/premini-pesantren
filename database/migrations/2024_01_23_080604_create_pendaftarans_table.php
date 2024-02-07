@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            // $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nisn')->unique();
             $table->string('telepon');
             $table->string('alamat');

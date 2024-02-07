@@ -8,13 +8,20 @@ use Carbon\Carbon;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 
 class BeritaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $berita = Berita::all();
+        if ($request->has('search')) {
+            $cberita = $request->input('search');
+            $berita = Berita::where('judul_berita', 'LIKE', "%$cberita%")->paginate(5);
+        } else {
+            $berita = Berita::paginate(5);
+        }
         $kategori = Kategori::all();
         return view('berita.berita', compact('berita','kategori'));
     }
@@ -33,7 +40,7 @@ class BeritaController extends Controller
             'judul_berita' => 'required|unique:beritas,judul_berita',
             'slug'  => 'required',
             'kategori_id' => 'required',
-            'tanggal' => 'required|date|after:yesterday',
+            'tanggal' => 'required|date|after_or_equal:today',
             'user_posting' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -42,10 +49,9 @@ class BeritaController extends Controller
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
             'slug.required' => 'Kolom SLUG wajib diisi.',
             'kategori_id.unique' => 'KATEGORI sudah digunakan.',
-            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'tanggal.after' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
-            'foto.required' => 'Kolom FOTO  wajib diisi.',
+            'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
+            'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
+            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
@@ -98,11 +104,10 @@ class BeritaController extends Controller
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
             'slug.required' => 'Kolom SLUG wajib diisi.',
             'kategori_id.unique' => 'KATEGORI sudah digunakan.',
-            'tanggal.required' => 'Kolom TANGGAL wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL harus berupa tanggal.',
-            'tanggal.after_or_equal' => 'Kolom TANGGAL tidak boleh sebelum dari hari ini.',
+            'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
+            'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
+            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
             'user_posting.required' => 'user posting tidak boleh kosong',
-            // 'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
             'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',

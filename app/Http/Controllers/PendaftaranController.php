@@ -6,13 +6,20 @@ use App\Models\Pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StorependaftaranRequest;
 use App\Http\Requests\UpdatependaftaranRequest;
+use Illuminate\Http\Request;
+
 
 class PendaftaranController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftaran = Pendaftaran::all();
+        if ($request->has('search')) {
+            $cpendaftaran = $request->input('search');
+            $pendaftaran = Pendaftaran::where('nama_lengkap', 'LIKE', "%$cpendaftaran%")->paginate(5);
+        } else {
+            $pendaftaran = Pendaftaran::paginate(5);
+        }
         return view('pendaftaran.pendaftaran', compact('pendaftaran'));
     }
 

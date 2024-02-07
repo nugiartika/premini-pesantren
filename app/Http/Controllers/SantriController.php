@@ -8,13 +8,21 @@ use App\Models\pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StoresantriRequest;
 use App\Http\Requests\UpdatesantriRequest;
+use Illuminate\Http\Request;
+
+
 
 class SantriController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $santri = santri::paginate(10);
+        if ($request->has('search')) {
+            $csantri = $request->input('search');
+            $santri = Santri::where('pendaftaran_id', 'LIKE', "%$csantri%")->paginate(5);
+        } else {
+            $santri = Santri::paginate(5);
+        }
         $klssantri = klssantri::all();
         $pendaftaran = pendaftaran::all();
         return view('santri.santri', compact('santri', 'klssantri', 'pendaftaran'));

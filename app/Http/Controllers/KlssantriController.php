@@ -11,9 +11,14 @@ class KlssantriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $klssantri = Klssantri::all();
+        if ($request->has('search')) {
+            $cklssantri = $request->input('search');
+            $klssantri = Klssantri::where('nama_kelas', 'LIKE', "%$cklssantri%")->paginate(5);
+        } else {
+            $klssantri = Klssantri::paginate(5);
+        }
         $asatidlist = Asatidlist::all();
         return view('klssantri.klssantri', compact('klssantri', 'asatidlist'));
     }

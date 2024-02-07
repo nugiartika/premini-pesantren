@@ -24,7 +24,6 @@ class DashboardController extends Controller
         $jumlahGallery = Gallerie::count();
         $jumlahBerita = Berita::count();
         $jumlahKelulusan = Kelulusan::count();
-        $jumlahPengumuman = Umum::count();
 
         return view('dashboard.dashboard', [
             'jumlahStaf' => $jumlahStaf,
@@ -34,7 +33,6 @@ class DashboardController extends Controller
             'jumlahKelas' => $jumlahKelas,
             'jumlahBerita' => $jumlahBerita,
             'jumlahKelulusan' => $jumlahKelulusan,
-            'jumlahPengumuman' => $jumlahPengumuman,
         ]);
     }
 

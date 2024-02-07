@@ -332,7 +332,6 @@
                             <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
                         </li>
                         @endif
-
                     </ul>
 
                     <ul class="navbar-nav ms-auto">

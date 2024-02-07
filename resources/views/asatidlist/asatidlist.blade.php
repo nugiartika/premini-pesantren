@@ -25,7 +25,17 @@
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
                             <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        <div class="row g-3 align-items-center mt-2">
+                            <div class="col-auto">
+                                <form action="{{ route('asatidlist.index') }}" method="get">
+                                    @csrf
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
+                                </form>
+                                </div>
+                                </div>
                     </div>
+
 
                     <div class="card-body">
                         <table class="table table-dark table-striped">
@@ -59,6 +69,9 @@
                                                 No Image
                                             @endif
                                         </td>
+
+
+                                        </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -75,6 +88,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{$asatidlist->links()}}
                     </div>
                 </div>
             </div>

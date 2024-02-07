@@ -27,27 +27,27 @@ class WelcomeController extends Controller
         $beritas = Berita::paginate($perPage);
         $gallerie = Gallerie::paginate($perPage);
 
-        // $cstaf = $request->input('cstaf');
-        // $staf = staf::where('nama', 'LIKE', '%' . $cstaf . '%')->paginate($perPage);
-        // $asatid = $request->input('asatid');
-        // $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatid . '%')->paginate($perPage);
-        // $cberita = $request->input('cberita');
-        // $beritas = Berita::where('judul_berita', 'LIKE', '%' .$cberita . '%')->paginate($perPage);
-        // $cgallerie = $request->input('cgallerie');
-        // $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->paginate($perPage);
+        $cstaf = $request->input('cstaf');
+        $staf = staf::where('nama', 'LIKE', '%' . $cstaf . '%')->paginate($perPage);
+        $casatidlist = $request->input('casatidlist');
+        $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatidlist . '%')->paginate($perPage);
+        $cberita = $request->input('cberita');
+        $beritas = Berita::where('judul_berita', 'LIKE', '%' .$cberita . '%')->paginate($perPage);
+        $cgallerie = $request->input('cgallerie');
+        $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->paginate($perPage);
 
         return view('welcome', [
             'jumlahStaf' => $jumlahStaf,
             'jumlahAsatidlist' => $jumlahAsatidlist ,
             'jumlahBerita' => $jumlahBerita,
             'jumlahGallerie' => $jumlahGallerie,
-            // 'cstaf'=>$cstaf,
+            'cstaf'=>$cstaf,
             'staf' => $staf,
-            // 'asatid'=>$asatid,
+            'casatidlist'=>$casatidlist,
             'asatidlist' => $asatidlist,
-            // 'cberita' => $cberita,
+            'cberita' => $cberita,
             'beritas' => $beritas,
-            // 'cgallerie' => $cgallerie,
+            'cgallerie' => $cgallerie,
             'gallerie' => $gallerie,
         ]);
 

@@ -7,13 +7,20 @@ use App\Models\mapel;
 use App\Models\santri;
 use App\Http\Requests\StoreKelulusanRequest;
 use App\Http\Requests\UpdateKelulusanRequest;
+use Illuminate\Http\Request;
+
 
 class KelulusanController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $kelulusan = Kelulusan::all();
+        if ($request->has('search')) {
+            $ckelulusan = $request->input('search');
+            $kelulusan = Kelulusan::where('santri_id', 'LIKE', "%$ckelulusan%")->paginate(5);
+        } else {
+            $kelulusan = Kelulusan::paginate(5);
+        }
         $mapel = Mapel::all();
         $santri = Santri::all();
         return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));

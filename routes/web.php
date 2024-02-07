@@ -22,13 +22,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('', [WelcomeController::class, 'index']);
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 Route::middleware(['auth'])->group(function () {
-    Route::get('/email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
-    Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
-    Route::post('/email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
-
-        Route::middleware('admin')->group(function(){
+            Route::middleware('admin')->group(function(){
             Route::resource('dashboard', DashboardController::class);
             Route::resource('staf', StafController::class);
             Route::resource('asatidlist', AsatidlistController::class);
@@ -44,12 +40,11 @@ Route::middleware(['auth'])->group(function () {
             });
 
             Route::middleware('asatidlist')->group(function(){
-            Route::resource('kelulusan', KelulusanController::class);
+            });
+            
+            Route::middleware('santri')->group(function(){
             });
 
-            Route::middleware('santri')->group(function(){
-            Route::resource('kelulusan', KelulusanController::class);
-            });
 
             Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
             Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
@@ -57,5 +52,4 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
             Route::resource('gallerie', GallerieController::class);
             Route::resource('home', HomeController::class);
-
 });

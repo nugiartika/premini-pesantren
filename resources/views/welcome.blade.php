@@ -165,8 +165,16 @@
         color: white;
     }
 
+    .navbar-light .btn {
+    height: 55px;
+    text-align: center;
+    }
 
-
+    .navbar-light a.btn {
+        height: 55px;
+        text-align: center;
+    }
+    
      </style>
      <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
          <script>
@@ -224,10 +232,11 @@
             </ul>
             @if (Route::has('register'))
             <li class="nav-item list-unstyled">
-        <a href="{{ route('register') }}" class="btn btn-warning text-white py-4 px-3 px-lg-2 d-none d-lg-block">
-            BERGABUNG <i class="fa fa-arrow-right ms-2"></i>
-        </a>
-    </li>
+            <a href="{{ route('login') }}" class="btn btn-warning btn-lg py-md-3 px-md-4 animated slideInRight {{ request()->routeIs('login') ? 'active' : '' }}">
+                LOGIN<i class="fa fa-arrow-right me-3"></i>
+            </a>
+</li>
+
 @endif
 
         </div>
@@ -248,6 +257,7 @@
                                 {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025.</h5>
                                 <h1 class="display-3 text-white animated slideInDown style=";>PENDAFTARAN</h1>
                                 <h1 class="display-3 text-white animated slideInDown">SANTRI BARU</h1> --}}
+                                <a href="{{ route('register') }}" class="btn btn-warning py-md-3 px-md-150 animated slideInRight {{ request()->routeIs('register') ? 'active' : '' }}"> BERGABUNG<i class="fa fa-arrow-right me-2"></i></a>
                             </div>
                         </div>
                     </div>
@@ -262,6 +272,7 @@
                             <div class="col-sm-10 col-lg-8">
                                 {{-- <h5 class="text-success text-uppercase mb-3 animated slideInDown">TAHUN AJARAN 2024 - 2025</h5>
                                 <h1 class="display-3 text-black animated slideInDown">DARI SANTRI UNTUK SANTRI</h1> --}}
+                                <h1><a href="{{ route('register') }}" class="btn btn-warning py-md-3 px-md-150 animated slideInRight {{ request()->routeIs('register') ? 'active' : '' }}">BERGABUNG<i class="fa fa-arrow-right me-2"></i></a></h1>
                             </div>
                         </div>
                     </div>

@@ -6,16 +6,25 @@ use App\Models\Asatidlist;
 use App\Models\User;
 use Carbon\Carbon;
 use Hash;
+use Exception;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\StoreAsatidlistRequest;
 use App\Http\Requests\UpdateAsatidlistRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 
 class AsatidlistController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $asatidlist = Asatidlist::all();
+        if ($request->has('search')) {
+            $casatidlist = $request->input('search');
+            $asatidlist = Asatidlist::where('nama', 'LIKE', "%$casatidlist%")->paginate(5);
+        } else {
+            $asatidlist = Asatidlist::paginate(5);
+        }
         return view('asatidlist.asatidlist', compact('asatidlist'));
 
     }
@@ -31,10 +40,16 @@ class AsatidlistController extends Controller
 
     public function store(StoreAsatidlistRequest $request)
     {
+        try {
+
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:stafs,nip',
             'nama' => 'required|unique:asatidlists,nama',
+            'nama' => 'required|unique:users,nama',
+            'nama' => 'required|unique:stafs,nama',
             'email' => 'required|unique:asatidlists,email',
+            'email' => 'required|unique:stafs,email',
+            'email' => 'required|unique:users,email',
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
@@ -73,19 +88,24 @@ class AsatidlistController extends Controller
             'pendidikan' => $request->input('pendidikan'),
             'foto' => $path,
         ]);
-
-
         User::create([
             'asatidlist_id' => $asatidlist->id,
+            'email_verified_at' => now(),
             'name' => $request->input('nama'),
             'email' => $request->input('email'),
             'password' => Hash::make('password'),
             'role' => 'asatidlist'
         ]);
 
-        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN ');
 
+
+   return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
+    } catch (ValidationException $e) {
+        return back()->withErrors($e->errors())->withInput();
+    } catch (Exception $th) {
+        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
     }
+}
 
 
     public function show(Asatidlist $asatidlist)
@@ -103,10 +123,15 @@ class AsatidlistController extends Controller
 
     public function update(UpdateAsatidlistRequest $request, Asatidlist $asatidlist)
     {
+        try {
         $request->validate([
             'nip' => 'required|numeric|min:0|unique:asatidlists,nip,' . $asatidlist->id,
             'nama' => 'required|unique:asatidlists,nama,' . $asatidlist->id,
+            'nama' => 'required|unique:users,nama,' . $asatidlist->id,
+            'nama' => 'required|unique:stafs,nama,' . $asatidlist->id,
             'email' => 'required|unique:asatidlists,email,' . $asatidlist->id,
+            'email' => 'required|unique:users,email,' . $asatidlist->id,
+            'email' => 'required|unique:stafs,email,' . $asatidlist->id,
             'tempat_lahir' => 'required',
             'ttl' => 'required|date|before:tomorrow',
             'alamat' => 'required',
@@ -151,14 +176,19 @@ class AsatidlistController extends Controller
     }
 
     $asatidlist->update($data);
+    $asatidlist = User::where('asatidlist_id', $asatidlist->id)->first();
+    $asatidlist->name = $request->input('nama');
+    $asatidlist->email_verified_at = now();
+    $asatidlist->email = $request->input('email');
+    $asatidlist->save();
 
-    $asatidlist->updateUsers([
-        'name' => $request->input('nama'),
-        'email' => $request->input('email'),
-    ]);
-        return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DIUPDATE');
-
+    return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
+    } catch (ValidationException $e) {
+        return back()->withErrors($e->errors())->withInput();
+    } catch (Exception $th) {
+        return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage());
     }
+}
 
 
     public function destroy(Asatidlist $asatidlist)

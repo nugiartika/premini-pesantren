@@ -40,7 +40,18 @@
                                 style="width: 150px">
                                 <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        <div class="row g-3 align-items-center mt-2">
+                            <div class="col-auto">
+                                <form action="{{ route('santri.index') }}" method="get">
+                                    @csrf
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
+                                </form>
+                         </div>
+                         </div>
                     </div>
+
+
 
                     <div class="card-body">
                         <table class="table table-dark table-striped">
@@ -143,7 +154,7 @@
                                     @enderror
                                 </div>
 
-                                
+
                                 <div class="mb-3">
                                     <label for="kelas" class="form-label">KELAS</label>
                                     <select class="form-select @error('klssantri_id') is-invalid @enderror" id="kelas" name="klssantri_id" aria-label="Default select example">

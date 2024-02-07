@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Http\Requests\StoreKategoriRequest;
 use App\Http\Requests\UpdateKategoriRequest;
+use Illuminate\Http\Request;
+
 
 class KategoriController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $kategori = kategori::all();
+        if ($request->has('search')) {
+            $ckategori = $request->input('search');
+            $kategori = kategori::where('nama', 'LIKE', "%$ckategori%")->paginate(5);
+        } else {
+            $kategori = kategori::paginate(5);
+        }
         return view('kategori.kategori', compact('kategori'));
     }
 

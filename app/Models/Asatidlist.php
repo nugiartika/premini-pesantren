@@ -22,10 +22,7 @@ class Asatidlist extends Model
     {
         return $this->hasOne(user::class);
     }
-    public function updateUsers(array $data)
-    {
-        $this->user->update($data);
-    }
+   
     public function klssantri()
     {
         return $this->hasMany(Klssantri::class);
