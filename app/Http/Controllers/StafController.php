@@ -7,7 +7,7 @@ use App\Models\Staf;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
-// use Hash;
+use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -36,9 +36,7 @@ class StafController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StafRequest $request, Staf $staf)
     {
         try {
@@ -74,8 +72,7 @@ class StafController extends Controller
             'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ]);
 
-        // $foto = $request->file('foto');
-        // $path = Storage::disk('public')->put('images', $foto);
+
         $data = $request->validated();
 
         if ($request->hasFile('foto')) {

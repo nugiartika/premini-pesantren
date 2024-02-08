@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 
@@ -38,23 +39,21 @@ class BeritaController extends Controller
     {
         $request->validate([
             'judul_berita' => 'required|unique:beritas,judul_berita',
-            'slug'  => 'required',
+            'isi'  => 'required',
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
-            'user_posting' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
-            'kategori_id.unique' => 'KATEGORI sudah digunakan.',
+            'isi.required' => 'Kolom ISI BERITA wajib diisi.',
+            'kategori_id.required' => 'Kolom KATEGORI BERITA wajib diisi.',
             'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
             'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
-            'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
+            'foto.image' => 'Kolom FOTO harus berupa file gambar.',
+            'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
         ]);
 
         $foto = $request->file('foto');
@@ -62,12 +61,10 @@ class BeritaController extends Controller
 
         Berita::create([
             'judul_berita' => $request->input('judul_berita'),
-            'slug' => $request->input('slug'),
+            'isi' => $request->input('isi'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
             'foto' => $path,
-            'user_posting'=> $request->input('user_posting'),
-            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
@@ -93,34 +90,38 @@ class BeritaController extends Controller
     {
         $request->validate([
             'judul_berita' => 'required|unique:beritas,judul_berita,' . $berita->id,
-            'slug'  => 'required',
+            'isi'  => 'required',
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
-            'user_posting' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
-            'slug.required' => 'Kolom SLUG wajib diisi.',
-            'kategori_id.unique' => 'KATEGORI sudah digunakan.',
+            'isi.required' => 'Kolom ISI BERITA wajib diisi.',
+            'kategori_id.required' => 'Kolom KATEGORI BERITA wajib diisi.',
             'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
             'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'user_posting.required' => 'user posting tidak boleh kosong',
-            'foto.image' => 'Kolom FOTO  harus berupa file gambar.',
-            'foto.mimes' => 'Format gambar tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto.image' => 'Kolom FOTO harus berupa file gambar.',
+            'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
         ]);
+
+        if ($berita->foto) {
+
+            Storage::disk('public')->delete($berita->foto);
+
+            $localFilePath = public_path('storage/' . $berita->foto);
+            if (File::exists($localFilePath)) {
+                File::delete($localFilePath);
+            }
+        }
 
         $data = [
             'judul_berita' => $request->input('judul_berita'),
-            'slug' => $request->input('slug'),
+            'isi' => $request->input('isi'),
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
-            'user_posting' => $request->input('user_posting'),
-            'status' => $request->input('status'),
         ];
 
         if ($request->hasFile('foto')) {
@@ -130,7 +131,6 @@ class BeritaController extends Controller
 
         }
 
-
         $berita->update($data);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');
@@ -139,7 +139,24 @@ class BeritaController extends Controller
 
     public function destroy(Berita $berita)
     {
-        $berita->delete();
-        return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIHAPUS');
-    }
+        try {
+
+            if (Storage::disk('public')->exists($berita->foto)) {
+
+               Storage::disk('public')->delete($berita->foto);
+           }
+
+           $localFilePath = public_path('storage/' . $berita->sampul);
+           if (File::exists($localFilePath)) {
+
+               File::delete($localFilePath);
+           }
+
+           $berita->delete();
+
+           return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIHAPUS');
+       } catch (Exception $th) {
+           return redirect()->route('berita.index')->with('error', 'GAGAL MENGHAPUS BERITA. PESAN KESALAHAN: ' . $th->getMessage());
+       }
+       }
 }

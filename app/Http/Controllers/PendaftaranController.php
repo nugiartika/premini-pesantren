@@ -106,7 +106,6 @@ class PendaftaranController extends Controller
                 $santri->delete();
             }
 
-            // Hapus entri pendaftaran
             $pendaftaran->delete();
 
             return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIHAPUS');

@@ -174,7 +174,7 @@
         height: 55px;
         text-align: center;
     }
-    
+
      </style>
      <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
          <script>
@@ -213,10 +213,6 @@
                     <i class="fa-solid fa-house me-1"></i>HOME
                 </a>
 
-                <a href="#staf-section" class="nav-link text-white {{ request()->routeIs('staf.index') ? 'active' : '' }}">
-                    <i class="fa-solid fa-user-plus text-white me-1"></i>STAF
-                </a>
-
                 <a href="#asatidlist-section" class="nav-link text-white {{ request()->routeIs('asatidlist.index') ? 'active' : '' }}">
                     <i class="fa-solid fa-users text-white me-1"></i> ASATID
                 </a>
@@ -226,7 +222,7 @@
                 </a>
 
                 <a href="#gallerie-section" class="nav-link text-white {{ request()->routeIs('gallerie.index') ? 'active' : '' }}">
-                    <i class="fa-regular fa-image text-white  me-1"></i>GALLERIE
+                    <i class="fa-regular fa-image text-white  me-1"></i>GALLERY
                 </a>
 
             </ul>
@@ -287,15 +283,7 @@
         <div  class="container-xxl py-5">
             <div class="container">
                 <div class="row g-4">
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item text-center pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x fa-user-plus text-success mb-4"></i>
-                                <h5 class="mb-3">STAF</h5>
-                                <p>Jumlah Staf:{{ $jumlahStaf }}</p>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
@@ -305,6 +293,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
@@ -314,6 +303,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item text-center pt-3">
                             <div class="p-4">
@@ -323,45 +313,42 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
         <!-- End -->
-   {{-- gallery start--}}
-<div id="gallerie-section" class="container-xxl py-5">
-    {{-- <form method="GET" class="search-form">
-            <input type="text" value="{{ $cgallerie }}" name="cgallerie" class="search-input">
+        <!-- ASATID Start -->
+<div id="asatidlist-section" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+       {{--  <form method="GET" class="search-form">
+            <input type="text" value="{{ $asatid }}" name="asatid" class="search-input">
             <button type="submit" class="search-button button-model-1">
                 Cari
             </button>
         </form> --}}
-     <div class="container">
         <div class="text-center">
-            <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
-            <h1 class="mb-5">GALLERY</h1>
-          </div>
-          {{-- <div class="col-lg-3 mb-4">
-            <div class="wow fadeInUp" data-wow-delay="0.1s">
-                <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> --}}
-        <div class="row g-4 justify-content-center">
-            @foreach ($gallerie as $key => $galleris)
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $galleris->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
-                        </div>
-                        <div class="mb-2 ">
-                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$galleris->nama_gallery}}</a>
-                        </div>
+            <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
+            <h1 class="mb-5">ASATID</h1>
+        </div>
+        <div class="row justify-content-center">
+            @foreach($asatidlist as $asatiditem)
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ asset('storage/'.$asatiditem->foto) }}" style="width: 180px; height: 180px;">
+                    <h4 class="mb-0">{{ $asatiditem->nama }}</h4>
+                    <h5>{{ $asatiditem->pendidikan }}</h5>
+                    <div class="text-white bg-success text-center p-4">
+                        <p class="mb-0">{{ $asatiditem->tempat_lahir }}, {{ \Carbon\Carbon::parse($asatiditem->ttl)->isoFormat('D-MMMM-YYYY') }}</p>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
-        {{$gallerie->links()}}
+        {{ $asatidlist->links() }}
     </div>
 </div>
-{{-- gallery end --}}
-
+<!-- ASATID End -->
 
 <!-- BERITA -->
      <div id="berita-section" class="container-xxl py-5">
@@ -407,82 +394,51 @@
     </div>
     <!-- END -->
 
-      {{-- staf --}}
-      <div id="staf-section" class="container-xxl py-5">
+   {{-- gallery start--}}
+<div id="gallerie-section" class="container-xxl py-5">
     {{-- <form method="GET" class="search-form">
-        <input type="text" value="{{ $cstaf }}" name="cstaf" class="search-input">
-        <button type="submit" class="search-button button-model-1">
-            Cari
-        </button>
-    </form> --}}
-            <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-success px-3">STAF</h6>
-                <h1 class="mb-5">STAF</h1>
-            </div>
-            <div class="row g-4 justify-content-center">
-                @foreach ($staf as $key => $item)
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item bg-light">
-                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $item->foto) }}" alt="" style="object-fit: cover; width: 100%;">
-                        </div>
-                                    <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                                <h5 class="mb-0"><a class="btn btn-success btn-lg text-white btn-block">{{$item->nama}}</a></h5>
-                            </div>
-                        </div>
-                       <div class="text-center p-4">
-                            <small><a class="btn btn-lg text-black btn-block">{{$item->jabatan}}</a></small>
-                            <small><a class="btn btn-lg text-black btn-block " style="font-size: 15px;">{{ $item->tempat_lahir }} {{ \Carbon\Carbon::parse($item->ttl)->isoFormat('D-MMMM-YYYY') }}</a></small>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            {{$staf->links()}}
-        </div>
-    </div>
-{{-- staf end --}}
-
-  <!-- ASATID Start -->
-<div id="asatidlist-section" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-    <div class="container">
-       {{--  <form method="GET" class="search-form">
-            <input type="text" value="{{ $asatid }}" name="asatid" class="search-input">
+            <input type="text" value="{{ $cgallerie }}" name="cgallerie" class="search-input">
             <button type="submit" class="search-button button-model-1">
                 Cari
             </button>
         </form> --}}
+     <div class="container">
         <div class="text-center">
-            <h6 class="section-title bg-white text-center text-success px-3">ASATID</h6>
-            <h1 class="mb-5">ASATID</h1>
-        </div>
-        <div class="row justify-content-center">
-            @foreach($asatidlist as $asatiditem)
-            <div class="col-md-4 mb-4">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ asset('storage/'.$asatiditem->foto) }}" style="width: 180px; height: 180px;">
-                    <h4 class="mb-0">{{ $asatiditem->nama }}</h4>
-                    <h5>{{ $asatiditem->pendidikan }}</h5>
-                    <div class="text-white bg-success text-center p-4">
-                        <p class="mb-0">{{ $asatiditem->tempat_lahir }}, {{ \Carbon\Carbon::parse($asatiditem->ttl)->isoFormat('D-MMMM-YYYY') }}</p>
+            <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
+            <h1 class="mb-5">GALLERY</h1>
+          </div>
+          {{-- <div class="col-lg-3 mb-4">
+            <div class="wow fadeInUp" data-wow-delay="0.1s">
+                <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> --}}
+        <div class="row g-4 justify-content-center">
+            @foreach ($gallerie as $key => $galleris)
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
+                            <img class="img-fluid" src="{{ asset('storage/' . $galleris->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
+                        </div>
+                        <div class="mb-2 ">
+                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$galleris->nama_gallery}}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
-        {{ $asatidlist->links() }}
+        {{$gallerie->links()}}
     </div>
 </div>
-<!-- ASATID End -->
+{{-- gallery end --}}
+
+
+
+
+
 
         <!-- Footer Start -->
         <div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">            <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <h4 class="text-white mb-3">INFO FITUR</h4>
-                        <a class="btn btn-link" href="{{ route('staf.index') }}">STAF</a>
                         <a class="btn btn-link" href="{{ route('asatidlist.index') }}">ASATID</a>
                         <a class="btn btn-link" href="{{ route('pendaftaran.index') }}">PENDAFTARAN</a>
                         <a class="btn btn-link" href="{{ route('santri.index') }}">SANTRI</a>

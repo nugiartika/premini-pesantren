@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
@@ -18,8 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('santri_id')->nullable()->constrained('santris')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nisn')->unique();
             $table->string('telepon')->unique();
             $table->string('alamat');
@@ -31,18 +28,17 @@ return new class extends Migration
          });
     }
 
+    public function down(): void
+    {
+        if ($this->checkRelationships()) {
+            Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
 
-    // public function down(): void
-    // {
-    //     if ($this->checkRelationships()) {
-    //         Session::flash('warning', 'DATA ASATID MASIH DIGUNAKAN DAN TIDAK DAPAT DIHAPUS.');
-
-    //         return;
-    //     }
-    //     Schema::dropIfExists('pendaftarans');
-    // }
-    // private function checkRelationships()
-    // {
-    //     return DB::table('santri')->where('pendaftaran_id', '=', $someValue)->exists();
-    // }
+            return;
+        }
+        Schema::dropIfExists('pendaftarans');
+    }
+    private function checkRelationships()
+    {
+        return DB::table('santri')->where('pendaftaran_id')->exists();
+    }
 };

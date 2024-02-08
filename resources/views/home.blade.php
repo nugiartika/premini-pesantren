@@ -72,8 +72,8 @@
             box-shadow: 0 4px 8px rgba(217, 26, 26, 0.1);
             overflow: hidden;
             transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-            width: 265px;
-            height: 165px;
+            width: 355px;
+            height: 195px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -114,17 +114,8 @@
                         <td>
                             <a href="{{ route('gallerie.index') }}" class="card-link">
                                 <div class="card">
-                                    <h2><i class="fa-regular fa-image me-1"></i>GALERY</h2>
+                                    <h2><i class="fa-regular fa-image me-1"></i>Gallery</h2>
                                     <p>Jumlah Gallery: {{ $jumlahGallery }}</p>
-                                </div>
-                            </a>
-                        </td>
-
-                        <td>
-                            <a href="{{ route('berita.index') }}" class="card-link">
-                                <div class="card">
-                                    <h2><i class="fas fa-newspaper me-1"></i>BERITA</h2>
-                                    <p>Jumlah Berita: {{ $jumlahBerita }}</p>
                                 </div>
                             </a>
                         </td>

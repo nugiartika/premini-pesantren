@@ -63,7 +63,7 @@
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">{{ $item->pendidikan }}</td>
                                         <td class="text-center">
-                                            @if ($item->pendidikan)
+                                            @if ($item->foto)
                                                 <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
                                             @else
                                                 No Image
@@ -274,6 +274,7 @@
                                             </span>
                                         @enderror
                                     </div>
+
 
                                     <div class="mb-3">
                                         <label for="edit_pendidikan" class="form-label">PENDIDIKAN</label>

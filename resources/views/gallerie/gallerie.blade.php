@@ -30,6 +30,9 @@
         {{ session('warning') }}
     </div>
     @endif
+    @php
+    $userRole = auth()->user()->role;
+@endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -59,8 +62,12 @@
                                     <th scope="col" class="text-center">NO</th>
                                     <th scope="col" class="text-center">NAMA GALLERY</th>
                                     <th scope="col" class="text-center">TANGGAL</th>
+                                    <th scope="col" class="text-center">USER POSTING</th>
                                     <th scope="col" class="text-center">SAMPUL</th>
+                                    <th scope="col" class="text-center">STATUS</th>
+                                    @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
@@ -69,6 +76,7 @@
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td class="text-center">{{ $item->nama_gallery }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('D-MMMM-YYYY') }}</td>
+                                        <td class="text-center">{{ $item->user_posting }}</td>
                                         <td class="text-center">
                                             @if ($item->sampul)
                                                 <img src="{{ asset('storage/'.$item->sampul) }}" alt="sampul" width="100px" height="70px">
@@ -76,7 +84,8 @@
                                                 No Image
                                             @endif
                                         </td>
-
+                                        <td class="text-center">{{ $item->status }}</td>
+                                        @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -89,6 +98,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -131,19 +141,40 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="sampul" class="form-label">SAMPUL</label>
-                                    <input type="file" class="form-control @error('sampul') is-invalid @enderror" id="sampul" name="sampul">
+                                <label for="user_posting" class="form-label">USER POSTING</label>
+                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting', auth()->user()->role) }}" readonly>
+                                @error('user_posting')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
 
+                                <div class="mb-3">
+                                    <label for="sampul" class="form-label">SAMPUL</label>
+                                    <input type="file" class="form-control @error('sampul') is-invalid @enderror" id="sampul" name="sampul" value="{{ old('sampul') }}">
                                     @error('sampul')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
 
-                                    @if(old('sampul'))
-                                        <p>File sebelumnya:</p>
-                                        <img src="{{ asset('storage/' . old('sampul')) }}" alt="Previous Photo" width="100">
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">STATUS</label>
+                                    @if(old('user_posting') == 'admin')
+                                        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                            <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>
+                                            <option value="publish" {{ old('status') == 'publish' ? 'selected' : '' }}>Publish</option>
+                                        </select>
+                                    @else
+                                        <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
                                     @endif
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="modal-footer">
@@ -190,6 +221,16 @@
                                         @enderror
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label for="edit_user_posting" class="form-label">USER POSTING</label>
+                                        <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}" readonly>
+                                        @error('user_posting')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
 
 
                                     <div class="mb-3">
@@ -208,6 +249,20 @@
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">STATUS</label>
+                                        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
+                                            <option value="private" {{ old('status', $item->status) == 'private' ? 'selected' : '' }}>Private</option>
+                                            <option value="publish" {{ old('status', $item->status) == 'publish' ? 'selected' : '' }}>Publish</option>
+                                        </select>
+                                        @error('status')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
 
 
                                 </div>

@@ -10,13 +10,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asatidlist_id')->nullable()->constrained('asatidlists')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('staf_id')- lable()->constrained('stafs')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
+            $table->foreignId('asatidlist_id')->nullable()->default(null)->constrained('asatidlists')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('nama');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default();
-            $table->enum('role', ['admin', 'user', 'staf', 'santri', 'asatidlist']);
+            $table->enum('role', ['admin', 'user', 'staf', 'santri', 'asatid']);
             $table->rememberToken();
             $table->timestamps();
         });

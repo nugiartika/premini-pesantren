@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AsatidlistMiddleware
+class AsatidMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class AsatidlistMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'asatidlist'){
+        if(auth()->user()->role == 'asatid'){
             return $next($request);
         }else{
             return redirect()->route('home.index');

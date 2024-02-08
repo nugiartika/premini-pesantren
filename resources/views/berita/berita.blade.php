@@ -61,12 +61,10 @@
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
                                     <th>JUDUL BERITA</th>
-                                    <th>SLUG</th>
+                                    <th>ISI</th>
                                     <th>KATEGORI</th>
                                     <th>TANGGAL</th>
-                                    <th>USER POSTING</th>
                                     <th>FOTO</th>
-                                    <th>STATUS</th>
                                     @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
                                 @endif
@@ -77,10 +75,9 @@
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td>{{ $item->judul_berita }}</td>
-                                        <td>{{ $item->slug }}</td>
+                                        <td>{{ $item->isi }}</td>
                                         <td>{{ ($item->kategori) ? $item->kategori->nama : '' }}</td>
                                         <td>{{ $item->tanggal }}</td>
-                                        <td>{{ $item->user_posting }}</td>
                                         <td class="text-center">
                                             @if ($item->foto)
                                                 <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
@@ -88,7 +85,6 @@
                                                 No Image
                                             @endif
                                         </td>
-                                        <td>{{ $item->status}}</td>
                                         @if($userRole == 'admin')
                                         <td class="text-center">
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
@@ -136,9 +132,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="slug" class="form-label">SLUG</label>
-                                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
-                                @error('slug')
+                                <label for="isi" class="form-label">ISI</label>
+                                <input type="text" class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" value="{{ old('isi') }}">
+                                @error('isi')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -173,17 +169,6 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="user_posting" class="form-label">USER POSTING</label>
-                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting', auth()->user()->role) }}" readonly>
-                                @error('user_posting')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-
-                            <div class="mb-3">
                                 <label for="foto" class="form-label">FOTO</label>
                                 <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" value="{{ old('foto') }}">
                                 @error('foto')
@@ -192,26 +177,6 @@
                                     </span>
                                 @enderror
                             </div>
-
-
-                            <div class="mb-3">
-                                <label for="status" class="form-label">STATUS</label>
-                                @if(old('user_posting') == 'admin')
-                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
-                                        <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>
-                                        <option value="publish" {{ old('status') == 'publish' ? 'selected' : '' }}>Publish</option>
-                                    </select>
-                                @else
-                                    <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
-                                @endif
-                                @error('status')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -249,9 +214,9 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="edit_slug" class="form-label">SLUG</label>
-                                    <input type="text" class="form-control @error('slug') is-invalid @enderror" id="edit_slug" name="slug" value="{{ old('slug', $item->slug) }}">
-                                    @error('slug')
+                                    <label for="edit_isi" class="form-label">ISI</label>
+                                    <input type="text" class="form-control @error('isi') is-invalid @enderror" id="edit_isi" name="isi" value="{{ old('isi', $item->isi) }}">
+                                    @error('isi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -285,17 +250,6 @@
                                     @enderror
                                 </div>
 
-
-                                <div class="mb-3">
-                                    <label for="edit_user_posting" class="form-label">USER POSTING</label>
-                                    <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}" readonly>
-                                    @error('user_posting')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 <div class="mb-3">
                                     <label for="edit_foto" class="form-label">FOTO</label>
                                     <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto">
@@ -312,18 +266,8 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">STATUS</label>
-                                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
-                                        <option value="private" {{ old('status', $item->status) == 'private' ? 'selected' : '' }}>Private</option>
-                                        <option value="publish" {{ old('status', $item->status) == 'publish' ? 'selected' : '' }}>Publish</option>
-                                    </select>
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+
+
 
                         </div>
                         <div class="modal-footer">

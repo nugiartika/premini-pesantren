@@ -18,7 +18,6 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_ADMIN = 'admin';
     const ROLE_ASATID = 'asatidlist';
     const ROLE_SANTRI = 'santri';
-    const ROLE_STAF = 'staf';
 
 
 /**
@@ -27,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email_verified_at',
         'asatidlist_id',
         'staf_id',
@@ -40,10 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(asatidlist::class);
     }
 
-    public function staf()
-    {
-        return $this->belongsTo(staf::class);
-    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

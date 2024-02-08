@@ -16,19 +16,15 @@ class WelcomeController extends Controller
     {
         $perPage = 8;
 
-        $jumlahStaf = staf::count();
         $jumlahAsatidlist = Asatidlist::count();
         $jumlahBerita = Berita::count();
         $jumlahGallerie = Gallerie::count();
 
 
-        $staf = staf::paginate($perPage);
         $asatidlist = Asatidlist::paginate($perPage);
         $beritas = Berita::paginate($perPage);
         $gallerie = Gallerie::paginate($perPage);
 
-        $cstaf = $request->input('cstaf');
-        $staf = staf::where('nama', 'LIKE', '%' . $cstaf . '%')->paginate($perPage);
         $casatidlist = $request->input('casatidlist');
         $asatidlist = Asatidlist::where('nama', 'LIKE', '%' . $asatidlist . '%')->paginate($perPage);
         $cberita = $request->input('cberita');
@@ -37,12 +33,9 @@ class WelcomeController extends Controller
         $gallerie = Gallerie::where('nama_gallery', 'LIKE', '%' .$cgallerie . '%')->paginate($perPage);
 
         return view('welcome', [
-            'jumlahStaf' => $jumlahStaf,
             'jumlahAsatidlist' => $jumlahAsatidlist ,
             'jumlahBerita' => $jumlahBerita,
             'jumlahGallerie' => $jumlahGallerie,
-            'cstaf'=>$cstaf,
-            'staf' => $staf,
             'casatidlist'=>$casatidlist,
             'asatidlist' => $asatidlist,
             'cberita' => $cberita,

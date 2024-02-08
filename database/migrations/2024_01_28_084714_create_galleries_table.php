@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nama_gallery');
             $table->date('tanggal');
-            $table->string('sampul');
+            $table->string('user_posting');
+            $table->string('sampul')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('galleries');

@@ -35,8 +35,8 @@ return new class extends Migration
         }
         Schema::dropIfExists('asatidlists');
     }
-    private function checkRelationships($asatidlistId)
+    private function checkRelationships()
     {
-        return DB::table('asatid')->where('asatidlist_id', $asatidlistId)->exists() || DB::table('klssantri')->where('asatidlist_id', $asatidlistId)->exists();
+        DB::table('klssantri')->where('asatidlist_id')->exists();
     }
 };
