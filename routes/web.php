@@ -35,10 +35,13 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/pendaftaran{pendaftaran}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
             Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
             Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+            Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
             Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
-            Route::put('/berita{berita}', [BeritaController::class, 'update'])->name('berita.update');
+            Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+            Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
-        });
+            });
+
 
             Route::middleware('asatid')->group(function(){
             });

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asatidlist;
-use App\Models\Berita;
-use App\Models\Gallerie;
-use App\Models\Kelulusan;
-use App\Models\Klssantri;
 use App\Models\santri;
-use App\Models\staf;
-use App\Models\Umum;
+use App\Models\Klssantri;
+use App\Models\Gallerie;
+use App\Models\Berita;
+use App\Models\Kelulusan;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,20 +15,18 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $jumlahStaf = staf::count();
-        $jumlahSantri = santri::count();
         $jumlahAsatidlist = Asatidlist::count();
+        $jumlahSantri = santri::count();
         $jumlahKelas = Klssantri::count();
         $jumlahGallery = Gallerie::count();
         $jumlahBerita = Berita::count();
         $jumlahKelulusan = Kelulusan::count();
 
         return view('dashboard.dashboard', [
-            'jumlahStaf' => $jumlahStaf,
-            'jumlahGallery' => $jumlahGallery,
             'jumlahAsatidlist' => $jumlahAsatidlist ,
             'jumlahSantri' => $jumlahSantri,
             'jumlahKelas' => $jumlahKelas,
+            'jumlahGallery' => $jumlahGallery,
             'jumlahBerita' => $jumlahBerita,
             'jumlahKelulusan' => $jumlahKelulusan,
         ]);

@@ -114,15 +114,6 @@
             <table class="tb no-bootstrap-table" >
 
                     <td>
-                        <a href="{{ route('staf.index') }}" class="card-link">
-                            <div class="card">
-                                <h2><i class="fa-solid fa-user-plus me-1"></i>STAF</h2>
-                                <p>Jumlah Staf: {{ $jumlahStaf }}</p>
-                            </div>
-                        </a>
-                    </td>
-
-                    <td>
                         <a href="{{ route('asatidlist.index') }}" class="card-link">
                             <div class="card">
                                 <h2><i class="fa-solid fa-users me-1"></i>ASATID</h2>

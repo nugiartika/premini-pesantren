@@ -31,7 +31,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
-        return view('berita.berita', compact('berita','kategori'));
+        return view('berita.create', compact('kategori'));
     }
 
 
@@ -82,7 +82,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::all();
         $kategori = Kategori::all();
-        return view('berita.berita', compact('berita','kategori'));
+        return view('berita.edit', compact('berita', 'kategori'));
     }
 
 

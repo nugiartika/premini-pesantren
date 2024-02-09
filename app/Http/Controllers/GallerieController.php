@@ -40,7 +40,7 @@ class GallerieController extends Controller
                 'nama_gallery' => 'required',
                 'tanggal' => 'required|date|after_or_equal:today',
                 'user_posting' => 'required',
-                'sampul' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'sampul' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'status' => 'required',
             ], [
                 'nama_gallery.required' => 'Kolom NAMA GALLERY wajib diisi.',

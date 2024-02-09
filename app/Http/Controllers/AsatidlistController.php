@@ -34,8 +34,7 @@ class AsatidlistController extends Controller
     public function create()
     {
         $asatidlist = Asatidlist::all();
-        return view('asatidlist.asatidlist', compact('asatidlist'));
-
+        return view('asatidlist.create', compact('asatidlist'));
     }
 
 
@@ -97,11 +96,13 @@ class AsatidlistController extends Controller
 
             return redirect()->route('asatidlist.index')->with('success', 'LIST ASATID BERHASIL DITAMBAHKAN');
         } catch (ValidationException $e) {
+
+            $e->old('foto', $request->file('foto'));
+
             return back()->withErrors($e->errors())->withInput();
         } catch (Exception $th) {
             return back()->with('error', 'GAGAL MENAMBAHKAN ASATID. PESAN KESALAHAN: ' . $th->getMessage())->withInput();
         }
-
 }
 
 
@@ -114,7 +115,7 @@ class AsatidlistController extends Controller
     public function edit(Asatidlist $asatidlist)
     {
         $asatidlist = Asatidlist::all();
-        return view('asatidlist.asatidlist', compact('asatidlist'));
+        return view('asatidlist.edit', compact('asatidlist'));
     }
 
 

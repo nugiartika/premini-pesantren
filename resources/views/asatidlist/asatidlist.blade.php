@@ -22,9 +22,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
+                        <a href="{{ route('asatidlist.create') }}" class="btn btn-success" style="width: 150px">
                             <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button>
+                        </a>
                         <div class="row g-3 align-items-center mt-2">
                             <div class="col-auto">
                                 <form action="{{ route('asatidlist.index') }}" method="get">
@@ -32,8 +32,8 @@
                                     <input type="search" name="search" class="from-control">
                                     <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
                                 </form>
-                                </div>
-                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -73,7 +73,7 @@
 
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+                                            <button type="button" class="btn btn-warning" onclick="window.location='{{ route('asatidlist.edit', ['asatidlist' => $item->id]) }}'">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <form action="{{ route('asatidlist.destroy', ['asatidlist' => $item->id]) }}" method="POST" style="display:inline">
@@ -92,227 +92,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- modal tambah --}}
-            <div class="modal" tabindex="-1" id="tambahModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">TAMBAH</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('asatidlist.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-
-                                <div class="mb-3">
-                                    <label for="nip" class="form-label">NIP</label>
-                                    <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" value="{{ old('nip') }}">
-                                    @error('nip')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="nama" class="form-label">NAMA</label>
-                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
-                                    @error('nama')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">EMAIL</label>
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="tempat_lahir" class="form-label">TEMPAT LAHIR</label>
-                                    <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}">
-                                    @error('tempat_lahir')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="ttl" class="form-label">TANGGAL LAHIR</label>
-                                    <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="ttl" name="ttl" value="{{ old('ttl') }}" max="{{ now()->toDateString() }}" required>
-                                    @error('ttl')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        <small class="text-danger">
-                                            @if ($errors->has('ttl'))
-                                                {{ $errors->first('ttl') }}
-                                            @endif
-                                        </small>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="alamat" class="form-label">ALAMAT</label>
-                                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat') }}">
-                                    @error('alamat')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="pendidikan" class="form-label">PENDIDIKAN</label>
-                                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="pendidikan" name="pendidikan" value="{{ old('pendidikan') }}">
-                                    @error('pendidikan')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <label for="foto" class="form-label">FOTO</label>
-                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" value="{{ old('foto') }}">
-                                    @error('foto')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Edit di sini -->
-            @foreach ($asatidlist as $item)
-                <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">EDIT</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('asatidlist.update', ['asatidlist' => $item->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <div class="mb-3">
-                                        <label for="edit_nip" class="form-label">NIP</label>
-                                        <input type="text" class="form-control @error('nip') is-invalid @enderror" id="edit_nip" name="nip" value="{{ old('nip', $item->nip) }}">
-                                        @error('nip')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_nama" class="form-label">NAMA</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="edit_nama" name="nama" value="{{ old('nama', $item->nama) }}">
-                                        @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_email" class="form-label">EMAIL</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="edit_email" name="email" value="{{ old('email', $item->email) }}">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_tempat_lahir" class="form-label">TEMPAT LAHIR</label>
-                                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="edit_tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $item->tempat_lahir) }}">
-                                        @error('tempat_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_ttl" class="form-label">TANGGAL LAHIR</label>
-                                        <input type="date" class="form-control @error('ttl') is-invalid @enderror" id="edit_ttl" name="ttl" max="{{ now()->toDateString() }}" value="{{ old('ttl', $item->ttl) }}">
-                                        @error('ttl')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_alamat" class="form-label">ALAMAT</label>
-                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="edit_alamat" name="alamat" value="{{ old('alamat', $item->alamat) }}">
-                                        @error('alamat')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <label for="edit_pendidikan" class="form-label">PENDIDIKAN</label>
-                                        <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="edit_pendidikan" name="pendidikan" value="{{ old('pendidikan', $item->pendidikan) }}">
-                                        @error('pendidikan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_foto" class="form-label">FOTO</label>
-                                        <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto') }}">
-
-                                        @if ($item->foto)
-                                            <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto" width="50" height="50">
-                                        @else
-                                            No Image
-                                        @endif
-
-                                        @error('foto')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </div>
-                            </form>
-                    </div>
-                </div>
-            @endforeach
         </div>
     </div>
 @endsection
