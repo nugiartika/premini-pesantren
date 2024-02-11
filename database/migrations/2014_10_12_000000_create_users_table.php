@@ -11,7 +11,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asatidlist_id')->nullable()->default(null)->constrained('asatidlists')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('nama');
+            $table->string('name')->default('default_value');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default();

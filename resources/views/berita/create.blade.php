@@ -1,27 +1,19 @@
+{{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> --}}
 @extends('layouts.app')
-
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 
 @section('content')
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">TAMBAH</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='{{ route('berita.index') }}'"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-success"><i class="fas fa-newspaper me-1"></i>TAMBAH DATA BERITA</h6>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+
                                 <div class="row g-3">
                                     <div class="col">
                                         <label for="judul_berita" class="form-label">JUDUL BERITA</label>
@@ -71,28 +63,40 @@
                                     </div>
                                   </div>
 
-                                  <div class="row  g-3">
+                                  <div class="col custom-content">
                                     <label for="isi" class="form-label">ISI BERITA</label>
-                                    <textarea name="isi" id="isi" aria-label="With textarea">{{ old('isi') }}</textarea>
-                                  </div>
-                                  <script>
-                                    $(document).ready(function () {
-                                        $('#isi').summernote({
-                                            placeholder: 'Isi berita...',
-                                            tabsize: 2,
-                                            height: 300
-                                        });
-                                    });
-                                </script>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('berita.index') }}'">BATAL</button>
-                                    <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                    <textarea name="isi" id="summernote" class="custom-summernote" aria-label="With textarea">{{ old('isi') }}</textarea>
                                 </div>
-                            </form>
+
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('berita.index') }}'"><i class="fas fa-undo me-1"></i>BATAL</button>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i>SIMPAN</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 @endsection
+
+@section('scripts')
+
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: 'Hello Bootstrap 4',
+            tabsize: 2,
+            height: 100
+        });
+    });
+</script>
+@endsection
+
+
+
+
+
+
+
+

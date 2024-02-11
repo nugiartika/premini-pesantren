@@ -352,16 +352,10 @@
 
 <!-- BERITA -->
      <div id="berita-section" class="container-xxl py-5">
-       {{-- <form method="GET" class="search-form">
-            <input type="text" value="{{ $cberita }}" name="cberita" class="search-input">
-            <button type="submit" class="search-button button-model-1">
-                Cari
-            </button>
-        </form> --}}
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-success px-3">Berita</h6>
-                <h1 class="mb-5">Berita</h1>
+                <h6 class="section-title bg-white text-center text-success px-3">BERITA</h6>
+                <h1 class="mb-5">BERITA</h1>
             </div>
             <div class="row justify-content-center">
                 @foreach ($beritas as $key => $berita)
@@ -373,15 +367,12 @@
                             </div>
                             <div class="team-item bg-light border border-top-0 p-4" style="flex: 1; padding-right: 10px;">
                                 <div class="mb-2">
-                                    <p class="position-relative d-flex btn btn-lg btn-success btn-block">{{ $berita->kategori->nama }}</p>
+                                    <p class="position-relative d-flex btn btn-lg btn-success btn-block">{{ $berita->judul_berita }}</p>
                                 </div>
-                                <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{{ $berita->judul_berita }}</p>
-                                <p class="m-0">{{ $berita->slug }}</p>
+                                <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{!! $berita->isi !!}</p>
+                                <p class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold">{{ $berita->kategori->nama }}</p>
                                 <p class="m-2">{{ \Carbon\Carbon::parse($berita->tanggal)->isoFormat('D-MMMM-YYYY') }}</p>
-                                    <div class="d-flex align-items-center">
-                                        <small><i class="fa fa-user text-success me-2"></i>{{ $berita->user_posting }}</small>
-                                    </div>
-                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -389,45 +380,52 @@
                 @endforeach
             </div>
             {{$beritas->links()}}
-
         </div>
     </div>
     <!-- END -->
 
-   {{-- gallery start--}}
-<div id="gallerie-section" class="container-xxl py-5">
-    {{-- <form method="GET" class="search-form">
-            <input type="text" value="{{ $cgallerie }}" name="cgallerie" class="search-input">
-            <button type="submit" class="search-button button-model-1">
-                Cari
-            </button>
-        </form> --}}
-     <div class="container">
-        <div class="text-center">
-            <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
-            <h1 class="mb-5">GALLERY</h1>
-          </div>
-          {{-- <div class="col-lg-3 mb-4">
-            <div class="wow fadeInUp" data-wow-delay="0.1s">
-                <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> --}}
-        <div class="row g-4 justify-content-center">
+
+<!-- GALLERY -->
+     <div id="berita-section" class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-success px-3">GALLERY</h6>
+                <h1 class="mb-5">GALLERY</h1>
+            </div>
+            <div class="row justify-content-center">
             @foreach ($gallerie as $key => $galleris)
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                        <div class="overflow-hidden" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 300px;">
-                            <img class="img-fluid" src="{{ asset('storage/' . $galleris->sampul) }}" alt="" style="object-fit: cover; width: 100%;">
-                        </div>
-                        <div class="mb-2 ">
-                        <a class="position-relative d-flex btn btn-success justify-content-center">{{$galleris->nama_gallery}}</a>
+            @if ($galleris->status == "Public")
+                    <div class="col-lg-10 mb-4">
+                    <div class="wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex;">
+
+                            <div class="overflow-hidden" style="height: 300px; display: flex; max-width: 100%; align-items: center; justify-content: center;">
+                                <img class="img-fluid" src="{{ asset('storage/'.$galleris->sampul) }}" alt="" style="object-fit: cover; height: 100%; align-item: center;">
+                            </div>
+
+                            <div class="team-item bg-light border border-top-0 p-4" style="flex: 1; padding-right: 10px;">
+                                <div class="mb-2">
+                                    <p class="position-relative d-flex btn btn-lg btn-success btn-block">{{ $galleris->nama_gallery }}</p>
+                                </div>
+                                <p class="m-2">{{ \Carbon\Carbon::parse($galleris->tanggal)->isoFormat('D-MMMM-YYYY') }}</p>
+                                <div class="d-flex align-items-center">
+                                <small><i class="fa fa-user text-success me-2"></i>{{ $galleris->user_posting }}</small>
+                                </div>
+                            </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @endif
+                @endforeach
+            </div>
+            {{$gallerie->links()}}
         </div>
-        {{$gallerie->links()}}
     </div>
-</div>
-{{-- gallery end --}}
+    <!-- GALLERY -->
+
+
 
 
 
@@ -435,16 +433,22 @@
 
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">            <div class="container py-5">
+        <div class="container-fluid bg-success text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
+                        <div>
                         <h4 class="text-white mb-3">INFO FITUR</h4>
                         <a class="btn btn-link" href="{{ route('asatidlist.index') }}">ASATID</a>
+                        <a class="btn btn-link" href="{{ route('mapel.index') }}">MAPEL</a>
                         <a class="btn btn-link" href="{{ route('pendaftaran.index') }}">PENDAFTARAN</a>
                         <a class="btn btn-link" href="{{ route('santri.index') }}">SANTRI</a>
                         <a class="btn btn-link" href="{{ route('klssantri.index') }}">KELAS</a>
                         <a class="btn btn-link" href="{{ route('berita.index') }}">BERITA</a>
+                        <a class="btn btn-link" href="{{ route('kategori.index') }}">KATEGORI</a>
                         <a class="btn btn-link" href="{{ route('gallerie.index') }}">GALERY</a>
+                        <a class="btn btn-link" href="{{ route('kelulusan.index') }}">KELULUSAN</a>
+                        </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6">

@@ -64,10 +64,10 @@
                                         <td class="text-center">{{ $item->pendidikan }}</td>
                                         <td class="text-center">
                                             @if ($item->foto)
-                                                <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
-                                            @else
-                                                No Image
-                                            @endif
+                                            <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
+                                        @else
+                                            No Image
+                                        @endif
                                         </td>
 
 

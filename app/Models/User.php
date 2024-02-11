@@ -26,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama',
+        'name',
         'email_verified_at',
         'asatidlist_id',
         'staf_id',
@@ -39,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(asatidlist::class);
     }
 
-    
+
     /**
      * The attributes that should be hidden for serialization.
      *

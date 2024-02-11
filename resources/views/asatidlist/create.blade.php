@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-success"> <i class="fas fa-fw  fa-user-circle"></i>TAMBAH DATA ASATID </h6>
+                                <h6 class="m-0 font-weight-bold text-success"><i class="fa-solid fa-users me-1"></i>TAMBAH DATA ASATID </h6>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('asatidlist.store') }}" method="POST" enctype="multipart/form-data">
@@ -48,14 +48,15 @@
                                 </div>
 
                                 <div class="col">
-                                    <label for="tempat_lahir" class="form-label">TEMPAT LAHIR</label>
-                                    <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}">
-                                    @error('tempat_lahir')
+                                    <label for="pendidikan" class="form-label">PENDIDIKAN</label>
+                                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="pendidikan" name="pendidikan" value="{{ old('pendidikan') }}">
+                                    @error('pendidikan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+
                             </div>
 
                             <div class="row g-3">
@@ -88,9 +89,9 @@
                             <div class="row g-3">
 
                                 <div class="col">
-                                    <label for="pendidikan" class="form-label">PENDIDIKAN</label>
-                                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="pendidikan" name="pendidikan" value="{{ old('pendidikan') }}">
-                                    @error('pendidikan')
+                                    <label for="tempat_lahir" class="form-label">TEMPAT LAHIR</label>
+                                    <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}">
+                                    @error('tempat_lahir')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -111,9 +112,9 @@
                                 </div>
 
                             </div>
-                            <div class="modal-footer">
-                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i>SIMPAN</button>
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('asatidlist.index') }}'"><i class="fas fa-undo me-1"></i>BATAL</button>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i>SIMPAN</button>
                         </div>
                         </form>
                     </div>

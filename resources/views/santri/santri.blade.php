@@ -36,10 +36,6 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
-                                style="width: 150px">
-                                <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button> --}}
                         <div class="row g-3 align-items-center mt-2">
                             <div class="col-auto">
                                 <form action="{{ route('santri.index') }}" method="get">
@@ -86,13 +82,6 @@
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            {{-- <form action="{{ route('santri.destroy', ['santri' => $item->id]) }}" method="POST" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -102,7 +91,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             <!-- Modal Edit di sini -->
@@ -118,7 +106,6 @@
                                 <form action="{{ route('santri.update', ['santri' => $item->id]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
 
                                     <div class="mb-3">
                                         <label for="edit_klssantri_id" class="form-label">KELAS</label>

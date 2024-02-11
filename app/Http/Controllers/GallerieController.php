@@ -21,7 +21,6 @@ class GallerieController extends Controller
         } else {
             $gallerie = Gallerie::paginate(5);
         }
-
         return view('gallerie.gallerie', compact('gallerie'));
 }
 
@@ -30,7 +29,7 @@ class GallerieController extends Controller
     public function create()
     {
         $gallerie = Gallerie::all();
-        return view('gallerie.gallerie', compact('gallerie'));
+        return view('gallerie.create', compact('gallerie'));
     }
 
 
@@ -78,15 +77,17 @@ class GallerieController extends Controller
         }
 
 
-    public function edit(Gallerie $gallerie)
+    public function edit($id)
     {
-        $gallerie = Gallerie::all();
-        return view('gallerie.gallerie', compact('gallerie'));
+        $gallerie = Gallerie::find($id);
+        return view('gallerie.edit', compact('gallerie'));
     }
 
 
-    public function update(UpdateGallerieRequest $request, Gallerie $gallerie)
+    public function update(UpdateGallerieRequest $request, $id)
     {
+        $gallerie = Gallerie::findOrFail($id);
+
         $request->validate([
             'nama_gallery' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
@@ -106,15 +107,7 @@ class GallerieController extends Controller
             'status.required' => 'Kolom STATUS wajib diisi.',
         ]);
 
-       if ($gallerie->sampul) {
-
-        Storage::disk('public')->delete($gallerie->sampul);
-
-        $localFilePath = public_path('storage/' . $gallerie->sampul);
-        if (File::exists($localFilePath)) {
-            File::delete($localFilePath);
-        }
-    }
+    $oldPhotoPath = $gallerie->sampul;
 
     $data = [
         'nama_gallery' => $request->input('nama_gallery'),
@@ -131,6 +124,13 @@ class GallerieController extends Controller
 
         $gallerie->update($data);
 
+        if ($gallerie->wasChanged('sampul') && $oldPhotoPath) {
+            Storage::disk('public')->delete($oldPhotoPath);
+            $localFilePath = public_path('storage/' . $oldPhotoPath);
+            if (File::exists($localFilePath)) {
+                File::delete($localFilePath);
+            }
+        }
         return redirect()->route('gallerie.index')->with('success', 'GALLERY BERHASIL DIUPDATE');
     }
 
