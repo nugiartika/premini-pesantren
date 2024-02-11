@@ -37,9 +37,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+                        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'asatid')
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal" style="width: 150px">
                             <i class="fas fa-plus me-1"></i>TAMBAH
                         </button>
+                        @endif
                         <div class="row g-3 align-items-center mt-2">
                             <div class="col-auto">
                                 <form action="{{ route('kelulusan.index') }}" method="get">
@@ -64,7 +66,9 @@
                                     <th scope="col" class="text-center">NILAI</th>
                                     <th scope="col" class="text-center">NILAI RATA-RATA</th>
                                     <th scope="col" class="text-center">KETERANGAN</th>
+                                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'asatid')
                                     <th scope="col" class="text-center">AKSI</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
@@ -86,13 +90,15 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <form action="{{ route('kelulusan.destroy', ['kelulusan' => $item->id]) }}" method="POST" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'asatid')
+                                                <form action="{{ route('kelulusan.destroy', ['kelulusan' => $item->id]) }}" method="POST" style="display:inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -109,7 +115,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">TAMBAH</h5>
+                        <h6 class="m-0 font-weight-bold text-success"><i class="fas fa-bell me-1"></i>TAMBAH DATA KELULUSAN </h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -164,15 +170,14 @@
                                 @enderror
                             </div>
 
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-undo me-1"></i>BATAL</button>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i>SIMPAN</button>
+                           </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

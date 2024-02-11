@@ -91,7 +91,8 @@ class PendaftaranController extends Controller
                 ]);
 
                 User::create([
-                    'nama' => $pendaftaran->nama,
+                    'name' => $pendaftaran->nama,
+                    'email_verified_at' => now(),
                     'email' => $pendaftaran->email,
                     'password' => Hash::make($pendaftaran->password),
                     'role' => 'santri',

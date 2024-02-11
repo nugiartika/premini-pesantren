@@ -1,4 +1,3 @@
-{{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> --}}
 @extends('layouts.app')
 
 @section('content')
@@ -66,7 +65,7 @@
                                   <div class="col custom-content">
                                     <label for="isi" class="form-label">ISI BERITA</label>
                                     <textarea name="isi" id="summernote" class="custom-summernote" aria-label="With textarea">{{ old('isi') }}</textarea>
-                                </div>
+                                  </div>
 
                             </div>
                         <div class="modal-footer">
@@ -83,14 +82,22 @@
 @section('scripts')
 
 <script>
-    $(document).ready(function () {
+ $(document).ready(function() {
         $('#summernote').summernote({
-            placeholder: 'Hello Bootstrap 4',
-            tabsize: 2,
-            height: 100
+          placeholder: 'Hello stand alone ui',
+          tabsize: 2,
+          height: 120,
+          toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+          ]
         });
-    });
-</script>
+      });</script>
 @endsection
 
 

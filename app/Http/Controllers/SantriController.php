@@ -46,6 +46,7 @@ class SantriController extends Controller
         Santri::create([
             'klssantri_id' => $request->input('klssantri_id'),
         ]);
+        
 
         return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DITAMBAHKAN');
 

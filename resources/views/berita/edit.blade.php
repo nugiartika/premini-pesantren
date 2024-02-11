@@ -43,7 +43,7 @@
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                     </div>
 
                     <div class="row g-3">
@@ -73,20 +73,12 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col custom-content">
                         <label for="isi" class="form-label">ISI BERITA</label>
-                        <textarea name="isi" id="isi">{{ old('isi', $berita->isi) }}</textarea>
+                        <textarea name="isi" id="summernote" class="custom-summernote" aria-label="With textarea">{{ old('isi') }}</textarea>
                     </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#isi').summernote({
-                                placeholder: 'Isi berita...',
-                                tabsize: 2,
-                                height: 300
-                            });
-                        });
-                    </script>
-                    </div>
+
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -98,6 +90,27 @@
     </div>
 </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script>
+ $(document).ready(function() {
+        $('#summernote').summernote({
+          placeholder: 'Hello stand alone ui',
+          tabsize: 2,
+          height: 120,
+          toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+          ]
+        });
+      });</script>
 @endsection
 
 

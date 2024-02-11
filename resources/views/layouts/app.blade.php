@@ -21,8 +21,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
-    <!-- Summernote CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <style>
 
         .navbar {
@@ -127,16 +125,16 @@
             }
 </style>
  <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
 
  <!-- Bootstrap JS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 
- <!-- Summernote JS -->
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
  <!-- Script Tambahan -->
+ <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
  @yield('scripts')
 </head>
 
@@ -327,11 +325,7 @@
                             </a>
                         </li>
 
-                        @if ($role == 'santri')
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('pendaftaran.index') ? 'active' : '' }}" href="{{ route('pendaftaran.index') }}"><i class="fas fa-clipboard me-1"></i>PENDAFTARAN</a>
-                        </li>
-                        @endif
+                        
                     </ul>
 
                     <ul class="navbar-nav ms-auto">

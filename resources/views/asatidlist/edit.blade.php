@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div cla    ss="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">EDIT</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('asatidlist.update', $asatidlist->id) }}" method="POST" enctype="multipart/form-data">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="modal-content">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-success"><i class="fa-solid fa-users me-1"></i>EDIT DATA ASATID </h6>
+                    </div>
+                    <div class="card-body">
+                    <form action="{{ route('asatidlist.update', $asatidlist->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -111,8 +113,6 @@
                             @enderror
                         </div>
 
-                    </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('asatidlist.index') }}'"><i class="fas fa-undo me-1"></i>BATAL</button>
@@ -124,3 +124,7 @@
 </div>
 </div>
 @endsection
+
+
+
+

@@ -81,8 +81,6 @@
                         @enderror
                     </div>
 
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('gallerie.index') }}'"><i class="fas fa-undo me-1"></i>BATAL</button>

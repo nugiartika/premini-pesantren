@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class santri extends Model
+class Santri extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'klssantri_id',
         'nama',
@@ -19,13 +20,15 @@ class santri extends Model
         'tempat_lahir',
         'tanggal_lahir'
     ];
+
+    
     public function klssantri()
     {
         return $this->belongsTo(Klssantri::class);
     }
+
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);
     }
-
 }
