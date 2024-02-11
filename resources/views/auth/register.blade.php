@@ -184,7 +184,7 @@
 
                             <div class="col">
                                 <label for="nisn" class="form-label">{{ __('NISN') }}</label>
-                                <input class="input form-control @error('nisn') is-invalid @enderror" id="nisn" type="number"
+                                <input class="input form-control @error('nisn') is-invalid @enderror" id="nisn" type="text"
                                     name="nisn" value="{{ old('nisn') }}" required autocomplete="nisn" autofocus>
                                 @error('nisn')
                                     <div class="invalid-feedback">
@@ -196,7 +196,7 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="telepon" class="form-label">{{ __('Telepon') }}</label>
-                                <input class="input form-control @error('telepon') is-invalid @enderror" id="telepon" type="number"
+                                <input class="input form-control @error('telepon') is-invalid @enderror" id="telepon" type="text"
                                     name="telepon" value="{{ old('telepon') }}" required autocomplete="telepon" autofocus>
                                 @error('telepon')
                                     <div class="invalid-feedback">

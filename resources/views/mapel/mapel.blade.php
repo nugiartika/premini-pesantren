@@ -149,7 +149,7 @@
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i>SIMPAN</button>
                                 </div>
                             </form>
-                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach

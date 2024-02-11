@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Kelulusan extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'santri_id',
-        'no_ujian',
-        'mapel_id',
-        'nilai',
-        'keterangan'
-    ];
-    public function mapel()
+// app\Models\Kelulusan.php
+
+protected $fillable = [
+    'santri_id', 'no_ujian', 'mapel_id', 'nilai', 'nilairatarata', 'keterangan',
+];
+    
+        public function mapel()
     {
         return $this->belongsTo(Mapel::class);
     }

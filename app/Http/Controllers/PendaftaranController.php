@@ -62,7 +62,7 @@ class PendaftaranController extends Controller
         ]);
 
         return redirect()->route('register')->with('success_message', 'PENDAFTARAN BERHASIL DITAMBAHKAN');
-    }
+}
 
     public function edit(Pendaftaran $pendaftaran)
     {
@@ -97,6 +97,7 @@ class PendaftaranController extends Controller
                     'role' => 'santri',
                     'pendaftaran_id' => $pendaftaran->id,
                 ]);
+
             } elseif ($status === 'Ditolak') {
                 // Lakukan tindakan khusus ketika status 'Ditolak'
                 // Contoh: hapus entri User jika ada
@@ -127,3 +128,9 @@ class PendaftaranController extends Controller
         }
 
 }
+
+
+
+
+
+
