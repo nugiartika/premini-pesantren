@@ -42,7 +42,7 @@ class BeritaController extends Controller
             'isi'  => 'required',
             'kategori_id' => 'required',
             'tanggal' => 'required|date|after_or_equal:today',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
             'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
@@ -78,16 +78,17 @@ class BeritaController extends Controller
     }
 
 
-    public function edit(Berita $berita)
+    public function edit($id)
     {
-        $berita = Berita::all();
+        $berita = Berita::find($id);
         $kategori = Kategori::all();
         return view('berita.edit', compact('berita', 'kategori'));
     }
 
 
-    public function update(UpdateBeritaRequest $request, Berita $berita)
+    public function update(UpdateBeritaRequest $request, $id)
     {
+        $berita = Berita::findOrFail($id);
         $request->validate([
             'judul_berita' => 'required|unique:beritas,judul_berita,' . $berita->id,
             'isi'  => 'required',
@@ -107,15 +108,9 @@ class BeritaController extends Controller
             'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
         ]);
 
-        if ($berita->foto) {
 
-            Storage::disk('public')->delete($berita->foto);
 
-            $localFilePath = public_path('storage/' . $berita->foto);
-            if (File::exists($localFilePath)) {
-                File::delete($localFilePath);
-            }
-        }
+        $oldPhotoPath = $berita->foto;
 
         $data = [
             'judul_berita' => $request->input('judul_berita'),
@@ -132,6 +127,15 @@ class BeritaController extends Controller
         }
 
         $berita->update($data);
+
+        if ($berita->wasChanged('foto') && $oldPhotoPath) {
+            Storage::disk('public')->delete($oldPhotoPath);
+
+            $localFilePath = public_path('storage/' . $oldPhotoPath);
+            if (File::exists($localFilePath)) {
+                File::delete($localFilePath);
+            }
+        }
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIUPDATE');
     }

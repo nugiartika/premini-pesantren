@@ -25,23 +25,21 @@
             });
         </script>
     @endif
+
     @if(session('warning'))
-    <div class="alert alert-warning">
-        {{ session('warning') }}
-    </div>
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
     @endif
-    @php
-    $userRole = auth()->user()->role;
-@endphp
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
-                                style="width: 150px">
-                                <i class="fas fa-plus me-1"></i>TAMBAH
-                        </button>
+                        <a href="{{ route('gallerie.create') }}" class="btn btn-success" style="width: 150px">
+                            <i class="fas fa-plus me-1"></i>TAMBAH
+                        </a>
                         <div class="row g-3 align-items-center mt-2">
                             <div class="col-auto">
                                 <form action="{{ route('gallerie.index') }}" method="get">
@@ -50,13 +48,11 @@
                                     <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
                                 </form>
                             </div>
-                            </div>
+                        </div>
                     </div>
-
 
                     <div class="card-body">
                         <table class="table table-dark table-striped">
-
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
@@ -65,9 +61,7 @@
                                     <th scope="col" class="text-center">USER POSTING</th>
                                     <th scope="col" class="text-center">SAMPUL</th>
                                     <th scope="col" class="text-center">STATUS</th>
-                                    @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">
@@ -85,196 +79,27 @@
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $item->status }}</td>
-                                        @if($userRole == 'admin')
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <form action="{{ route('gallerie.destroy', ['gallerie' => $item->id]) }}" method="POST" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
-                                                    <i class="fa-solid fa-trash-can"></i>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-warning" onclick="window.location='{{ route('gallerie.edit', ['gallerie' => $item->id]) }}'">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                            </form>
+                                                <form action="{{ route('gallerie.destroy', ['gallerie' => $item->id]) }}" method="POST" style="display:inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus ini?');">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{$gallerie->links()}}
+                        {{ $gallerie->links() }}
                     </div>
                 </div>
             </div>
-
-            {{-- modal tambah --}}
-            <div class="modal" tabindex="-1" id="tambahModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">TAMBAH</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('gallerie.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-
-                                <div class="mb-3">
-                                    <label for="nama_gallery" class="form-label">NAMA GALLERY</label>
-                                    <input type="text" class="form-control @error('nama_gallery') is-invalid @enderror" id="nama_gallery" name="nama_gallery" value="{{ old('nama_gallery') }}">
-                                    @error('nama_gallery')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="tanggal" class="form-label">TANGGAL</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
-                                    @error('tanggal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                <label for="user_posting" class="form-label">USER POSTING</label>
-                                <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="user_posting" name="user_posting" value="{{ old('user_posting', auth()->user()->role) }}" readonly>
-                                @error('user_posting')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="sampul" class="form-label">SAMPUL</label>
-                                    <input type="file" class="form-control @error('sampul') is-invalid @enderror" id="sampul" name="sampul" value="{{ old('sampul') }}">
-                                    @error('sampul')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">STATUS</label>
-                                    @if(old('user_posting') == 'admin')
-                                        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
-                                            <option value="private" {{ old('status') == 'private' ? 'selected' : '' }}>Private</option>
-                                            <option value="publish" {{ old('status') == 'publish' ? 'selected' : '' }}>Publish</option>
-                                        </select>
-                                    @else
-                                        <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
-                                    @endif
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Edit di sini -->
-            @foreach ($gallerie as $item)
-                <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">EDIT</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('gallerie.update', ['gallerie' => $item->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <div class="mb-3">
-                                        <label for="edit_nama_gallery" class="form-label">NAMA GALLERY</label>
-                                        <input type="text" class="form-control @error('nama_gallery') is-invalid @enderror" id="edit_nama_gallery" name="nama_gallery" value="{{ old('nama_gallery', $item->nama_gallery) }}">
-                                        @error('nama_gallery')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_tanggal" class="form-label">TANGGAL</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $item->tanggal) }}" min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="edit_user_posting" class="form-label">USER POSTING</label>
-                                        <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $item->user_posting) }}" readonly>
-                                        @error('user_posting')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-
-
-                                    <div class="mb-3">
-                                        <label for="edit_sampul" class="form-label">SAMPUL</label>
-                                        <input type="file" class="form-control @error('sampul') is-invalid @enderror" id="edit_sampul" name="sampul" value="{{ old('sampul') }}">
-
-                                        @if ($item->sampul)
-                                            <img src="{{ asset('storage/' . $item->sampul) }}" alt="sampul" width="50" height="50">
-                                        @else
-                                            No Image
-                                        @endif
-
-                                        @error('sampul')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="status" class="form-label">STATUS</label>
-                                        <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" readonly>
-                                            <option value="private" {{ old('status', $item->status) == 'private' ? 'selected' : '' }}>Private</option>
-                                            <option value="publish" {{ old('status', $item->status) == 'publish' ? 'selected' : '' }}>Publish</option>
-                                        </select>
-                                        @error('status')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-
-
-                                </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
     </div>
 @endsection
