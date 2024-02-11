@@ -13,7 +13,7 @@ class Kelulusan extends Model
         'no_ujian',
         'mapel_id',
         'nilai',
-        'status'
+        'keterangan'
     ];
     public function mapel()
     {
@@ -23,6 +23,5 @@ class Kelulusan extends Model
     {
         return $this->belongsTo(Santri::class);
     }
-
 
 }

@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Carbon\Carbon;
 use App\Http\Requests\StoreBeritaRequest;
 use App\Http\Requests\UpdateBeritaRequest;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;

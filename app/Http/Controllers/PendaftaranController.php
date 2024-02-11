@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->has('search')) {
@@ -31,7 +30,7 @@ class PendaftaranController extends Controller
         return view('auth.register');
     }
 
-    public function store(StorependaftaranRequest $request)
+    public function store(StorependaftaranRequest $request, Pendaftaran $pendaftaran)
     {
         $request->validate([
             'nama' => 'required',
@@ -70,46 +69,61 @@ class PendaftaranController extends Controller
         return view('pendaftaran.pendaftaran', compact('pendaftaran'));
     }
 
-    public function update(UpdatependaftaranRequest $request, Pendaftaran $pendaftaran)
-    {
-        $request->validate([
-            'status' => 'required',
-        ]);
-
-        $status = $request->input('status');
-
-        if ($status === 'Diterima') {
-            $santri = Santri::create([
-                'nama' => $pendaftaran->nama,
-                'email' => $pendaftaran->email,
-                'nisn' => $pendaftaran->nisn,
-                'telepon' => $pendaftaran->telepon,
-                'alamat' => $pendaftaran->alamat,
-                'jenis_kelamin' => $pendaftaran->jenis_kelamin,
-                'tempat_lahir' => $pendaftaran->tempat_lahir,
-                'tanggal_lahir' => $pendaftaran->tanggal_lahir,
+        public function update(UpdatependaftaranRequest $request, Pendaftaran $pendaftaran)
+        {
+            $request->validate([
+                'status' => 'required',
             ]);
-            User::create([
-                'name' => $pendaftaran->nama,
-                'email' => $pendaftaran->email,
-                'password' => Hash::make($pendaftaran->password),
-                'role' => 'santri',
-                'pendaftaran_id' => $pendaftaran->id,
-            ]);
-        } elseif ($status === 'Ditolak') {
-            if ($user = User::where('email', $pendaftaran->email)->first()) {
-                $user->delete();
+
+            $status = $request->input('status');
+
+            if ($status === 'Diterima') {
+                Santri::create([
+                    'nama' => $pendaftaran->nama,
+                    'email' => $pendaftaran->email,
+                    'nisn' => $pendaftaran->nisn,
+                    'telepon' => $pendaftaran->telepon,
+                    'alamat' => $pendaftaran->alamat,
+                    'jenis_kelamin' => $pendaftaran->jenis_kelamin,
+                    'tempat_lahir' => $pendaftaran->tempat_lahir,
+                    'tanggal_lahir' => $pendaftaran->tanggal_lahir,
+                    'pendaftaran_id' => $pendaftaran->id,
+                ]);
+
+                User::create([
+                    'nama' => $pendaftaran->nama,
+                    'email' => $pendaftaran->email,
+                    'password' => Hash::make($pendaftaran->password),
+                    'role' => 'santri',
+                    'pendaftaran_id' => $pendaftaran->id,
+                ]);
+            } elseif ($status === 'Ditolak') {
+                // Lakukan tindakan khusus ketika status 'Ditolak'
+                // Contoh: hapus entri User jika ada
+
+                // Hapus entri User jika ada
+                if ($user = User::where('email', $pendaftaran->email)->first()) {
+                    $user->delete();
+                }
+
+                // Hapus entri Santri jika ada
+                if ($santri = Santri::where('email', $pendaftaran->email)->first()) {
+                    $santri->delete();
+                }
+
+                // Hapus entri Pendaftaran
+                $pendaftaran->delete();
+
+                return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIHAPUS');
             }
 
+            $pendaftaran->update([
+                'status' => $status,
+            ]);
 
-            if ($santri = Santri::where('email', $pendaftaran->email)->first()) {
-                $santri->delete();
-            }
 
-            $pendaftaran->delete();
-
-            return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIHAPUS');
+            // Redirect ke rute yang sesuai
+            return redirect()->route('pendaftaran.index')->with('success', 'PENDAFTARAN BERHASIL DIPERBARUI');
         }
-    }
 
 }

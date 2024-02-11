@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 class KelulusanController extends Controller
 {
 
+
+
     public function index(Request $request)
     {
         if ($request->has('search')) {
@@ -26,15 +28,15 @@ class KelulusanController extends Controller
         return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
         $santri = Santri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
+        return view('kelulusan.kelulusan', compact('mapel','santri'));
     }
 
     /**
@@ -45,8 +47,6 @@ class KelulusanController extends Controller
         $request->validate([
             'santri_id' => 'required|unique:kelulusans,santri_id',
             'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian',
-            'mapel_id' => 'required',
-            'nilai' => 'required|numeric|min:0|max:100',
         ], [
             'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
             'santri_id.unique' => 'NAMA SANTRI sudah digunakan.',
@@ -54,26 +54,28 @@ class KelulusanController extends Controller
             'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
             'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
             'no_ujian.unique' => 'NO UJIAN sudah digunakan.',
-            'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
-            'nilai.required' => 'Kolom NILAI wajib diisi.',
-            'nilai.numeric' => ' NILAI harus berupa angka',
-            'nilai.min' => ' NILAI tidak boleh MIN-',
-            'nilai.max' => ' NILAI max 100',
         ]);
 
-        $nilai = $request->input('nilai');
+
+    $nilaiMapel = $request->input('nilai');
+    foreach ($nilaiMapel as $mapelId => $nilai) {
+        $request->validate([
+            'nilai.' . $mapelId => 'required|numeric|min:0|max:100',
+        ]);
+    }
+
+    foreach ($nilaiMapel as $mapelId => $nilai) {
         $keterangan = ($nilai >= 80) ? 'Lulus' : 'Tidak Lulus';
 
-        Kelulusan::create([
-            'santri_id' => $request->input('santri_id'),
-            'no_ujian' => $request->input('no_ujian'),
-            'mapel_id' => $request->input('mapel_id'),
-            'nilai' => $nilai,
-            'keterangan' => $keterangan,
-         ]);
-
+            Kelulusan::create([
+                'santri_id' => $request->input('santri_id'),
+                'no_ujian' => $request->input('no_ujian'),
+                'mapel_id' => $mapelId,
+                'nilai' => $nilai,
+                'keterangan' => $keterangan,
+            ]);
+        }
         return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DITAMBAHKAN');
-
     }
 
     /**

@@ -70,14 +70,12 @@ class SantriController extends Controller
     public function update(UpdatesantriRequest $request, santri $santri)
     {
         $request->validate([
-            'pendaftaran_id' => 'required',
             'klssantri_id' => 'required',
-        ], [            'pendaftaran_id.required' => 'Kolom NAMA SANTRI wajib diisi',
+        ], [
             'klssantri_id.required' => 'Kolom KELAS wajib diisi',
 
         ]);
         $santri->update([
-            'pendaftaran_id' => $request->input('pendaftaran_id'),
             'klssantri_id' => $request->input('klssantri_id'),
         ]);
 

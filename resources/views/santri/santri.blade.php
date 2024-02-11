@@ -76,11 +76,10 @@
                                         <td class="text-center">{{ $item->telepon }}</td>
                                         <td class="text-center">{{ $item->nisn }}</td>
                                         <td class="text-center">
-                                            @if ($item->pendaftaran)
-                                            {{ optional($item->pendaftaran)->tempat_lahir }}
-                                            {{ optional(\Carbon\Carbon::parse($item->pendaftaran->tanggal_lahir))->isoFormat('D-MMMM-YYYY') }}
-                                            @endif
+                                            {{ ($item->tempat_lahir) }}
+                                            {{ (\Carbon\Carbon::parse($item->tanggal_lahir))->isoFormat('D-MMMM-YYYY') }}
                                         </td>
+
                                         <td class="text-center">{{ $item->jenis_kelamin }}</td>
                                         <td class="text-center">{{ $item->alamat }}</td>
                                         <td class="text-center">
@@ -104,73 +103,7 @@
                 </div>
             </div>
 
-            {{-- modal tambah
-            <div class="modal" tabindex="-1" id="tambahModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">TAMBAH</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('santri.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="nama" class="form-label">NAMA SANTRI</label>
-                                    <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="nama" name="pendaftaran_id" aria-label="Default select example">
-                                        <option value="" selected>PILIH NAMA SANTRI</option>
 
-                                        @php
-                                            $status = 'Diterima';
-                                        @endphp
-
-                                        @foreach ($pendaftaran as $kat)
-                                            @php
-                                                $status = $kat->status;
-                                            @endphp
-
-                                            @if ($status == 'Diterima')
-                                                <option value="{{ $kat->id }}" {{ old('pendaftaran_id') == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->user->name }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-
-                                    @error('pendaftaran_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <label for="kelas" class="form-label">KELAS</label>
-                                    <select class="form-select @error('klssantri_id') is-invalid @enderror" id="kelas" name="klssantri_id" aria-label="Default select example">
-                                        <option value="" selected>PILIH KELAS</option>
-                                        @foreach ($klssantri as $kat)
-                                            <option value="{{ $kat->id }}" {{ old('klssantri_id') == $kat->id ? 'selected' : '' }}>
-                                                {{ $kat->nama_kelas }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('klssantri_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
 
             <!-- Modal Edit di sini -->
             @foreach ($santri as $item)
@@ -186,22 +119,6 @@
                                     @csrf
                                     @method('PUT')
 
-                                    {{-- <div class="mb-3">
-                                        <label for="edit_pendaftaran_id" class="form-label">NAMA SANTRI</label>
-                                        <select class="form-select @error('pendaftaran_id') is-invalid @enderror" id="edit_pendaftaran_id" name="pendaftaran_id" value="{{ old('pendaftaran_id', $item->pendaftaran_id) }}">
-                                            <option value="" selected>PILIH NAMA SANTRI</option>
-                                            @foreach ($pendaftaran as $kat)
-                                                <option value="{{ $kat->id }}" {{ $item->pendaftaran_id == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->nama_lengkap }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('pendaftaran_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
 
                                     <div class="mb-3">
                                         <label for="edit_klssantri_id" class="form-label">KELAS</label>

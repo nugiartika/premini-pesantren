@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nisn')->unique();
             $table->string('telepon')->unique();
             $table->string('alamat');

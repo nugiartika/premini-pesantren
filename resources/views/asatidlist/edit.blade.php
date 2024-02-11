@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('asatidlist.update', ['asatidlist' => $asatidlist->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('asatidlist.update', $asatidlist->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -73,7 +73,6 @@
                         @enderror
                     </div>
 
-
                     <div class="mb-3">
                         <label for="edit_pendidikan" class="form-label">PENDIDIKAN</label>
                         <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" id="edit_pendidikan" name="pendidikan" value="{{ old('pendidikan', $asatidlist->pendidikan) }}">
@@ -101,16 +100,13 @@
                         @enderror
                     </div>
 
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='{{ route('asatidlist.index') }}'">BATAL</button>
                 <button type="submit" class="btn btn-primary">SIMPAN</button>
             </div>
+        </form>
         </div>
     </div>
 
 @endsection
-
-
-

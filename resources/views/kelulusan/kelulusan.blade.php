@@ -57,7 +57,7 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col" class="text-center">NO</th>
-                                    <th scope="col" class="text-center">NIS</th>
+                                    <th scope="col" class="text-center">NISN</th>
                                     <th scope="col" class="text-center">NAMA SANTRI</th>
                                     <th scope="col" class="text-center">NO UJIAN</th>
                                     <th scope="col" class="text-center">KELAS</th>
@@ -71,8 +71,8 @@
                                 @foreach ($kelulusan as $index => $item)
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
-                                        <td class="text-center">{{ optional($item->santri)->nis }}</td>
-                                        <td class="text-center">{{ optional($item->santri->pendaftaran)->nama_lengkap }}</td>
+                                        <td class="text-center">{{ optional($item->santri)->nisn }}</td>
+                                        <td class="text-center">{{ optional($item->santri)->nama }}</td>
                                         <td class="text-center">{{ $item->no_ujian }}</td>
                                         <td class="text-center">{{ optional($item->santri->klssantri)->nama_kelas }}</td>
                                         <td class="text-center">{{ optional($item->mapel)->nama }}</td>
@@ -107,77 +107,59 @@
         </div>
 
         <!-- Modal Tambah -->
-        <div class="modal" tabindex="-1" id="tambahModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">TAMBAH</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal" tabindex="-1" id="tambahModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">TAMBAH</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('kelulusan.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+
+<div class="mb-3">
+    <label for="no_ujian" class="form-label">NO UJIAN</label>
+    <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
+    @error('no_ujian')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+</div>
+
+
+<div class="mb-3">
+    <label for="santri_id" class="form-label">Santri</label>
+    <select class="form-select" id="santri_id" name="santri_id">
+        @isset($santri)
+            @foreach ($santri as $st)
+                <option value="{{ $st->id }}">{{ $st->nama }}</option>
+            @endforeach
+        @endisset
+    </select>
+</div>
+
+
+@foreach ($mapel as $m)
+<div class="mb-3">
+    <label for="nilai_{{ $m->id }}" class="form-label">{{ $m->nama }}</label>
+    <input type="number" class="form-control" id="nilai_{{ $m->id }}" name="nilai[{{ $m->id }}]" value="{{ old('nilai.' . $m->id) }}">
+</div>
+@endforeach
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('kelulusan.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="nama" class="form-label">NAMA</label>
-                                <select class="form-select @error('santri_id') is-invalid @enderror" id="nama" name="santri_id" aria-label="Default select example">
-                                    <option value="" selected>PILIH NAMA</option>
-                                    @foreach ($santri as $kat)
-                                        <option value="{{ $kat->id }}" {{ old('santri_id') == $kat->id ? 'selected' : '' }}>
-                                            {{ $kat->pendaftaran->nama_lengkap }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('santri_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="no_ujian" class="form-label">NO UJIAN</label>
-                                <input type="text" class="form-control @error('no_ujian') is-invalid @enderror" id="no_ujian" name="no_ujian" value="{{ old('no_ujian') }}">
-                                @error('no_ujian')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="mapel" class="form-label">MAPEL</label>
-                                <select class="form-select @error('mapel_id') is-invalid @enderror" name="mapel_id" aria-label="Default select example">
-                                    <option value="" {{ old('mapel_id', ) }}>PILIH MAPEL</option>
-                                    @foreach ($mapel as $kat)
-                                        <option value="{{ $kat->id }}" {{ old('mapel_id') == $kat->id ? 'selected' : '' }}>
-                                            {{ $kat->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                                <div class="mb-3">
-                                    <label for="nilai" class="form-label">NILAI</label>
-                                    <input type="number" class="form-control @error('nilai') is-invalid @enderror" id="nilai" name="nilai" value="{{ old('nilai') }}">
-                                    @error('nilai')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
         <!-- Modal Edit -->
-        @foreach ($kelulusan as $item)
+        {{-- @foreach ($kelulusan as $item)
             <div class="modal" tabindex="-1" id="editModal{{ $item->id }}">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -197,7 +179,7 @@
                                             <option value="" {{ old('santri_id', $item->santri_id) ? '' : 'selected' }} selected>PILIH NAMA SANTRI</option>
                                             @foreach ($santri as $kat)
                                                 <option value="{{ $kat->id }}" {{old('santri_id', $item->santri_id) == $kat->id ? 'selected' : '' }}>
-                                                    {{ $kat->pendaftaran->nama_lengkap }}
+                                                    {{ $kat->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -255,7 +237,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach--}}
     </div>
-@endsection
 
+    @endsection
