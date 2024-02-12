@@ -201,8 +201,8 @@
                                             <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id">
                                                 <option value="" {{ old('santri_id', $item->santri_id) ? '' : 'selected' }} selected>PILIH NAMA SANTRI</option>
                                                 @foreach ($santri as $kat)
-                                                    <option value="{{ $kat->id }}" {{old('santri_id', $item->santri_id) == $kat->id ? 'selected' : '' }}>
-                                                        {{ $kat->santri->nama }}
+                                                    <option value="{{ $kat->id }}" {{ old('santri_id', $item->santri_id) == $kat->id ? 'selected' : '' }}>
+                                                        {{ $kat->nama }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -212,6 +212,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
 
                                         <div class="mb-3">
                                             <label for="edit_no_ujian" class="form-label">NO UJIAN</label>
