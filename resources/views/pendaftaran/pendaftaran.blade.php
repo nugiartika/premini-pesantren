@@ -40,6 +40,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+                        <div class="row g-3 align-items-center mt-2">
+                            <div class="col-auto">
+                                <form action="{{ route('pendaftaran.index') }}" method="get">
+                                    @csrf
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-dark table-striped">
@@ -57,7 +66,7 @@
                                     <th scope="col" class="text-center">STATUS</th>
                                     @if($userRole == 'admin')
                                     <th scope="col" class="text-center">AKSI</th>
-                                @endif
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider text-center">

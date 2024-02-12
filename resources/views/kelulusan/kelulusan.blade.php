@@ -46,8 +46,8 @@
                             <div class="col-auto">
                                 <form action="{{ route('kelulusan.index') }}" method="get">
                                     @csrf
-                                    <input type="search" name="search" class="form-control">
-                                    <button type="submit" class="btn btn-secondary">Cari</button>
+                                    <input type="search" name="search" class="from-control">
+                                    <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
                                 </form>
                             </div>
                         </div>

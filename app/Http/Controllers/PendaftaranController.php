@@ -18,7 +18,7 @@ class PendaftaranController extends Controller
     {
         if ($request->has('search')) {
             $cpendaftaran = $request->input('search');
-            $pendaftaran = Pendaftaran::where('nama_lengkap', 'LIKE', "%$cpendaftaran%")->paginate(5);
+            $pendaftaran = Pendaftaran::where('nama', 'LIKE', "%$cpendaftaran%")->paginate(5);
         } else {
             $pendaftaran = Pendaftaran::paginate(5);
         }
