@@ -10,27 +10,21 @@ class Kelulusan extends Model
     use HasFactory;
 
 protected $fillable = [
-    'nama',
-    'nisn',
-    'klssantri_id',
+    'santri_id',
     'no_ujian',
     'mapel_id',
     'nilai',
-    'nilairatarata',
-    'keterangan',
+    'keterangan'
 ];
 
         public function mapel()
     {
         return $this->belongsTo(Mapel::class);
     }
-        public function klssantri()
+   
+    public function santri()
     {
-        return $this->belongsTo(klssantri::class);
+        return $this->belongsTo(Santri::class);
     }
-    // public function santri()
-    // {
-    //     return $this->belongsTo(Santri::class);
-    // }
 }
 

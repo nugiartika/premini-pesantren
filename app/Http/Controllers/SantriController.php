@@ -69,29 +69,20 @@ class SantriController extends Controller
 
 
     public function update(UpdatesantriRequest $request, santri $santri)
-{
-    $request->validate([
-        'klssantri_id' => 'required|exists:klssantris,id',
-    ], [
-        'klssantri_id.required' => 'Kolom KELAS wajib diisi',
-    ]);
+    {
+        $request->validate([
+            'klssantri_id' => 'required',
+        ], [
+            'klssantri_id.required' => 'Kolom KELAS wajib diisi',
 
-    $kelas = $request->input('klssantri_id');
+        ]);
+        $santri->update([
+            'klssantri_id' => $request->input('klssantri_id'),
+        ]);
 
-    // Update Santri
-    $santri->update([
-        'klssantri_id' => $kelas,
-    ]);
+        return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIUPDATE');
 
-    // Create Kelulusan after successfully updating Santri
-    Kelulusan::create([
-        'nama' => $santri->nama,
-        'nisn' => $santri->nisn,
-        'klssantri_id' => $kelas,
-    ]);
-
-    return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIUPDATE');
-}
+    }
 
 
 

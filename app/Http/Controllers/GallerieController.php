@@ -62,7 +62,7 @@ class GallerieController extends Controller
                 'nama_gallery' => $request->input('nama_gallery'),
                 'tanggal' => $request->input('tanggal'),
                 'user_posting' => $request->input('user_posting'),
-                'sampul' => isset($path) ? Storage::url($path) : null,
+                'sampul' =>  $path,
                 'status' => $request->input('status'),
             ]);
 

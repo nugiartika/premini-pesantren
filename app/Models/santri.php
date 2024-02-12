@@ -26,10 +26,7 @@ class santri extends Model
 
     public function kelulusan()
     {
-        return $this->hasOne(kelulusan::class);
+        return $this->hasMany(Kelulusan::class);
     }
 
-
-
 }
-
