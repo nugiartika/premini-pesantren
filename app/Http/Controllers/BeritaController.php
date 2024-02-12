@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use DOMDocument; 
+use DOMDocument;
 
 
 class BeritaController extends Controller
@@ -52,7 +52,8 @@ class BeritaController extends Controller
             'kategori_id.required' => 'Kolom KATEGORI BERITA wajib diisi.',
             'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
             'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
-            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
+            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',
+            'foto.required' => 'Kolom FOTO  wajib diisi.',
             'foto.image' => 'Kolom FOTO harus berupa file gambar.',
             'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
@@ -126,8 +127,6 @@ class BeritaController extends Controller
             'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
         ]);
-
-
 
         $oldPhotoPath = $berita->foto;
 

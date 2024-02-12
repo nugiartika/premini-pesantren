@@ -127,13 +127,17 @@
                             <div class="mb-3">
                                 <label for="santri_id" class="form-label">SANTRI</label>
                                 <select class="form-select" id="santri_id" name="santri_id">
+                                    <option value="" {{ old('santri_id') == '' ? 'selected' : '' }}>PILIH SANTRI</option>
                                     @isset($santri)
                                     @foreach ($santri as $kat)
+                                    @if ($kat->klssantri_id !== null)
                                     <option value="{{ $kat->id }}">{{ $kat->nama }}</option>
-                                     @endforeach
-                                    @endisset
+                                        @endif
+                                    @endforeach
+                                @endisset
                                 </select>
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="no_ujian" class="form-label">NO UJIAN</label>
@@ -201,9 +205,11 @@
                                             <select class="form-select @error('santri_id') is-invalid @enderror" id="edit_santri_id" name="santri_id">
                                                 <option value="" {{ old('santri_id', $item->santri_id) ? '' : 'selected' }} selected>PILIH NAMA SANTRI</option>
                                                 @foreach ($santri as $kat)
+                                                @if ($kat->klssantri_id !== null)
                                                     <option value="{{ $kat->id }}" {{ old('santri_id', $item->santri_id) == $kat->id ? 'selected' : '' }}>
                                                         {{ $kat->nama }}
                                                     </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             @error('santri_id')
