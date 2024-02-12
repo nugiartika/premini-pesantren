@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use DOMDocument; 
 
 
 class BeritaController extends Controller
@@ -56,6 +57,23 @@ class BeritaController extends Controller
             'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
             'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
         ]);
+
+        $isi = $request->input('isi');
+
+        $dom = new DOMDocument();
+        $dom->loadHTML ($isi,9);
+
+        $images = $dom->getElementsByTagName('img');
+
+        foreach($images as $key =>$img) {
+            $data = base64_decode(explode(',',explode(',',$img->getAttribute('src'))[1])[1]);
+            $images_name = "/uploads" . time(). $key . '.png';
+            Storage::put('public' . $images_name, $data);
+
+        $img->removeAttribute('src');
+        $img->setAttribute('src',$images_name);
+        }
+
 
         $foto = $request->file('foto');
         $path = Storage::disk('public')->put('images', $foto);

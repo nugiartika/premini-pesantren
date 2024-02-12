@@ -94,20 +94,14 @@ class PendaftaranController extends Controller
                 ]);
 
                 User::create([
+                    'nama' => $pendaftaran->nama,
                     'name' => $pendaftaran->nama,
+                    'email_verified_at' => now(),
                     'email' => $pendaftaran->email,
                     'password' => Hash::make($pendaftaran->password),
                     'role' => 'santri',
                     'pendaftaran_id' => $pendaftaran->id,
                 ]);
-
-                // if ($kelas && $santri->klssantri) {
-                //     Kelulusan::create([
-                //         'nama' => $pendaftaran->nama,
-                //         'nisn' => $pendaftaran->nisn,
-                //         'nama_kelas' => $santri->klssantri->nama_kelas,
-                //     ]);
-                // }
 
             } elseif ($status === 'Ditolak') {
                 // Lakukan tindakan khusus ketika status 'Ditolak'

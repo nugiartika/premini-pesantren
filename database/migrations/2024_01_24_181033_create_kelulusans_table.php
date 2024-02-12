@@ -13,7 +13,7 @@
                 $table->id();
                 $table->foreignId('santri_id')->references('id')->on('santris')->onDelete('cascade'); // Menambah foreign key untuk kelas
                 $table->string('no_ujian')->nullable();
-                $table->integer('nilai')->nullable();
+                $table->integer('nilai');
                 $table->string('keterangan')->nullable();
                 $table->timestamps();
                 $table->foreignId('mapel_id')->references('id')->on('mapels')->onUpdate('cascade')->onDelete('restrict');

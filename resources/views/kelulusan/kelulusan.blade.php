@@ -87,8 +87,8 @@
                                                 Tidak Lulus
                                             @endif
                                         </td>
+                                        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'asatid')
                                         <td class="text-center">
-                                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'asatid')
                                                 <form action="{{ route('kelulusan.destroy', ['kelulusan' => $item->id]) }}" method="POST" style="display:inline">
                                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                         <i class="fa-solid fa-pen-to-square"></i>
@@ -100,8 +100,8 @@
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
+                                            </td>
                                             @endif
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -243,7 +243,7 @@
 
                                         <div class="mb-3">
                                             <label for="edit_nilai" class="form-label">NILAI</label>
-                                            <input type="number" class="form-control @error('nilai') is-invalid @enderror" id="edit_nilai" name="nilai" value="{{ old('nilai', $item->nilai) }}">
+                                            <input type="text" class="form-control @error('nilai') is-invalid @enderror" id="edit_nilai" name="nilai" value="{{ old('nilai', $item->nilai) }}">
                                             @error('nilai')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
