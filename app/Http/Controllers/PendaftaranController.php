@@ -6,6 +6,7 @@ use App\Models\Pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StorependaftaranRequest;
 use App\Http\Requests\UpdatependaftaranRequest;
+use App\Models\Kelulusan;
 use App\Models\santri;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,7 @@ class PendaftaranController extends Controller
     {
         if ($request->has('search')) {
             $cpendaftaran = $request->input('search');
-            $pendaftaran = Pendaftaran::where('nama', 'LIKE', "%$cpendaftaran%")->paginate(5);
+            $pendaftaran = Pendaftaran::where('nama_lengkap', 'LIKE', "%$cpendaftaran%")->paginate(5);
         } else {
             $pendaftaran = Pendaftaran::paginate(5);
         }
@@ -76,6 +77,8 @@ class PendaftaranController extends Controller
             ]);
 
             $status = $request->input('status');
+            // $kelas = $request->input('nama_kelas');
+
 
             if ($status === 'Diterima') {
                 Santri::create([
@@ -92,12 +95,19 @@ class PendaftaranController extends Controller
 
                 User::create([
                     'name' => $pendaftaran->nama,
-                    'email_verified_at' => now(),
                     'email' => $pendaftaran->email,
                     'password' => Hash::make($pendaftaran->password),
                     'role' => 'santri',
                     'pendaftaran_id' => $pendaftaran->id,
                 ]);
+
+                // if ($kelas && $santri->klssantri) {
+                //     Kelulusan::create([
+                //         'nama' => $pendaftaran->nama,
+                //         'nisn' => $pendaftaran->nisn,
+                //         'nama_kelas' => $santri->klssantri->nama_kelas,
+                //     ]);
+                // }
 
             } elseif ($status === 'Ditolak') {
                 // Lakukan tindakan khusus ketika status 'Ditolak'

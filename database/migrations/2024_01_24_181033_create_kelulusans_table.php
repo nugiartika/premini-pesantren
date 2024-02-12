@@ -7,18 +7,22 @@
 
     return new class extends Migration
     {
-        public function up(): void
+        public function up()
         {
             Schema::create('kelulusans', function (Blueprint $table) {
-                // Define your table columns here
                 $table->id();
-                $table->foreignId('santri_id')->constrained()->onDelete('restrict');
-                $table->string('no_ujian');
-                $table->foreignId('mapel_id')->constrained()->onDelete('restrict');
-                $table->json('nilai')->nullable();
-                $table->decimal('nilairatarata', 5, 2)->nullable();
+                $table->string('nama');
+                $table->string('nisn')->unique();
+                $table->unsignedBigInteger('klssantri_id');
+                $table->string('no_ujian')->nullable();
+                $table->unsignedBigInteger('mapel_id')->nullable();
+                $table->integer('nilai')->nullable();
+                $table->decimal('nilairatarata')->nullable();
                 $table->string('keterangan')->nullable();
                 $table->timestamps();
+
+                $table->foreign('mapel_id')->references('id')->on('mapels')->onUpdate('cascade')->onDelete('restrict');
+                $table->foreign('klssantri_id')->references('id')->on('klssantris')->onDelete('cascade'); // Menambah foreign key untuk kelas
             });
         }
 

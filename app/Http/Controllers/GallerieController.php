@@ -6,6 +6,7 @@ use App\Models\Gallerie;
 use Carbon\Carbon;
 use App\Http\Requests\StoreGallerieRequest;
 use App\Http\Requests\UpdateGallerieRequest;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -61,7 +62,7 @@ class GallerieController extends Controller
                 'nama_gallery' => $request->input('nama_gallery'),
                 'tanggal' => $request->input('tanggal'),
                 'user_posting' => $request->input('user_posting'),
-                'sampul' => $path,
+                'sampul' => isset($path) ? Storage::url($path) : null,
                 'status' => $request->input('status'),
             ]);
 

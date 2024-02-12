@@ -8,6 +8,7 @@ use App\Models\pendaftaran;
 use Carbon\Carbon;
 use App\Http\Requests\StoresantriRequest;
 use App\Http\Requests\UpdatesantriRequest;
+use App\Models\Kelulusan;
 use Illuminate\Http\Request;
 
 
@@ -46,7 +47,6 @@ class SantriController extends Controller
         Santri::create([
             'klssantri_id' => $request->input('klssantri_id'),
         ]);
-        
 
         return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DITAMBAHKAN');
 
@@ -69,27 +69,35 @@ class SantriController extends Controller
 
 
     public function update(UpdatesantriRequest $request, santri $santri)
-    {
-        $request->validate([
-            'klssantri_id' => 'required',
-        ], [
-            'klssantri_id.required' => 'Kolom KELAS wajib diisi',
+{
+    $request->validate([
+        'klssantri_id' => 'required|exists:klssantris,id',
+    ], [
+        'klssantri_id.required' => 'Kolom KELAS wajib diisi',
+    ]);
 
-        ]);
-        $santri->update([
-            'klssantri_id' => $request->input('klssantri_id'),
-        ]);
+    $kelas = $request->input('klssantri_id');
 
-        return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIUPDATE');
+    // Update Santri
+    $santri->update([
+        'klssantri_id' => $kelas,
+    ]);
 
-    }
+    // Create Kelulusan after successfully updating Santri
+    Kelulusan::create([
+        'nama' => $santri->nama,
+        'nisn' => $santri->nisn,
+        'klssantri_id' => $kelas,
+    ]);
+
+    return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIUPDATE');
+}
+
 
 
     public function destroy(santri $santri)
     {
-        if ($santri->kelulusan ()->exists()|| $santri->syahriah()->exists()) {
-            return redirect()->route('santri.index')->with('warning', 'TIDAK DAPAT DIHAPUS KARENA MASIH TERDAPAT DATA TERKAIT.');
-        }
+
         $santri->delete();
         return redirect()->route('santri.index')->with('success', 'SANTRI BERHASIL DIHAPUS');
     }

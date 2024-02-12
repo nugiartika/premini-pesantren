@@ -3,108 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelulusan;
-use App\Models\mapel;
-use App\Models\santri;
+use App\Models\Mapel;
+use App\Models\Santri;
+use App\Models\Pendaftaran;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreKelulusanRequest;
 use App\Http\Requests\UpdateKelulusanRequest;
-use Illuminate\Http\Request;
-
+use App\Models\Klssantri;
 
 class KelulusanController extends Controller
 {
-
-
-
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $ckelulusan = $request->input('search');
-            $kelulusan = Kelulusan::where('santri_id', 'LIKE', "%$ckelulusan%")->paginate(5);
+            $search = $request->input('search');
+            $kelulusan = Kelulusan::where('santri_id', 'LIKE', "%$search%")->paginate(5);
         } else {
             $kelulusan = Kelulusan::paginate(5);
+
         }
+
+        $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
+        $kelas = Klssantri::all();
         $santri = Santri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
+
+        return view('kelulusan.kelulusan', compact('kelulusan', 'kelas', 'mapel', 'santri'));
     }
 
     public function create()
     {
-        $mapel = Mapel::all();
-        $santri = Santri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
-    }
-
-
-    public function store(StoreKelulusanRequest $request)
-    {
-        try {
-            $request->validate([
-                'santri_id' => 'required',
-                'no_ujian' => 'required|numeric|min:0|unique:kelulusans,no_ujian',
-                'mapel_id' => 'required',
-                'nilai' => 'required|string',
-            ]);
-
-            $grades = $request->input('nilai');
-            $santriId = $request->input('santri_id');
-
-            // Retrieve existing records for the same student
-            $existingRecords = Kelulusan::where('santri_id', $santriId)->get();
-
-            // Combine existing grades with new grades
-            $allGrades = $existingRecords->pluck('nilai')->merge($grades)->map(function ($grade) {
-                return (int)$grade;
-            });
-
-            // Calculate the average
-            $average = $allGrades->isNotEmpty() ? $allGrades->avg() : 0;
-
-            $keterangan = ($average >= 80) ? 'Lulus' : 'Tidak Lulus';
-
-
-            Kelulusan::create([
-                'santri_id' => $request->input('santri_id'),
-                'no_ujian' => $request->input('no_ujian'),
-                'mapel_id' => $request->input('mapel_id'),
-                'nilai' => json_encode($grades),
-                'keterangan' => $keterangan,
-            ]);
-
-            return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DITAMBAHKAN');
-        } catch (\Exception $e) {
-            info('Error in KelulusanController@store: ' . $e->getMessage());
-
-
-            return redirect()->back()->with('error', 'Gagal menambahkan data. Pesan kesalahan: ' . $e->getMessage());
-        }
-    }
-
-
-    public function show(Kelulusan $kelulusan)
-    {
-        //
-    }
-
-    
-    public function edit(Kelulusan $kelulusan)
-    {
         $kelulusan = Kelulusan::all();
         $mapel = Mapel::all();
         $santri = Santri::all();
-        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
+
+        return view('kelulusan.create', compact('kelulusan','mapel', 'santri'));
     }
 
+    public function store(StoreKelulusanRequest $request)
+    {
+//
+    }
+
+    public function edit(Kelulusan $kelulusan)
+    {
+        $mapel = Mapel::all();
+        $santri = Santri::all();
+
+        return view('kelulusan.kelulusan', compact('kelulusan', 'mapel', 'santri'));
+    }
 
     public function update(UpdateKelulusanRequest $request, Kelulusan $kelulusan)
     {
+        $request->validate([
+            'no_ujian' => 'required',
+            'nilai' => 'required',
+        ], [
+            'no_ujian.required' => 'Kolom NILAI wajib diisi',
+            'nilai.required' => 'Kolom NILAI wajib diisi',
+        ]);
 
+        $nilaiMapel = $request->input('nilai');
+        $no_ujian = $request->input('no_ujian');
+
+        foreach ($nilaiMapel as $mapelId => $nilai) {
+            $kelulusan->where('mapel_id', $mapelId)->update(['nilai' => $nilai]);
+        }
+
+        $kelulusan->no_ujian = $no_ujian;
+        $kelulusan->save();
+
+        return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DIUPDATE');
     }
-
 
     public function destroy(Kelulusan $kelulusan)
     {
         $kelulusan->delete();
+
         return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DIHAPUS');
     }
 }
