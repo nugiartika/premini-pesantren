@@ -96,6 +96,7 @@
                             @enderror
                         </div>
 
+
                         <div class="col">
                             <label for="edit_foto" class="form-label">FOTO</label>
                             <input type="file" class="form-control @error('foto') is-invalid @enderror" id="edit_foto" name="foto" value="{{ old('foto') }}">
@@ -112,6 +113,7 @@
                                 </span>
                             @enderror
                         </div>
+
 
             </div>
             <div class="modal-footer">

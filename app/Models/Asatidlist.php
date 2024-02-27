@@ -8,21 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Asatidlist extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nip',
-        'nama',
-        'email',
-        'tempat_lahir',
-        'ttl',
-        'alamat',
-        'pendidikan',
-        'foto'
-    ];
+    protected $guarded=['id'];
     public function user()
     {
         return $this->hasOne(user::class);
     }
-   
     public function klssantri()
     {
         return $this->hasMany(Klssantri::class);

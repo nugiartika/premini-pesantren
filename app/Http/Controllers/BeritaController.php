@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use App\Models\Kategori;
 use Carbon\Carbon;
-use App\Http\Requests\StoreBeritaRequest;
-use App\Http\Requests\UpdateBeritaRequest;
+use App\Http\Requests\BeritaRequest;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use DOMDocument; 
+use DOMDocument;
 
 
 class BeritaController extends Controller
@@ -37,63 +36,43 @@ class BeritaController extends Controller
     }
 
 
-    public function store(StoreBeritaRequest $request)
+    public function store(BeritaRequest $request)
     {
-        $request->validate([
-            'judul_berita' => 'required|unique:beritas,judul_berita',
-            'isi'  => 'required',
-            'kategori_id' => 'required',
-            'tanggal' => 'required|date|after_or_equal:today',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ], [
-            'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
-            'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
-            'isi.required' => 'Kolom ISI BERITA wajib diisi.',
-            'kategori_id.required' => 'Kolom KATEGORI BERITA wajib diisi.',
-            'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
-            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'foto.image' => 'Kolom FOTO harus berupa file gambar.',
-            'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
-        ]);
-
         $isi = $request->input('isi');
 
         $dom = new DOMDocument();
-        $dom->loadHTML ($isi,9);
+        $dom->loadHTML($isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $images = $dom->getElementsByTagName('img');
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',', $img->getAttribute('src'))[1]);
 
-        foreach($images as $key =>$img) {
-            $data = base64_decode(explode(',',explode(',',$img->getAttribute('src'))[1])[1]);
-            $images_name = "/uploads" . time(). $key . '.png';
-            Storage::put('public' . $images_name, $data);
+            $images_name = "images/" . time() . $key . '.png';
 
-        $img->removeAttribute('src');
-        $img->setAttribute('src',$images_name);
+            Storage::disk('public')->put($images_name, $data);
+
+            $img->removeAttribute('src');
+
+            $img->setAttribute('src', asset('storage/' . $images_name));
         }
 
-
-        $foto = $request->file('foto');
-        $path = Storage::disk('public')->put('images', $foto);
+        $isi = $dom->saveHTML();
 
         Berita::create([
             'judul_berita' => $request->input('judul_berita'),
-            'isi' => $request->input('isi'),
+            'isi' => $isi,
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
-            'foto' => $path,
         ]);
 
         return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DITAMBAHKAN');
     }
 
+
     public function show($id)
     {
         $berita = Berita::findOrFail($id);
-        $userRole = auth()->user()->role;
-        return view('berita.berita', compact('berita','userRole'));
+        return view('berita.berita', compact('berita'));
     }
 
 
@@ -105,35 +84,35 @@ class BeritaController extends Controller
     }
 
 
-    public function update(UpdateBeritaRequest $request, $id)
+    public function update(BeritaRequest $request, $id)
     {
         $berita = Berita::findOrFail($id);
-        $request->validate([
-            'judul_berita' => 'required|unique:beritas,judul_berita,' . $berita->id,
-            'isi'  => 'required',
-            'kategori_id' => 'required',
-            'tanggal' => 'required|date|after_or_equal:today',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ], [
-            'judul_berita.required' => 'Kolom JUDUL BERITA wajib diisi.',
-            'judul_berita.unique' => 'JUDUL BERITA sudah digunakan.',
-            'isi.required' => 'Kolom ISI BERITA wajib diisi.',
-            'kategori_id.required' => 'Kolom KATEGORI BERITA wajib diisi.',
-            'tanggal.required' => 'Kolom TANGGAL BERITA wajib diisi.',
-            'tanggal.date' => 'Kolom TANGGAL BERITA harus berupa tanggal.',
-            'tanggal.after_or_equal' => 'TANGGAL BERITA harus berisi tanggal yang sama dengan hari ini/terbaru.',            'foto.required' => 'Kolom FOTO  wajib diisi.',
-            'foto.image' => 'Kolom FOTO harus berupa file gambar.',
-            'foto.mimes' => 'Format FOTO tidak valid. Gunakan format jpeg, png, jpg, atau gif.',
-            'foto.max' => 'Ukuran FOTO tidak boleh lebih dari 2 MB.',
-        ]);
 
+        $isi = $request->input('isi');
 
+        $dom = new DOMDocument();
+        $dom->loadHTML($isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',', $img->getAttribute('src'))[1]);
+
+            $images_name = "images/" . time() . $key . '.png';
+
+            Storage::disk('public')->put($images_name, $data);
+
+            $img->removeAttribute('src');
+
+            $img->setAttribute('src', asset('storage/' . $images_name));
+        }
+
+        $isi = $dom->saveHTML();
 
         $oldPhotoPath = $berita->foto;
 
         $data = [
             'judul_berita' => $request->input('judul_berita'),
-            'isi' => $request->input('isi'),
+            'isi' => $isi,
             'kategori_id' => $request->input('kategori_id'),
             'tanggal' => $request->input('tanggal'),
         ];
@@ -142,7 +121,6 @@ class BeritaController extends Controller
             $foto = $request->file('foto');
             $path = $foto->store('images', 'public');
             $data['foto'] = $path;
-
         }
 
         $berita->update($data);
@@ -160,26 +138,29 @@ class BeritaController extends Controller
     }
 
 
-    public function destroy(Berita $berita)
+    public function destroy($id)
     {
         try {
+            $berita = Berita::findOrFail($id);
 
-            if (Storage::disk('public')->exists($berita->foto)) {
+            $dom = new DOMDocument();
+            $dom->loadHTML($berita->isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-               Storage::disk('public')->delete($berita->foto);
-           }
+            $images = $dom->getElementsByTagName('img');
 
-           $localFilePath = public_path('storage/' . $berita->sampul);
-           if (File::exists($localFilePath)) {
+            foreach ($images as $img) {
+                $path = $img->getAttribute('src');
+                if (Storage::disk('public')->exists($path)) {
+                    Storage::disk('public')->delete($path);
+                }
+            }
 
-               File::delete($localFilePath);
-           }
+            $berita->delete();
 
-           $berita->delete();
+            return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIHAPUS');
+        } catch (Exception $e) {
+            return redirect()->route('berita.index')->with('error', 'GAGAL MENGHAPUS BERITA. PESAN KESALAHAN: ' . $e->getMessage());
+        }
+    }
 
-           return redirect()->route('berita.index')->with('success', 'BERITA BERHASIL DIHAPUS');
-       } catch (Exception $th) {
-           return redirect()->route('berita.index')->with('error', 'GAGAL MENGHAPUS BERITA. PESAN KESALAHAN: ' . $th->getMessage());
-       }
-       }
 }

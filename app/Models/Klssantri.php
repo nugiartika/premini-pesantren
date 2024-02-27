@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Klssantri extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nama_kelas',
-        'asatidlist_id',
-    ];
+    protected $guarded=['id'];
     public function asatidlist()
     {
         return $this->belongsTo(Asatidlist::class);
@@ -20,5 +17,5 @@ class Klssantri extends Model
     {
         return $this->hasMany(Santri::class);
     }
-   
+
 }

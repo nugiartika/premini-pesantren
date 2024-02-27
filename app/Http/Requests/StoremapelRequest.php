@@ -22,7 +22,20 @@ class StoremapelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama'=>'required|unique:mapels,nama',
+        ];
+    }
+
+ /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return 
+     */
+    public function messages(): array
+    {
+        return [
+            'nama.required' => 'Kolom NAMA MAPEL wajib diisi.',
+            'nama.unique' => 'NAMA MAPEL sudah digunakan.',
         ];
     }
 }

@@ -8,22 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class santri extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'klssantri_id',
-        'nama',
-        'email',
-        'nisn',
-        'telepon',
-        'alamat',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tanggal_lahir'
-    ];
+    protected $guarded=['id'];
     public function klssantri()
     {
         return $this->belongsTo(Klssantri::class);
     }
-
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);

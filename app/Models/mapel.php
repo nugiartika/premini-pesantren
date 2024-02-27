@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class mapel extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nama'
-    ];
-
+    protected $table ='mapels';
+    protected $guarded =['id'];
     public function asatidlist()
     {
         return $this->hasMany(Asatidlist::class);
     }
-
     public function kelulusan()
     {
         return $this->hasMany(Kelulusan::class);

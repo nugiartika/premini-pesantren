@@ -38,15 +38,24 @@
                     </div>
 
                     <div class="row g-3">
+
                         <div class="col">
-                            <label for="edit_user_posting" class="form-label">USER POSTING</label>
-                            <input type="text" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $gallerie->user_posting) }}" readonly>
-                            @error('user_posting')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                            <label for="edit_status" class="form-label">STATUS</label>
+                            @if(auth()->user()->role == 'admin')
+                                <select class="form-select @error('status') is-invalid @enderror" id="edit_status" name="status">
+                                    <option value="Private" {{ old('status') == 'Private' ? 'selected' : '' }}>Private</option>
+                                    <option value="Public" {{ old('status') == 'Public' ? 'selected' : '' }}>Public</option>
+                                </select>
+                            @else
+                                <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
+                            @endif
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
+
                         <div class="col">
                             <label for="edit_sampul" class="form-label">SAMPUL</label>
                             <input type="file" class="form-control @error('sampul') is-invalid @enderror" id="edit_sampul" name="sampul" value="{{ old('sampul') }}">
@@ -65,21 +74,15 @@
                     </div>
 
                     <div class="col">
-                        <label for="edit_status" class="form-label">STATUS</label>
-                        @if(auth()->user()->role == 'admin')
-                            <select class="form-select @error('status') is-invalid @enderror" id="edit_status" name="status">
-                                <option value="Private" {{ old('status') == 'Private' ? 'selected' : '' }}>Private</option>
-                                <option value="Public" {{ old('status') == 'Public' ? 'selected' : '' }}>Public</option>
-                            </select>
-                        @else
-                            <input type="text" class="form-control" id="status" name="status" value="Private" readonly>
-                        @endif
-                        @error('status')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                        <label for="edit_user_posting" class="form-label"></label>
+                        <input type="hidden" class="form-control @error('user_posting') is-invalid @enderror" id="edit_user_posting" name="user_posting" value="{{ old('user_posting', $gallerie->user_posting) }}" readonly>
+                        @error('user_posting')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
+
 
             </div>
             <div class="modal-footer">

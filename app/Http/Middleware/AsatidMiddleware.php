@@ -20,6 +20,5 @@ class AsatidMiddleware
         }else{
             return redirect()->route('home.index');
         }
-        return $next($request);
     }
 }

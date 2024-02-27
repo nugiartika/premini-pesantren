@@ -46,7 +46,7 @@
                                     <input type="search" name="search" class="from-control">
                                     <button type="submit" class="search-button btn-secondary button-model-1">Cari</button>
                                 </form>
-                        </div>
+                            </div>
                         </div>
                     </div>
 

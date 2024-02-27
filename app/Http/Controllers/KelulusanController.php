@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelulusan;
 use App\Models\mapel;
 use App\Models\santri;
-use App\Http\Requests\StoreKelulusanRequest;
-use App\Http\Requests\UpdateKelulusanRequest;
+use App\Http\Requests\KelulusanRequest;
 use Illuminate\Http\Request;
 
 
@@ -35,56 +34,45 @@ class KelulusanController extends Controller
         return view('kelulusan.kelulusan', compact('kelulusan', 'mapel','santri'));
     }
 
-    public function store(StoreKelulusanRequest $request)
+    public function store(KelulusanRequest $request)
     {
-        $request->validate([
-            'santri_id' => 'required',
-            'no_ujian' => 'required|numeric|min:0',
-            'mapel_id' => 'required',
-            'nilai' => 'required|numeric|min:0|max:100',
-        ], [
-            'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
-            'no_ujian.required' => 'Kolom NO UJIAN wajib diisi.',
-            'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
-            'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
-            'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
-            'nilai.required' => 'Kolom NILAI wajib diisi.',
-            'nilai.numeric' => ' NILAI harus berupa angka',
-            'nilai.min' => ' NILAI tidak boleh MIN-',
-            'nilai.max' => ' NILAI max 100',
-        ]);
-
         $santriId = $request->input('santri_id');
         $noUjian = $request->input('no_ujian');
 
-
         $isDuplicateNoUjian = Kelulusan::where('no_ujian', $noUjian)
-                                ->where('santri_id', '!=', $santriId)
-                                ->exists();
+                    ->where('santri_id', '!=', $santriId)
+                    ->exists();
 
-if ($isDuplicateNoUjian) {
-    return redirect()->back()->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
-}
-        // Periksa apakah ada santri dengan nama yang sama tetapi nomor ujian berbeda
-        $isDuplicateNameDifferentNoUjian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
+            if ($isDuplicateNoUjian) {
+                return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
+            }
+
+            $isDuplicateNameDifferentNoUjian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
                                         $query->where('id', $santriId)
                                               ->where('no_ujian', '!=', $noUjian);
                                     })
                                     ->exists();
 
-        if ($isDuplicateNameDifferentNoUjian) {
-            return redirect()->back()->withErrors(['no_ujian' => 'Santri ini sudah memiliki nomor ujian.']);
-        }
+                                    if ($isDuplicateNameDifferentNoUjian) {
+                                        return redirect()->back()
+                                            ->withInput($request->all())
+                                            ->withErrors(['no_ujian' => 'Santri ini sudah memiliki NoUjian.']);
+                                    }
         $mapelId = $request->input('mapel_id');
 
-        // Periksa apakah mapel yang sama sudah ada untuk santri tersebut
         $isDuplicateMapel = Kelulusan::where('santri_id', $santriId)
                                       ->where('mapel_id', $mapelId)
                                       ->exists();
 
         if ($isDuplicateMapel) {
-            return redirect()->back()->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
+            return redirect()->back()
+            ->withInput($request->all())
+            ->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
+
         }
+
 
 
         $nilai = $request->input('nilai');
@@ -100,7 +88,7 @@ if ($isDuplicateNoUjian) {
 
         return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DITAMBAHKAN');
 
-    }
+}
 
 
     public function show(Kelulusan $kelulusan)
@@ -118,55 +106,38 @@ if ($isDuplicateNoUjian) {
     }
 
 
-    public function update(UpdateKelulusanRequest $request, Kelulusan $kelulusan)
+    public function update(KelulusanRequest $request, Kelulusan $kelulusan)
     {
-        $request->validate([
-            'santri_id' => 'required',
-            'no_ujian' => 'required|numeric|min:0',
-            'mapel_id' => 'required',
-            'nilai' => 'required|numeric|min:0|max:100',
-        ], [
-            'santri_id.required' => 'Kolom NAMA SANTRI wajib diisi.',
-            'no_ujian.required' => 'Kolom NON UJIAN wajib diisi.',
-            'no_ujian.numeric' => 'NO UJIAN harus berupa angka',
-            'no_ujian.min' => 'NO UJIAN tidak boleh MIN-',
-            'mapel_id.required' => 'Kolom MAPEL wajib diisi.',
-            'nilai.required' => 'Kolom NILAI wajib diisi.',
-            'nilai.numeric' => ' NILAI harus berupa angka',
-            'nilai.min' => ' NILAI tidak boleh MIN-',
-            'nilai.max' => ' NILAI max 100',
-        ]);
-
         $santriId = $request->input('santri_id');
         $noUjian = $request->input('no_ujian');
 
-        $isDuplicateNoUjian = Kelulusan::where('no_ujian', $noUjian)
-                                ->where('santri_id', '!=', $santriId)
-                                ->exists();
+        $noujian = Kelulusan::where('no_ujian', $noUjian)
+            ->where('santri_id', '!=', $santriId)
+            ->where('id', '!=', $kelulusan->id)
+            ->exists();
 
-        if ($isDuplicateNoUjian) {
-            return redirect()->back()->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
-        }
-        // Periksa apakah ada santri dengan nama yang sama tetapi nomor ujian berbeda
-        $isDuplicateNameDifferentNoUjian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
-                                        $query->where('santri_id', $santriId)
-                                              ->where('no_ujian', '!=', $noUjian);
-                                    })
-                                    ->exists();
+        $namasamanoujian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
+            $query->where('santri_id', $santriId)
+                ->where('no_ujian', '!=', $noUjian);
+        })->where('id', '!=', $kelulusan->id)->exists();
 
-        if ($isDuplicateNameDifferentNoUjian) {
-            return redirect()->back()->withErrors(['no_ujian' => 'Santri ini sudah memiliki nomor ujian.']);
+        if ($noujian && !$namasamanoujian) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
         }
 
         $mapelId = $request->input('mapel_id');
 
-        // Periksa apakah mapel yang sama sudah ada untuk santri tersebut
-        $isDuplicateMapel = Kelulusan::where('santri_id', $santriId)
-                                      ->where('mapel_id', $mapelId)
-                                      ->exists();
+        $DuplicateMapel = Kelulusan::where('santri_id', $santriId)
+            ->where('mapel_id', $mapelId)
+            ->where('id', '!=', $kelulusan->id)
+            ->exists();
 
-        if ($isDuplicateMapel) {
-            return redirect()->back()->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
+        if ($DuplicateMapel) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
         }
 
 
@@ -182,6 +153,7 @@ if ($isDuplicateNoUjian) {
         ]);
         return redirect()->route('kelulusan.index')->with('success', 'PENGUMUMAN KELULUSAN BERHASIL DIUPDATE');
     }
+
 
 
     public function destroy(Kelulusan $kelulusan)

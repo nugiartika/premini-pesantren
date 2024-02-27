@@ -20,6 +20,5 @@ class SantriMiddleware
         }else{
             return redirect()->route('home.index');
         }
-        return $next($request);
     }
 }

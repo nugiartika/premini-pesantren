@@ -32,22 +32,15 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('kategori', KategoriController::class);
             Route::resource('kelulusan', KelulusanController::class);
             Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
-            Route::put('/pendaftaran{pendaftaran}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
-            Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
             Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
             Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
-            Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
             Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+            Route::put('/pendaftaran{pendaftaran}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
             Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+            Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
             Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+            Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
             });
-
-
-            Route::middleware('asatid')->group(function(){
-            });
-            Route::middleware('santri')->group(function(){
-            });
-
             Route::resource('kelulusan', KelulusanController::class);
             Route::resource('gallerie', GallerieController::class);
             Route::resource('home', HomeController::class);

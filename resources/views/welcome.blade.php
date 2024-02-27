@@ -177,7 +177,7 @@
 
      </style>
      <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-         <script>
+    <script>
      function goToWelcomeSection() {
         var container = document.querySelector('.container-xxl');
         container.scrollIntoView({ behavior: 'smooth' });
@@ -185,6 +185,7 @@
       window.onload = function() {
         goToWelcomeSection();
       };
+    <script>
 </head>
 
 <body>
@@ -318,6 +319,7 @@
             </div>
         </div>
         <!-- End -->
+        
         <!-- ASATID Start -->
 <div id="asatidlist-section" class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
@@ -362,7 +364,7 @@
                 <div class="col-lg-10 mb-4">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
                         <div class="position-relative mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex;">
-                            <div class="overflow-hidden" style="height: 300px; display: flex; max-width: 100%; align-items: center; justify-content: center;">
+                            <div class="overflow-hidden" style="display: flex; max-width: 100%; align-items: center; justify-content: center;">
                                 <img class="img-fluid" src="{{ asset('storage/'.$berita->foto) }}" alt="" style="object-fit: cover; height: 100%; align-item: center;">
                             </div>
                             <div class="team-item bg-light border border-top-0 p-4" style="flex: 1; padding-right: 10px;">

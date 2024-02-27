@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Session;
 
 return new class extends Migration
 {
-
+   
     public function up(): void
     {
         Schema::create('klssantris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas');
-            $table->foreignId('asatidlist_id')->constrained('asatidlists')->onDelete('restrict');
+            $table->foreignId('asatidlist_id')->constrained();
             $table->timestamps();
         });
     }

@@ -43,31 +43,13 @@
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-
                     </div>
 
                     <div class="row g-3">
                         <div class="col">
                             <label for="edit_tanggal" class="form-label">TANGGAL</label>
-                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $berita->tanggal) }}"
-                                min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="edit_tanggal" name="tanggal" value="{{ old('tanggal', $berita->tanggal) }}" min="{{ now()->toDateString() }}" max="{{ now()->toDateString() }}">
                             @error('tanggal')
-                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="col">
-                            <label for="edit_foto" class="form-label">FOTO</label>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror"
-                                id="edit_foto" name="foto">
-                            @if ($berita->foto)
-                            <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto" width="50"
-                                height="50">
-                            @else
-                            No Image
-                            @endif
-                            @error('foto')
                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
@@ -92,26 +74,33 @@
 </div>
 @endsection
 
-@section('scripts')
 
-<script>
- $(document).ready(function() {
-        $('#summernote').summernote({
-          placeholder: 'Hello stand alone ui',
-          tabsize: 2,
-          height: 120,
-          toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-          ]
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                placeholder: 'Hello stand-alone UI',
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            // Set Summernote content with the correct value
+            var oldIsiValue = {!! json_encode($berita->isi) !!}; // Use the actual value from the model
+            $('#summernote').summernote('code', oldIsiValue);
         });
-      });</script>
+    </script>
 @endsection
+
+
 
 
 

@@ -205,15 +205,16 @@
                                 @enderror
                             </div>
                             <div class="col">
-                            <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
-                            <textarea class="input form-control @error('alamat') is-invalid @enderror" id="alamat" type="text"
-                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus></textarea>
-                            @error('alamat')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+                                <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
+                                <textarea class="input form-control @error('alamat') is-invalid @enderror" id="alamat" type="text"
+                                    name="alamat" required autocomplete="alamat" autofocus>{{ old('alamat') }}</textarea>
+                                @error('alamat')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
                         </div>
                             <div class="row g-3">
                                 <div class="col">
@@ -227,18 +228,21 @@
                                     @enderror
                                 </div>
 
-
                                 <div class="col">
-                                    <label for="tanggal_lahir" class="form-label">{{ __('Tanggal Lahir') }}</label>
-                                    <input class="input form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" type="date"
-                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required autocomplete="tanggal_lahir" autofocus>
+                                    <label for="tanggal_lahir" class="form-label">TANGGAL LAHIR</label>
+                                    <input type="date" class="input form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" max="{{ now()->toDateString() }}" required>
                                     @error('tanggal_lahir')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
+                                        <small class="text-danger">
+                                            @if ($errors->has('tanggal_lahir'))
+                                                {{ $errors->first('tanggal_lahir') }}
+                                            @endif
+                                        </small>
                                     @enderror
-                                    </div>
                                 </div>
+                            </div>
 
                                 <div class="col">
                                     <label class="form-label">{{ __('Jenis kelamin') }}</label>

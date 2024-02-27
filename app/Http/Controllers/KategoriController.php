@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
-use App\Http\Requests\StoreKategoriRequest;
-use App\Http\Requests\UpdateKategoriRequest;
+use App\Http\Requests\KategoriRequest;
 use Illuminate\Http\Request;
 
 
@@ -30,15 +29,8 @@ class KategoriController extends Controller
     }
 
 
-    public function store(StoreKategoriRequest $request)
+    public function store(KategoriRequest $request)
     {
-        $request->validate([
-            'nama' => 'required|unique:kategoris,nama',
-        ], [
-            'nama.required' => 'Kolom NAMA wajib diisi.',
-            'nama.unique' => 'NAMA sudah digunakan.',
-        ]);
-
         Kategori::create([
             'nama' => $request->input('nama'),
         ]);
@@ -63,15 +55,8 @@ class KategoriController extends Controller
 
 
 
-    public function update(UpdateKategoriRequest $request, Kategori $kategori)
+    public function update(KategoriRequest $request, Kategori $kategori)
     {
-        $request->validate([
-            'nama' => 'required|unique:kategoris,nama,' . $kategori->id,
-        ], [
-            'nama.required' => 'Kolom NAMA wajib diisi.',
-            'nama.unique' => 'NAMA sudah digunakan.',
-        ]);
-
         $kategori->update([
             'nama' => $request->input('nama'),
         ]);

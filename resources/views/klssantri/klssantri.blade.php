@@ -32,7 +32,7 @@
     @endif
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-8"> 
                 <div class="card">
                     <div class="card-header">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal"
@@ -97,7 +97,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('klssantri.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('klssantri.store') }}" method="POST">
                                 @csrf
 
                                 <div class="mb-3">

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorekategoriRequest extends FormRequest
+class KategoriRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,20 @@ class StorekategoriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama' => 'required|unique:kategoris,nama',
+        ];
+    }
+
+     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return[
+            'nama.required' => 'Kolom NAMA wajib diisi.',
+            'nama.unique' => 'NAMA sudah digunakan.',
         ];
     }
 }

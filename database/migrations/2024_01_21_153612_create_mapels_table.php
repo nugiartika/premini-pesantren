@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Session;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mapels', function (Blueprint $table) {
@@ -20,9 +17,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         if ($this->checkRelationships()) {
@@ -34,6 +28,6 @@ return new class extends Migration
     }
     private function checkRelationships()
     {
-         DB::table('kelulusan')->where('mapel_id')->exists();
+         DB::table('kelulusan')->where('mapel_id')->exists() ;
     }
 };

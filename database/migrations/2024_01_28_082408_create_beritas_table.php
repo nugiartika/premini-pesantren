@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul_berita');
             $table->string('isi');
-            $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
+            $table->foreignId('kategori_id')->constrained();
             $table->date('tanggal');
             $table->string('foto')->nullable();
             $table->timestamps();

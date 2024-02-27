@@ -100,10 +100,16 @@
 
                                 <div class="col">
                                     <label for="foto" class="form-label">FOTO</label>
-                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" value="{{ old('foto') }}">
-                                    @if(old('foto'))
-                                        <img src="{{ asset('storage/' . old('foto')) }}" alt="Old Foto" style="max-width: 100px; max-height: 100px;">
+                                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
+
+                                    @php
+                                        $oldFoto = old('foto');
+                                    @endphp
+
+                                    @if($oldFoto)
+                                        <img src="{{ asset('storage/' . $oldFoto) }}" alt="Old Foto" style="max-width: 100px; max-height: 100px;">
                                     @endif
+
                                     @error('foto')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

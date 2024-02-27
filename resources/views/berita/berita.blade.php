@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-bordered table-striped border-primary">
+                            <table class="table table-dark table-striped">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col" class="text-center">NO</th>
@@ -63,7 +63,6 @@
                                         <th>ISI</th>
                                         <th>KATEGORI</th>
                                         <th>TANGGAL</th>
-                                        <th>FOTO</th>
                                         @if($userRole == 'admin')
                                             <th scope="col" class="text-center">AKSI</th>
                                         @endif
@@ -77,13 +76,6 @@
                                             <td>{!! $item->isi !!}</td>
                                             <td>{{ optional($item->kategori)->nama }}</td>
                                             <td>{{ $item->tanggal }}</td>
-                                            <td class="text-center">
-                                                @if ($item->foto)
-                                                    <img src="{{ asset('storage/'.$item->foto) }}" alt="Foto" width="100px" height="70px">
-                                                @else
-                                                    No Image
-                                                @endif
-                                            </td>
                                             @if($userRole == 'admin')
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-warning" onclick="window.location='{{ route('berita.edit', ['berita' => $item->id]) }}'">
