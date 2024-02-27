@@ -13,9 +13,9 @@ class Kelulusan extends Model
     {
         return $this->belongsTo(Mapel::class);
     }
-    public function santri()
+        public function klssantri()
     {
-        return $this->belongsTo(Santri::class);
+        return $this->belongsTo(klssantri::class);
     }
 }
 
