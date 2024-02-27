@@ -50,6 +50,13 @@ class KelulusanController extends Controller
             }
 
             $isDuplicateNameDifferentNoUjian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
+            if ($isDuplicateNoUjian) {
+                return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
+            }
+
+            $isDuplicateNameDifferentNoUjian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
                                         $query->where('id', $santriId)
                                               ->where('no_ujian', '!=', $noUjian);
                                     })
@@ -71,7 +78,12 @@ class KelulusanController extends Controller
             ->withInput($request->all())
             ->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
 
+            return redirect()->back()
+            ->withInput($request->all())
+            ->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
+
         }
+
 
 
 
@@ -115,12 +127,24 @@ class KelulusanController extends Controller
             ->where('santri_id', '!=', $santriId)
             ->where('id', '!=', $kelulusan->id)
             ->exists();
+        $noujian = Kelulusan::where('no_ujian', $noUjian)
+            ->where('santri_id', '!=', $santriId)
+            ->where('id', '!=', $kelulusan->id)
+            ->exists();
 
         $namasamanoujian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
             $query->where('santri_id', $santriId)
                 ->where('no_ujian', '!=', $noUjian);
         })->where('id', '!=', $kelulusan->id)->exists();
+        $namasamanoujian = Kelulusan::whereHas('santri', function ($query) use ($santriId, $noUjian) {
+            $query->where('santri_id', $santriId)
+                ->where('no_ujian', '!=', $noUjian);
+        })->where('id', '!=', $kelulusan->id)->exists();
 
+        if ($noujian && !$namasamanoujian) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['no_ujian' => 'Nomor ujian ini sudah digunakan oleh santri lain.']);
         if ($noujian && !$namasamanoujian) {
             return redirect()->back()
                 ->withInput($request->all())
@@ -133,7 +157,15 @@ class KelulusanController extends Controller
             ->where('mapel_id', $mapelId)
             ->where('id', '!=', $kelulusan->id)
             ->exists();
+        $DuplicateMapel = Kelulusan::where('santri_id', $santriId)
+            ->where('mapel_id', $mapelId)
+            ->where('id', '!=', $kelulusan->id)
+            ->exists();
 
+        if ($DuplicateMapel) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(['mapel_id' => 'Santri tersebut sudah memiliki kelulusan untuk mapel ini.']);
         if ($DuplicateMapel) {
             return redirect()->back()
                 ->withInput($request->all())
